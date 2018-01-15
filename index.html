@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Java - Garbage Collection</title>
+    <title>Java 9 - Garbage Collection</title>
 
     <meta name="description" content="An overview of Garbage Collection and tweaking it.">
     <meta name="author" content="Chandra Guntur">
@@ -119,14 +119,25 @@
       <span style="margin-left: 10%">
         Topics covered:<br/>
         <ul style="font-size: 0.7em;line-height: 50px;margin-left: 20%">
-          <li>Java Memory - Model</li>
-          <li>Java Memory - Usage</li>
-          <li>Java Memory - Allocation</li>
-          <li>Garbage Collection - Basics</li>
-          <li>Garbage Collection - Patterns</li>
+          <li>Brief walk-through:<br/>
+            <ul>
+              <li>Java Memory - Model</li>
+              <li>Java Memory - Usage</li>
+              <li>Java Memory - Allocation</li>
+              <li>Garbage Collection - Basics</li>
+              <li>Garbage Collection - Patterns</li>
+            </ul>
+          </li>
+          <br/>
           <li>Garbage Collection - Generational</li>
-          <li>Garbage Collection - Logging & Tuning Options</li>
-          <li>Garbage Collection - Future</li>
+          <li>Garbage Collection - Logging Options</li>
+          <li>Garbage Collection - Tuning Options</li>
+          <br/>
+          <li>A discussion (Time permitting):
+            <ul>
+                <li>Garbage Collection - Future</li>
+            </ul>
+          </li>
         </ul>
       </span>
     </section>
@@ -139,7 +150,7 @@
         <h2>Java Memory Model</h2>
         <span style="font-size:0.65em;text-align:left;">
           JVM utilizes memory by creating <strong class="color2">runtime data areas</strong>:
-          <p>
+          <p/>
           <img src="images/JVM_Memory_Overview.png" width="70%"/>
         </span>
         <br>
@@ -199,7 +210,7 @@
                 <ol start="4">
                   <li><strong class="color2">Method Area</strong> - <strong class="darkgraycenter">Shared</strong>:
                     <ul>
-                      <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method bytecodes.</li>
+                      <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method byte-codes.</li>
                       <li>Oracle Hotspot VM refers to this area as Permanent Generation (PermGen).</li>
                       <li>garbage collection for this area is not required by the JVM specification.</li>
                     </ul>
@@ -241,7 +252,7 @@
         <h2>Java Memory - Usage</h2>
         <span style="font-size:0.65em;text-align:left;">
           Classloaders create instances. GC performs memory management.
-          <p>
+          <p/>
           <img src="images/JVM_Memory_Usage.png" width="70%"/>
         </span>
         <br>
@@ -251,8 +262,8 @@
       <section>
         <h2>Java Memory - Management</h2>
         <span style="font-size:0.7em;text-align:left;">
-				<p>
-				<br>
+				<p/>
+				<br/>
 				A typical JVM (for now) manages different kinds of memory:
 				<ul>
 					<li><strong class="color2">Heap</strong>:
@@ -321,7 +332,7 @@
                     <li>Non-static variables.</li>
                     <li>All parameters for static and non-static methods.</li>
                     <li>The return value of the current method.</li>
-                    <li>Local variables <br/>&nbsp;&nbsp;&nbsp;&nbsp;(space allocated on invocation and deallocated on method return).</li>
+                    <li>Local variables <br/>&nbsp;&nbsp;&nbsp;&nbsp;(space allocated on invocation and de-allocated on method return).</li>
                   </ol>
                 </td>
                 <td style="text-align: center; vertical-align: middle"><span class="color1">JVM stack</span></td>
@@ -356,13 +367,13 @@
       <section>
         <h1>Garbage Collection - Basics</h1>
         <span style="font-size:0.7em;text-align:left;">
-          <p>
-          <br>
+          <p/>
+          <br/>
           Garbage collection is the process of:
           <ul>
             <li>looking up a heap of memory</li>
             <li>identifying all objects that are in use</li>
-            <li>reclaiming memory by deleting un-unsed (no-reference) objects</li>
+            <li>reclaiming memory by deleting un-used (no-reference) objects</li>
           </ul>
           <br/>
           An unused object is the one that is no longer referenced by any part of the program.
@@ -641,7 +652,7 @@
             <li>Memory availability is dependent on GC or compaction irrespective of the heap size.</li>
             <li>Not much effort put into re-use of duplicated content.</li>
             <li>The contiguous memory area arrangement reduces flexibility of "moving the walls".</li>
-            <li>Mostly focussed on live object, not on garbage (an exact antithesis of the name).</li>
+            <li>Mostly focused on live object, not on garbage (an exact antithesis of the name).</li>
             <li>JVM cannot manage most of the PermGen objects but PermGen included in the JVM managed memory.</li>
             <li>Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
           </ul>
@@ -708,9 +719,17 @@
                     <br/>&nbsp;&nbsp;&nbsp;&nbsp;multiple mixed collections evacuate live objects from the mixed regions to compact.
                   </li>
                 </ul>
-                <!--<p>G1 does away with the compaction (defrag) phase of the Parallel GC, since all of its data lives in small regions that are relabelled as data of different ages is moved around; no defragmentation of a large area is needed. If your heap is small this won't make much difference; if your heap is large then avoiding defrag is noticeable in performance.  Down side: an object which is over half the size of one of the many small regions in the heap, will be hard to handle and will cause slowdowns. These are called "humungous objects" and you want to avoid them.  If you have to, resize your regions, or restructure your code to avoid such objects.-->
-                <!--</p><p>Some quick and dirty benchmarks illustrating the latency/throughput tradeoffs are <a rel="nofollow" class="external text" href="https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc">here</a>, from late 2013.-->
-                </p>
+                <!--
+                <p>G1 does away with the compaction (defrag) phase of the Parallel GC, since all of its data lives
+                in small regions that are relabelled as data of different ages is moved around; no defragmentation of
+                a large area is needed. If your heap is small this won't make much difference; if your heap is large
+                then avoiding defrag is noticeable in performance.
+                Down side: an object which is over half the size of one of the many small regions in the heap,
+                will be hard to handle and will cause slowdowns. These are called "humongous objects" and
+                you want to avoid them.  If you have to, resize your regions, or restructure your code to avoid
+                such objects.</p>
+                -->
+                <p/>
             </span>
             </td>
             <td width="30%" style="text-align: center; vertical-align: middle; border: hidden">
@@ -1221,8 +1240,7 @@
             },
             {
                 src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-                // noinspection Annotator
-                    hljs.initHighlightingOnLoad();
+                hljs.initHighlightingOnLoad();
             }
             },
             {src: 'plugin/zoom-js/zoom.js', async: true},
@@ -1235,7 +1253,7 @@
 </script>
 
 <div style="position: absolute; bottom: 20px; margin-left: 0px; width: 100%;">
-    <center>
+    <div style="text-align: center;">
         <a href="http://www.twitter.com/cguntur" target="_blank" style="text-decoration:none">
             <img src="scaffolding/twitter.svg" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">@CGuntur</span>
         </a>
@@ -1251,7 +1269,7 @@
         <a href="http://www.cguntur.me" style="text-decoration:none">
             <img src="scaffolding/chandra.png" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">http://cguntur.me</span>
         </a>
-    </center>
+    </div>
 </div>
 
 </body>
