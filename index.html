@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Java - Garbage Collection</title>
+
+    <meta name="description" content="An overview of Garbage Collection and tweaking it.">
+    <meta name="author" content="Chandra Guntur">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/dark.css" id="theme">
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32"/>
+
+    <script>
+        // Printing and PDF exports
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- Title slide -->
+    <section>
+      <h1>Garbage Collection in Java</h1>
+      <h4>&nbsp;</h4>
+      <img src="images/DukeGarbageCollector.png" height="400"/>
+      <br>
+      <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">
+        Below icons are from SuperTinyIcons: <a href="https://github.com/edent/SuperTinyIcons" target="_balnk">https://github.com/edent/SuperTinyIcons</a>
+      </span></span>
+    </section>
+
+    <!-- about: presenter -->
+    <section>
+      <h1 style="text-transform: none">about: presenter</h1>
+      <span style="font-size:0.7em;text-align:left;margin-left: 50px">
+        <table width="100%">
+          <tr style="border: hidden">
+            <td width="30%" style="text-align: center; vertical-align: middle;border: hidden">
+              <img src="scaffolding/chandra.png" width="150px"/><span class="color3">Chandra Guntur</span>
+            </td>
+            <td width="70%" style="text-align:center; font-size: 0.9em; vertical-align: middle;border: hidden">
+              <ul>
+                <li>Coding since mid-nineties. Mostly Smalltalk and Java.</li>
+                <li>Spring and Spring Boot evangelist and heavy user.</li>
+                <li>Organizer/presenter at NY Java Special Interest Group (<a href="http://www.javasig.com" target="_blank">NYJavaSIG</a>).</li>
+                <li>Co-chair of NYJavaSIG Hands On Workshop (NYJavaSIG HOW).</li>
+                <li>Committed to <em class="color2">docendo discimus</em> (by teaching, you learn).</li>
+                <li>A <strong class="color2">Saganist</strong> ( the <strong class="color2">g</strong> not to be confused with a <strong class="color2">t</strong> ). 😈</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <hr/>
+        <table width="100%" style="border: hidden">
+        
+          <tr style="border: hidden">
+            <td width="33%" style="text-align:center; font-size:0.65em;border: hidden">Twitter: <br/><a
+                href="http://www.twitter.com/cguntur" target="_blank">http://www.twitter.com/cguntur</a>
+            </td>
+            <td width="33%" style="text-align:center;font-size:0.65em;border: hidden">LinkedIn: <br/><a
+                href="http://www.linkedin.com/in/chandraguntur" target="_blank">http://www.linkedin.com/in/chandraguntur</a>
+            </td>
+            <td width="34%" style="text-align:center;font-size:0.65em;border: hidden">My blog: <br/><a
+                href="http://www.cguntur.me" target="_blank">http://www.cguntur.me</a>
+            </td>
+          </tr>
+        
+          <tr>
+            <td width="33%" style="text-align:center;border: hidden">
+              <a href="http://www.twitter.com/cguntur" target="_blank">
+                <img src="scaffolding/twitter_qr.png" width="150"/>
+              </a>
+            </td>
+            <td width="33%" style="text-align:center;border: hidden">
+              <a href="http://www.linkedin.com/in/chandraguntur" target="_blank">
+                <img src="scaffolding/linkedin_qr.png" width="150"/>
+              </a>
+            </td>
+            <td width="34%" style="text-align:center;border: hidden">
+              <a href="http://www.cguntur.me" target="_blank">
+                <img src="scaffolding/cguntur_qr.png" width="150"/>
+              </a>
+            </td>
+          </tr>
+        
+        </table>
+      </span>
+      <br>
+      <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a></span></span>
+    </section>
+    
+    <!-- Agenda -->
+    <section>
+      <h2>Agenda</h2>
+      <span style="margin-left: 10%">
+        Topics covered:<br/>
+        <ul style="font-size: 0.7em;line-height: 50px;margin-left: 20%">
+          <li>Java Memory - Model</li>
+          <li>Java Memory - Usage</li>
+          <li>Java Memory - Allocation</li>
+          <li>Garbage Collection - Basics</li>
+          <li>Garbage Collection - Patterns</li>
+          <li>Garbage Collection - Generational</li>
+          <li>Garbage Collection - Logging & Tuning Options</li>
+          <li>Garbage Collection - Future</li>
+        </ul>
+      </span>
+    </section>
+  
+    <!-- Java Memory Model -->
+    <section>
+      
+      <!-- Java Memory Model -->
+      <section>
+        <h2>Java Memory Model</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          JVM utilizes memory by creating <strong class="color2">runtime data areas</strong>:
+          <p>
+          <img src="images/JVM_Memory_Overview.png" width="70%"/>
+        </span>
+        <br>
+      </section>
+      
+      <!-- Java Memory Model - Runtime Data Areas - Part 1 -->
+      <section>
+        <h2>Java Memory Model - Runtime Data Areas - Part 1</h2>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+                <span style="font-size:0.65em;text-align:left;">
+                JVM uses different runtime data areas (memory areas) when running.
+                <br/>
+                Some are shared across all threads while others are per-thread areas.
+                <br/>
+                <ol>
+                  <li><strong class="color2">Program Counter (PC) Register </strong> - <strong class="darkgraycenter">Per Thread</strong>:
+                    <ul>
+                      <li>has the address of the current JVM instruction being executed.</li>
+                    </ul>
+                  </li>
+                  <br/>
+                  <li><strong class="color2">JVM Stack</strong> - <strong class="darkgraycenter">Per Thread</strong>:
+                    <ul>
+                      <li>JVM pushes to or pops from the stack frame.</li>
+                      <li>any exception in execution results in tracing this stack frame to produce a stack trace.</li>
+                      <li>consists of a stack frame, local variable array and an operand stack, all used in execution.</li>
+                    </ul>
+                  </li>
+                  <br/>
+                  <li><strong class="color2">Native Methods Stack</strong> - <strong class="darkgraycenter">Per Thread</strong>:
+                    <ul>
+                      <li>storage area for native methods.</li>
+                      <li>also referred to as 'C Stacks'.</li>
+                    </ul>
+                  </li>
+                </ol>
+              </span>
+            </td>
+            <td width="30%" style="text-align: center; vertical-align: middle;border: hidden">
+              <img src="images/JVM_Memory_Thumbnail.png" width="100%"/>
+            </td>
+          </tr>
+        </table>
+        <p/>
+      </section>
+      
+      <!-- Java Memory Model - Runtime Data Areas - Part 2 -->
+      <section>
+        <h2>Java Memory Model - Runtime Data Areas - Part 2</h2>
+        <table width="100%">
+          <tr style="border: hidden">
+            <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+              <span style="font-size:0.65em;text-align:left;">
+                Some are shared across all threads while others are per-thread areas.
+                <ol start="4">
+                  <li><strong class="color2">Method Area</strong> - <strong class="darkgraycenter">Shared</strong>:
+                    <ul>
+                      <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method bytecodes.</li>
+                      <li>Oracle Hotspot VM refers to this area as Permanent Generation (PermGen).</li>
+                      <li>garbage collection for this area is not required by the JVM specification.</li>
+                    </ul>
+                  </li>
+                  <br/>
+                  <li><strong class="color2">Runtime Constant Pool</strong> - <strong class="darkgraycenter">Shared</strong>:
+                    <ul>
+                      <li><span class="color1">the most core area for the JVM</span>.</li>
+                      <li>contains all constants of any interface and class.</li>
+                      <li>contains references to <strong class="color2">* ALL *</strong> fields and methods.</li>
+                      <li>JVM looks up this area upon coming across an instruction to access to any field or method.</li>
+                    </ul>
+                  </li>
+                  <br/>
+                  <li><strong class="color2">Heap</strong> - <strong class="darkgraycenter">Shared</strong>:
+                    <ul>
+                      <li>space that stores instances or objects, and is a target of garbage collection.</li>
+                      <li>most JVM performance revolves around the heap.</li>
+                      <li>JVM spec. leaves for interpretation how JVM vendors can configure the heap to collect garbage.</li>
+                    </ul>
+                  </li>
+                </ol>
+              </span>
+            </td>
+            <td width="30%" style="text-align: center; vertical-align: middle;border: hidden">
+              <img src="images/JVM_Memory_Thumbnail.png" width="100%"/>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+    </section>
+  
+    <!-- Java Memory Usage -->
+    <section>
+      
+      <!-- Java Memory - Usage< -->
+      <section>
+        <h2>Java Memory - Usage</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          Classloaders create instances. GC performs memory management.
+          <p>
+          <img src="images/JVM_Memory_Usage.png" width="70%"/>
+        </span>
+        <br>
+      </section>
+      
+      <!-- Java Memory - Management -->
+      <section>
+        <h2>Java Memory - Management</h2>
+        <span style="font-size:0.7em;text-align:left;">
+				<p>
+				<br>
+				A typical JVM (for now) manages different kinds of memory:
+				<ul>
+					<li><strong class="color2">Heap</strong>:
+						<ul>
+							<li>Runtime data area where memory for class instances and arrays are managed.</li>
+              <li>Part of the memory managed by Garbage Collection.</li>
+							<li>Typically divided into spaces: <strong class="color2">young</strong> (eden), <strong
+                  class="color2">survivors</strong> (to, from) and <strong class="color2">old</strong> (tenured). </li>
+						</ul>
+					</li>
+					<br/>
+					<li><strong class="color2">Non-heap (or non-managed heap)</strong>:
+						<ul>
+							<li>Method area shared among all threads. </li>
+							<li>Memory required for runtime pools and code for methods and constructors.</li>
+              <li><strong>PermGen</strong> or <strong>Metaspace</strong> - Immutable state objects typically not garbage collected.</li>
+              <li><strong>CodeCache</strong> - Optimizations and profiling of code for better performance.</li>
+						</ul>
+					</li>
+          <br/>
+					<li><strong class="color2">Memory Manager</strong>:
+            <ul>
+              <li>Manages one or more memory pools. Garbage Collection is a memory manager. </li>
+            </ul>
+          </li>
+        </ul>
+      </span>
+      </section>
+
+    </section>
+  
+    <!-- Java Memory - Allocation -->
+    <section>
+      <h2>Java Memory - Allocation</h2>
+      <p>
+        <span style="font-size:0.6em;text-align:left;">
+          JVM allocates memory based on the following strategy:
+          <table style="font-size: 0.6em;text-align: left;">
+
+            <thead>
+              <tr>
+                <th style="width: 80%">Content</th>
+                <th style="width: 20%">Location</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td style="text-align: left; vertical-align: middle">
+                  <ol>
+                    <li>Classes loaded by class-loaders</li>
+                    <li>Static variables.</li>
+                    <li>Copy of each method of each loaded class</li>
+                  </ol>
+                </td>
+                <td style="text-align: center; vertical-align: middle">Unmanaged heap<br/><span class="color2">PermGen</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;or<br/><span class="color1">Metaspace</span></td>
+              </tr>
+            
+              <tr>
+                <td class="tdfiller" colspan="2"></td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left; vertical-align: middle">
+                  <ol>
+                    <li>Non-static variables.</li>
+                    <li>All parameters for static and non-static methods.</li>
+                    <li>The return value of the current method.</li>
+                    <li>Local variables <br/>&nbsp;&nbsp;&nbsp;&nbsp;(space allocated on invocation and deallocated on method return).</li>
+                  </ol>
+                </td>
+                <td style="text-align: center; vertical-align: middle"><span class="color1">JVM stack</span></td>
+              </tr>
+
+              <tr>
+                <td class="tdfiller" colspan="2"></td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left; vertical-align: middle">
+                  <ol>
+                    <li>Objects created during the program execution.</li>
+                    <li>Arrays.</li>
+                  </ol>
+                </td>
+                <td style="text-align: center; vertical-align: middle"><span class="color1">Heap</span></td>
+              </tr>
+            </tbody>
+
+          </table>
+        </span>
+        <span style="font-size:0.6em;text-align:left;">
+          Java uses Garbage collection to free heap memory.
+        </span>
+    </section>
+    
+    <!-- GC Basics -->
+    <section>
+
+      <!-- Garbage Collection - Basics -->
+      <section>
+        <h1>Garbage Collection - Basics</h1>
+        <span style="font-size:0.7em;text-align:left;">
+          <p>
+          <br>
+          Garbage collection is the process of:
+          <ul>
+            <li>looking up a heap of memory</li>
+            <li>identifying all objects that are in use</li>
+            <li>reclaiming memory by deleting un-unsed (no-reference) objects</li>
+          </ul>
+          <br/>
+          An unused object is the one that is no longer referenced by any part of the program.
+          <br/>
+          <span style="font-size:0.7em;text-align:left;"><span class="color2">Trivia:</span><p/><strong>The first garbage collection process</strong>: Lisp, in 1959 by <strong class="color1">John MacCarthy</strong> (<em>author of Lisp and major contributor to ALGOL</em>) fame.</span>
+        </span>
+      </section>
+
+      <!-- Garbage Collectors - Classification -->
+      <section>
+        <h2>Garbage Collectors - Classification</h2>
+        <p/>
+        <span style="font-size:0.6em;text-align:left;">
+          Garbage collectors can be classified with several classifiers.
+          <table style="font-size: 0.6em;text-align: left; width: 95%">
+            
+            <tbody>
+              <tr>
+                <td class="tdfiller">Based on how collection runs</td>
+                <td class="tdfiller">Based on run interval of collections</td>
+              </tr>
+              <tr>
+                <td style="text-align: left; vertical-align: top; width: 50%">
+                  <ul>
+                    <li><strong class="color1">Concurrent collector</strong>: GC thread concurrently run with the application threads.</li>
+                    <li><strong class="color1">Stop-the-world collector</strong>: GC thread run when all application threads are halted.</li>
+                    <li><strong class="color1">Parallel collector</strong>: GC thread run in parallel with application threads using multiple CPUs.</li>
+                    <li><strong class="color2">Note</strong>: Parallel and concurrent are two different things.</li>
+                  </ul>
+                </td>
+                <td style="text-align: left; vertical-align: top; width: 50%">
+                  <ul>
+                    <li><strong class="color1">All-at-once</strong>: Entire GC operation performed in a single run.</li>
+                    <li><strong class="color1">Incremental</strong>: GC operations are sliced into smaller operations, to be more performant.</li>
+                  </ul>
+                </td>
+              </tr>
+            
+              <tr>
+                <td class="tdfiller">Based on what collection does to objects</td>
+                <td class="tdfiller">Based on how objects are marked</td>
+              </tr>
+              <tr>
+                <td style="text-align: left; vertical-align: top">
+                  <ul>
+                    <li><strong class="color1">Moving</strong>: When reachable objects are moved to a new area of memory (a.k.a compacting).</li>
+                    <li><strong class="color1">Non-moving</strong>: When unreachable objects are simply released (a.k.a non-compacting).</li>
+                  </ul>
+                  <br/>
+                </td>
+                <td style="text-align: left; vertical-align: top">
+                  <ul>
+                    <li><strong class="color1">Precise</strong>: When the collector can fully identify and process all references at the time of collection.</li>
+                    <li><strong class="color1">Conservative</strong>: When collector has not fully identified all references, so it assumes a reference exists, when in doubt.</li>
+                  </ul>
+                  <br/>
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+        </span>
+
+      </section>
+
+    </section>
+
+    <!-- GC Patterns -->
+    <section>
+
+      <!-- Garbage Collection - Patterns -->
+      <section>
+        <h2>Garbage Collection - Patterns</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          <p/>This section will list a few garbage collection patterns.
+        </span>
+      </section>
+
+      <!-- Garbage Collection - Reference Counting -->
+      <section>
+        <h2>Garbage Collection - Reference Counting</h2>
+        <table width="100%">
+          <tr style="border: hidden">
+            <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+              <span style="font-size:0.65em;text-align:left;">
+                <p/>The most rudimentary garbage collection is based on <em class="color2">references</em>:
+                <ul>
+                  <li>associates a reference counter to each object</li>
+                  <li><span class="color2">increments</span> the counter for each reference to the object.</li>
+                  <li><span class="color2">decrements</span> the counter for each de-reference of the object.</li>
+                  <li>marks object as garbage if reference count reaches zero.</li>
+                  <li>is very under-performant and maintenance-heavy for JVMs.</li>
+                  <li><span class="color1">this collection pattern is fairly obsolete, not used in commercial JVMs.</span> </li>
+                </ul>
+                <p/>
+                Memory allocator may place objects anywhere in the free space.
+            </span>
+            </td>
+            <td width="35%" style="text-align: center; vertical-align: middle;border: hidden">
+              <img src="images/CollectionType_ReferenceCounting.png" width="100%"/>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- Garbage Collection - Mark/Sweep/Compact -->
+      <section>
+        <h2>Garbage Collection - Mark/Sweep/Compact</h2>
+        <table width="100%">
+          <tr style="border: hidden">
+            <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+              <span style="font-size:0.65em;text-align:left;">
+                The mark/sweep collection pattern is based on <em class="color2">tracing</em>:
+                <ul>
+                  <li>marks objects as used or unused.</li>
+                  <li>deletes the unused objects.</li>
+                  <li>(optionally/periodically) compact or defragment space for new objects.</li>
+                  <li>more <span class="color1">efficient for larger memory areas</span>.</li>
+                  <li>works well on longer-lived non-volatile objects.</li>
+                  <li>process efficiency is linearly proportional to the live objects.</li>
+                  <li>uses <strong class="color2">garbage collection roots</strong> to initiate marks:
+                    <ul>
+                      <li>Active threads including the green/main thread.</li>
+                      <li>Local and static variables.</li>
+                      <li>JNI references.</li>
+                    </ul>
+                  </li>
+                  <li><span class="color1">incremental</span> collector, doesn't need a lot of free space to run.</li>
+                  <li>Can be either <span class="color1">concurrent</span> or <span class="color1">stop-the-world</span> collecting.</li>
+                </ul>
+                <br/>
+                Memory allocator moves pointer to the beginning of free space.
+                <br/>
+                Objects are added sequentially to where the free memory pointer is.
+            </span>
+            </td>
+            <td width="35%" style="text-align: center; vertical-align: middle;border: hidden">
+              <img src="images/CollectionType_MarkSweepCompact.png" width="100%"/>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- Garbage Collection - Copying -->
+      <section>
+        <h2>Garbage Collection - Copying</h2>
+        <table width="100%">
+          <tr style="border: hidden">
+            <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+              <span style="font-size:0.65em;text-align:left;">
+                The copying garbage collection is based on <em class="color2">tracing</em>:
+                <ul>
+                  <li>marks objects as used or unused.</li>
+                  <li>copies live objects to another memory area.</li>
+                  <li>purging current area, one of the two areas is always empty.</li>
+                  <li>very specialized case of <strong class="color2">MSC</strong>, the sweep and compact are one step.</li>
+                  <li>needs a <strong class="color2">from</strong> and a <strong class="color2">to</strong> memory area.</li>
+                  <li>has the <strong class="color2">from</strong> and <strong class="color2">to</strong> swap roles each run of the collection.</li>
+                  <li>is <span class="color1">efficient for small memory areas</span>.</li>
+                  <li>works best on short-lived objects.</li>
+                  <li><span class="color1">all-at-once</span> collector that needs 2x the memory space to run.</li>
+                  <li><span class="color1">stop-the-world</span> collector.</li>
+                </ul>
+                <p/>
+                Memory allocator moves pointer to the beginning of free space in the new memory area.
+                <p/>
+                Objects are added sequentially to where the free memory pointer is.
+            </span>
+            </td>
+            <td width="35%" style="text-align: center; vertical-align: middle;border: hidden">
+              <img src="images/CollectionType_Copying.png" width="100%"/>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+    </section>
+  
+    <!-- Generational GC -->
+    <section>
+
+      <!-- Garbage Collection - Generational -->
+      <section>
+        <h2>Garbage Collection - Generational</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          Java, since JDK 5 has had a generational garbage collector as its default.
+          <p/>
+          The generational collector divides the memory into smaller memory areas.
+          <p/>
+          Management of objects in different memory areas is done differently.
+        </span>
+      </section>
+
+      <!-- Generational GC - Pictorial -->
+      <section>
+        <h2>Generational GC - Pictorial</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          <strong><span class="color1">Weak Generational Hypothesis</span> : </strong>
+          <br/>
+          <ul>
+            <li>Most objects do not have a long life.</li>
+            <li>It is usually rare for an older generation object to reference a young generation object.</li>
+          </ul>
+          <p>
+          <img src="images/GenerationalMemoryAreas.png" width="65%"/>
+        </span>
+        <br>
+        <span class="darkgraycenter"><span style="font-size: 0.35em; display: block">
+            Picture influenced by Jörg Prante's writeup: <a href="http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html" target="_balnk">http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html</a>
+        </span></span>
+      </section>
+
+      <!-- Generational GC - Explanation -->
+      <section>
+        <h2>Generational GC - Explanation</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <strong><span class="color1">Explanation</span>: </strong>
+          <br/>
+          <ul>
+            <li>heap is broken into smaller areas (sub-heaps).</li>
+            <li>newly created objects are allocated in a "young" generation heap.</li>
+            <li>Eden itself divided into TLAB sections for individual threads and a common area.</li>
+            <li>separate GC processes run for each generation, young typically is an <span class="color2">all-at-once</span>, <span class="color2">stop-the-world</span>, <span class="color2">copying</span> collector.</li>
+            <li>objects that stay "alive" longer get moved to older generation.</li>
+            <li>Permanent Generation is for storing class/method definitions and static content.</li>
+          </ul>
+          <br/>
+          <img src="images/GenerationalGarbageCollection.png" width="65%"/>
+        </span>
+      </section>
+
+      <!-- Generational GC - Types - Older -->
+      <section>
+        <h2>Generational GC - Types - Older</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          There are a few different types of collectors:<br/>
+          <ul>
+            <li><strong class="color2">Serial Collector</strong> <br/>
+              <ul>
+                <li>Freezes all application threads to collect garbage.</li>
+                <li>Designed for single-thread and tiny heap sized (~100 MB) apps.</li>
+                <li><strong class="color1">Disqualified</strong> for most modern Java apps.</li>
+                <li>VM Option to enable: <code>-XX:+UseSerialGC</code>.</li>
+              </ul>
+            </li><br/>
+            <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and <em>"1.8"</em></strong> <br/>
+              <ul>
+                <li><strong>Young gen.</strong>, by default, uses the <span class="color2">parallel (scavenge) collection</span>, while <strong>tenured gen.</strong> uses a <span class="color2">serial collector</span>.</li>
+                <li>VM Option to enable: <code>-XX:+UseParallelGC</code>.</li>
+                <li>VM Option to enable for tenured: <code>-XX:+UseParallelOldGC</code>.</li>
+              </ul>
+            </li><br/>
+            <li><strong class="color2">Concurrent Mark-Sweep (CMS) Collector (mostly*) - available Java 5 onwards</strong> <br/>
+              <ul>
+                <li>By default, <strong>Young</strong> and <strong>tenured gen.</strong> use a CMS collector.</li>
+                <li>Does not <span class="color1">compact</span> by default, to make GC a low-pause, low-latency, but causes heap fragmentation.</li>
+                <li><strong class="color2"> * </strong> <em>An eventual fill up of old memory causes a fall-back to a STW M/S/C that results in performance degradation</em>.</li>
+                <li><strong>Focuses on live objects and defers garbage handling, until crisis time.</strong> </li>
+                <li>VM Option to enable: <code>-XX:+UseConcMarkSweepGC</code>.</li>
+                <li>VM Option to enable Parallel collection on young generation: <code>-XX:+UseParNewGC</code>.</li>
+              </ul>
+            </li>
+          </ul>
+        </span>
+      </section>
+
+      <!-- Generational GC - Types - Why New -->
+      <section>
+        <h2>Generational GC - Types - Why New</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          Some notes on the existing garbage collectors:<br/>
+          <ul>
+            <li>Not performant for large memory heaps (common these days).</li>
+            <li>Unpredictable and inconsistent pause-times and lesser number of STW GCs.</li>
+            <li>Memory availability is dependent on GC or compaction irrespective of the heap size.</li>
+            <li>Not much effort put into re-use of duplicated content.</li>
+            <li>The contiguous memory area arrangement reduces flexibility of "moving the walls".</li>
+            <li>Mostly focussed on live object, not on garbage (an exact antithesis of the name).</li>
+            <li>JVM cannot manage most of the PermGen objects but PermGen included in the JVM managed memory.</li>
+            <li>Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
+          </ul>
+          <p/>
+          The G1GC (<strong class="color2">Garbage First Garbage Collector</strong>), was designed and developed to resolve the above.
+          <br/>
+          <span class="color1">It is the new default collector for JDK 9</span>.
+        </span>
+      </section>
+  
+      <!-- Generational G1GC - Pictorial -->
+      <section>
+        <h2>Generational G1GC - Pictorial</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <strong><em><span class="color1">Some observations</span> </em>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Non-contiguous memory regions of equal size.</li>
+            <li>Memory is divided into around as close to 2048 regions, as possible.</li>
+            <li>The region sizes can vary from 1 MB to 32 MB depending on the heap size.</li>
+            <li>G1 GC has a pause time-target that it tries to meet (soft real time).</li>
+          </ul>
+          <p>
+          <img src="images/G1MemoryAllocation.png" width="55%"/>
+        </span>
+      </section>
+  
+      <!-- Generational G1GC - Explanation -->
+      <section>
+        <h2>Generational GC - G1GC - Explanation</h2>
+        <table width="100%">
+          <tr style="border: hidden">
+            <td width="70%" style="font-size: 0.85em; vertical-align: middle;border: hidden">
+              <span style="font-size:0.6em;text-align:left;">
+                <span class="color1">Explanation: </span><br/>
+                <ul>
+                  <li>performs a <span class="color2">conc. global marking phase</span> to find live objects throughout.</li>
+                  <li>post-marking, G1 knows which regions are mostly empty. </li>
+                  <li>collects these regions first, which yields a large amount of free space. </li>
+                  <li><span class="color2">goes after regions that have the most garbage</span> , it is called <strong class="color1">Garbage-First</strong>.</li>
+                  <li>incremental parallel copying of live objects from one or more sets of regions, called <strong class="color2">Collection Set (CSet).</strong></li>
+                  <li>references to objects in the region are tracked via <strong class="color2">Remembered Sets (RSet)</strong>.</li>
+                </ul>
+              </span>
+            </td>
+            <td width="30%" style="text-align: center; vertical-align: middle; border: hidden">
+              <img src="images/G1MemoryAllocation.png" width="100%"/>
+            </td>
+          </tr>
+          <tr style="border: hidden">
+            <td width="70%" style="font-size: 0.85em; vertical-align: middle;border: hidden">
+              <span style="font-size:0.6em;text-align:left;">
+                <span class="color1">GC Phases</span> - when OldGen tenancy reaches a certain limit, rather than a simple young gen:<br/>
+                
+                <ul>
+                  <li><strong class="color2">Young Only Phase</strong>:
+                    <ol>
+                      <li><span class="color2">Initial Mark</span>: Concurrently mark <em class="color1">live</em> objects.</li>
+                      <li><span class="color2">Re-Mark</span>: STW, global reference processing, summary of liveness calculated.</li>
+                      <li><span class="color2">Cleanup</span>: STW, reclaim empty regions, <em class="color2">optionally</em> run a space reclamation phase <em class="color2">finally</em> a YoungGC.</li>
+                    </ol>
+                  </li>
+                  <li><strong class="color2">Space Reclamation Phase</strong>:
+                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;multiple mixed collections evacuate live objects from the mixed regions to compact.
+                  </li>
+                </ul>
+                <!--<p>G1 does away with the compaction (defrag) phase of the Parallel GC, since all of its data lives in small regions that are relabelled as data of different ages is moved around; no defragmentation of a large area is needed. If your heap is small this won't make much difference; if your heap is large then avoiding defrag is noticeable in performance.  Down side: an object which is over half the size of one of the many small regions in the heap, will be hard to handle and will cause slowdowns. These are called "humungous objects" and you want to avoid them.  If you have to, resize your regions, or restructure your code to avoid such objects.-->
+                <!--</p><p>Some quick and dirty benchmarks illustrating the latency/throughput tradeoffs are <a rel="nofollow" class="external text" href="https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc">here</a>, from late 2013.-->
+                </p>
+            </span>
+            </td>
+            <td width="30%" style="text-align: center; vertical-align: middle; border: hidden">
+              <img src="images/G1GC_Cycle.png" width="100%"/>
+            </td>
+          </tr>
+        </table>
+      </section>
+  
+      <!-- Generational G1GC - Cycle -->
+      <section>
+        <h2>Generational G1GC - Cycle</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          <strong><span class="color1">Expanded G1GC Cycle</span> : </strong>
+          <br/>
+          <img src="images/G1GC_Cycle.png" width="65%"/>
+        </span>
+        <br>
+        <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">
+            Picture influenced by the Oracle GC Tuning Guide: <a href="https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm" target="_balnk">https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm</a>
+        </span></span>
+      </section>
+  
+      <!-- Generational G1GC - Young Collection -->
+      <section>
+        <h2>Generational G1GC - Young Collection</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">1. Young collection (Eden &rarr; Survivor)</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Young Collection first targets the most populated regions.</li>
+            <li>Dead objects are collected.</li>
+            <li>Live objects are compacted and copied into a Survivor region.</li>
+            <li>There is a certain percentage of heap space always available for Survivor space.</li>
+            <li>This is controlled by the flag <code>-XX:G1ReservePercent</code> (default = 10%).</li>
+          </ul>
+          <p>
+          <img src="images/G1_1_MinorGC.png" width="55%"/>
+        </span>
+      </section>
+
+      <!-- Generational G1GC - Compact Copying -->
+      <section>
+        <h2>Generational G1GC - Compact Copying</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Young Collection includes compact copying from survivor to tenured after objects survive a few iterations.</li>
+            <li>G1 continues with the <strong>young collection</strong> <strong class="color2">until either of the below is reached</strong>:</li>
+            <ul>
+              <li>reaches a configurable soft limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = 45%).</li>
+              <li>reaches the configurable strict limit of <code>-XX:G1ReservePercent</code> (default = 10%).</li>
+            </ul>
+            <li>If either constraint is met, it triggers the start of a concurrent GC.</li>
+          </ul>
+          <p>
+          <img src="images/G1_2_CompactCopying.png" width="55%"/>
+        </span>
+      </section>
+  
+      <!-- Generational G1GC - Concurrent Marking -->
+      <section>
+        <h2>Generational G1GC - Concurrent Marking</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">3. Concurrent Marking</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Concurrent marking begins with a <strong class="color2">Snapshot-At-The-Beginning (SATB)</strong>.</li>
+            <li>If more objects move to tenured after the snapshot, all such objects are <em class="color2">considered live</em>, irrespective of references.</li>
+            <li>Once concurrent marking completes, a young collection is triggered.</li>
+          </ul>
+          <p>
+          <img src="images/G1_3_ConcurrentMarking.png" width="55%"/>
+        </span>
+      </section>
+  
+      <!-- Generational G1GC - Mixed Collection -->
+      <section>
+        <h2>Generational G1GC - Mixed Collection</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">4. Mixed Collection</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Concurrent Marking is followed by a young collection and then the mixed collection is triggered.</li>
+            <li>This involves picking up a few regions (eden, survivor and tenured) for collection.</li>
+            <li>Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = 8).</li>
+            <li>The total number of tenured regions are divided by the above number and are picked up for collection.</li>
+            <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = 5%), mixed collections will continue.</li>
+          </ul>
+          <p>
+          <img src="images/G1_4_MixedCollection.png" width="55%"/>
+        </span>
+      </section>
+  
+      <!-- Generational GC - Summary -->
+      <section>
+        <h2>Generational Garbage Collection - Summary</h2>
+
+        <span style="font-size:0.6em;text-align:left;">Common JVM options to use a specific collector:</span><br/>
+        <table style="font-size: 0.55em;text-align: left;width: 90%">
+          <thead>
+            <tr>
+              <th style="text-align: center; width: 15%">Type</th>
+              <th style="text-align: center; width: 15%">Young GC</th>
+              <th style="text-align: center; width: 15%">Tenured GC</th>
+              <th style="text-align: left;">JVM Option</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center; vertical-align: middle"><strong>Serial GC</strong></td>
+              <td style="text-align: center; vertical-align: middle">Serial</td>
+              <td style="text-align: center; vertical-align: middle">Serial</td>
+              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseSerialGC</code></td>
+            </tr>
+          
+            <tr>
+              <td style="text-align: center; vertical-align: middle"><strong>Parallel GC</strong></td>
+              <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">Scavenge</span></td>
+              <td style="text-align: center; vertical-align: middle">Parallel</td>
+              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParallelGC -XX:+UseParallelOldGC</code></td>
+            </tr>
+          
+            <tr>
+              <td style="text-align: center; vertical-align: middle"><strong>CMS GC</strong></td>
+              <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">New</span></td>
+              <td style="text-align: center; vertical-align: middle">CMS</td>
+              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</code></td>
+            </tr>
+          
+            <tr>
+              <td style="text-align: center; vertical-align: middle"><strong>G1 GC</strong></td>
+              <td style="text-align: center; vertical-align: middle" colspan="2">G1GC</td>
+              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseG1GC</code></td>
+            </tr>
+          
+          </tbody>
+        </table>
+
+        <br/>
+        <span style="font-size:0.6em;text-align:left;">Differences in collectors:</span><br/>
+        <table style="font-size: 0.55em;text-align: left;width: 90%">
+          <thead>
+          <tr>
+            <th style="text-align: center; width: 13%">Type</th>
+            <th style="text-align: center; width: 12%">Parallel</th>
+            <th style="text-align: center; width: 12%">Concurrent</th>
+            <th style="text-align: center; width: 16%">Young GC</th>
+            <th style="text-align: center; width: 16%">Tenured GC</th>
+            <th style="text-align: center; width: 31%">Feature</th>
+          </tr>
+          </thead>
+    
+          <tbody>
+          <tr>
+            <td style="text-align: center; vertical-align: middle"><strong>Serial GC</strong></td>
+            <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
+            <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
+            <td style="text-align: center; vertical-align: middle">Serial</td>
+            <td style="text-align: center; vertical-align: middle">Serial</td>
+            <td style="text-align: center; vertical-align: middle">Batch processing</td>
+          </tr>
+    
+          <tr>
+            <td style="text-align: center; vertical-align: middle"><strong>Parallel GC</strong></td>
+            <td style="text-align: center; vertical-align: middle">Yes</td>
+            <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
+            <td style="text-align: center; vertical-align: middle">Parallel</td>
+            <td style="text-align: center; vertical-align: middle">Parallel</td>
+            <td style="text-align: center; vertical-align: middle">High throughput</td>
+          </tr>
+    
+          <tr>
+            <td style="text-align: center; vertical-align: middle"><strong>CMS GC</strong></td>
+            <td style="text-align: center; vertical-align: middle">Yes</td>
+            <td style="text-align: center; vertical-align: middle">Yes</td>
+            <td style="text-align: center; vertical-align: middle">Parallel</td>
+            <td style="text-align: center; vertical-align: middle">Parallel & Conc.</td>
+            <td style="text-align: center; vertical-align: middle">Low Pause</td>
+          </tr>
+    
+          <tr>
+            <td style="text-align: center; vertical-align: middle"><strong>G1 GC</strong></td>
+            <td style="text-align: center; vertical-align: middle">Yes</td>
+            <td style="text-align: center; vertical-align: middle">Yes</td>
+            <td style="text-align: center; vertical-align: middle">Parallel</td>
+            <td style="text-align: center; vertical-align: middle">Parallel & Conc.</td>
+            <td style="text-align: center; vertical-align: middle">Low pause & High throughput</td>
+          </tr>
+          </tbody>
+        </table>
+      </section>
+      
+    </section>
+    
+    <!-- G1GC - Logging Options -->
+    <section>
+  
+      <!-- G1GC - Logging Options -->
+      <section>
+        <h2>G1GC - Logging Options</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          In this section salient logging setup options are discussed.
+        </span>
+      </section>
+  
+      <!-- G1GC - Check Default Values -->
+      <section>
+        <h2>G1GC - Check Default Values</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          G1GC has several options that can be tuned for performance.
+          <br/>
+          First, the best way to find out what flags exist and what their default values are, is important.
+          <br/>The <code>-version</code> is used in the examples below. This can be replaced with a java class with a <code>main(...)</code> as well.<br/>
+          <span class="color2">Print initial defaults for the operating system</span> (caution, this is a long list, best to redirect to a file):
+          <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintFlagsInitial -version</code>
+          <br>
+          <span class="color2">Print final defaults for the jvm, with overrides on the defaults</span> (caution, this is a long list):
+          <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintFlagsFinal -version</code>
+          <br/>
+          <span class="color2">Print current flags</span>:
+          <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintCommandLineFlags -version</code>
+        </span>
+      </section>
+  
+      <!-- G1GC - How to log -->
+      <section>
+        <h2>GC - JVM Flags To Log</h2>
+    
+        <span style="font-size:0.6em;text-align:left;">Common JVM options to print GC logs:</span><br/>
+        <span style="font-size:0.4em;text-align:left;">Unified logging changes (for reference use):
+          <code>java -Xlog:help</code> ( flag style is now consistent: <span class="color2"> -Xlog : &lt;tags to log&gt; : &lt;where to log&gt; : &lt;decorations&gt; </span>)<br/></span>
+        <table style="font-size: 0.45em;text-align: left;width: 100%">
+          
+          <thead>
+          <tr>
+            <th style="text-align: center; width: 8%">GC Type</th>
+            <th style="text-align: center; width: 40% ">Option</th>
+            <th style="text-align: center; width: 52%">Meaning</th>
+          </tr>
+          </thead>
+          
+          <tbody>
+          <tr style="color:#888888;">
+            <td style="text-align: center; vertical-align: middle; ">Pre-G1GC</td>
+            <td style="text-align: left; vertical-align: middle; "><code style="color:#888888;">-Xloggc:/path/to/gc.log</code></td>
+            <td style="text-align: left; vertical-align: middle; ">Destination path for the logs.</td>
+          </tr>
+
+          <tr style="color:#888888;">
+            <td style="text-align: center; vertical-align: middle">Pre-G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code style="color: #888888">-XX:+PrintGCDetails</code></td>
+            <td style="text-align: left; vertical-align: middle">Increases the verbosity of logged content. </td>
+          </tr>
+
+          <tr style="color:#888888;">
+            <td style="text-align: center; vertical-align: middle">Pre-G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code style="color: #888888">-XX:+PrintGCDateStamps</code></td>
+            <td style="text-align: left; vertical-align: middle">Log date and timestamp of the collection.</td>
+          </tr>
+
+          <tr>
+            <td class="tdfiller" colspan="3"></td>
+          </tr>
+
+          <tr>
+            <td style="text-align: center; vertical-align: middle">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc</code></td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <strong class="color2">gc</strong> tag using <strong class="color2">info</strong> level to stdout, with default decorations.</td>
+          </tr>
+
+          <tr>
+            <td style="text-align: center; vertical-align: middle">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc,safepoint</code></td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <em style="color:#888;">either</em> <strong class="color2">gc</strong> <em style="color:#888;">or</em> <strong class="color2">safepoint</strong> tags (exclusive), both using 'info' level, to stdout, with default decorations.</td>
+          </tr>
+          
+          <tr>
+            <td style="text-align: center; vertical-align: middle">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc+ref=debug</code></td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <em style="color:#888;">both</em> <strong class="color2">gc</strong> <em style="color:#888;">and</em> <strong class="color2">ref</strong> tags, using <strong class="color2">debug</strong> level, to stdout, with default decorations.</td>
+          </tr>
+          
+          <tr>
+            <td style="text-align: center; vertical-align: middle">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc=debug:file=gc.txt:none</code></td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <strong class="color2">gc</strong> tag using <strong class="color2">debug</strong> level to file <strong class="color2">gc.txt</strong> with <strong class="color2">no</strong> decorations.</td>
+          </tr>
+
+          <tr>
+            <td style="text-align: center; vertical-align: middle">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc=trace:file=gc.txt:uptimemillis, pids:filecount=5, filesize=1m</code></td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <strong class="color2">gc</strong> tag using <strong class="color2">trace</strong> level to a <strong class="color2">rotating logs of 5 files</strong> of size <strong class="color2">1MB</strong>,
+              using the base name <strong class="color2">gc.txt</strong>, with <strong class="color2">uptimemillis</strong> and <strong class="color2">pid</strong> decorations.</td>
+          </tr>
+
+          <tr>
+            <td style="text-align: center; vertical-align: middle">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc::uptime,tid</code></td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <strong class="color2">gc</strong> tag using <strong class="color2">info</strong> level to output <strong class="color2">stdout</strong>, using <strong class="color2">uptime</strong> and <strong class="color2">tid</strong> decorations.</td>
+          </tr>
+
+          <tr>
+            <td style="text-align: center; vertical-align: middle">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc*=info,safepoint*=off</code></td>
+            <td style="text-align: left; vertical-align: middle">Log messages with at least <strong class="color2">gc</strong> using <strong class="color2">info</strong> level, but turn off logging of messages tagged with <strong class="color2">safepoint</strong>.</td>
+          </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </section>
+  
+    <!-- G1GC - Performance definitions -->
+    
+    <section>
+  
+      <!-- G1GC - Tuning Options -->
+      <section>
+        <h2>G1GC - Tuning Options</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          In this section salient tuning options are discussed.
+        </span>
+      </section>
+  
+      <!-- G1GC - Performance definitions -->
+      <section>
+        <h2>G1GC - Performance definitions</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          G1GC tuning is done to meet one of the below performance metrics:
+          <br/>
+          <ul>
+            <li><strong>Throughput</strong>—the percentage of total time not spent in garbage collection, considered over long periods of time.</li>
+            <li><strong>Pause time</strong>—the length of time during which application execution is stopped while garbage collection is occurring.</li>
+            <li><strong>GC overhead</strong>—the inverse of throughput, that is, the percentage of total time spent in garbage collection.</li>
+            <li><strong>Collection frequency</strong>—how often collection occurs, relative to application execution.</li>
+            <li><strong>Footprint</strong>—a measure of size, such as heap size.</li>
+            <li><strong>Promptness</strong>—the time between when an object becomes garbage and when the memory becomes available</li>
+          </ul>
+        </span>
+      </section>
+      
+      <!-- G1GC - Frequent Full GC< -->
+      <section>
+        <h2>G1GC - Frequent Full GC</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <strong class="color2">Frequent Full GCs are observed</strong> <br/>
+          <ul>
+            <li>Usually caused by heavy heap occupancy.</li><br/>
+            <li>Logs contain the phrase <em class="color2">Pause Full (Allocation Failure)</em>.</li><br/>
+            <li>This is typically preceded by a <span class="color2">to-space exhausted</span> message.</li><br/>
+            <li>Steps to mitigate:
+              <ul style="font-size: 0.9em">
+                <li>Try to reduce the humongous objects.</li>
+                <li>Increase the java heap region size (by <code>-XX:G1HeapRegionSize</code>).</li>
+                <li>Increase number of concurrent threads (by <code>-XX:ConcGCThreads</code>).</li>
+                <li>Force earlier marking by either:
+                  <ul style="font-size: 0.9em">
+                    <li>Lower the <code>-XX:G1ReservePercent</code></li>
+                    <li>Disable the <code>-XX:G1UseAdaptiveIHOP</code> and manually set <code>-XX:InitiatingHeapOccupancyPercent</code>.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <br/>
+            <li>
+              Full GCs can also be caused by <code>System.gc()</code> calls in some library.
+              <br/>
+              Effects of such can be mitigated by:<br/>
+              <ul style="font-size: 0.9em">
+                <li>Full GC frequency can be mitigated by <code>-XX:ExplicitGCInvokesConcurrent</code>.</li>
+                <li>Last resort, completely ignore <code>gc()</code> calls with <code>-XX:DisableExplicitGC</code>.</li>
+              </ul>
+            </li>
+          </ul>
+        </span>
+      </section>
+      
+      <!-- G1GC - Long Young Collection -->
+      <section>
+        <h2>G1GC - Long Young Collection</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <strong class="color2">Young Collections seem to take too long</strong> <br/>
+          <ul><br/>
+            <li>Young collection time is proportional to the size of the young generation.</li><br/>
+            <li>Reducing the <code>-XX:G1NewSizePercent</code> reduces the young generation size.</li><br/>
+            <li>Sudden spikes in the application may cause influx of live objects.</li><br/>
+            <li>Limiting the maximum size of the young generation can help.</li><br/>
+            <li>Maximum young generation size can be controlled by <code>-XX:G1MaxNewSizePercent</code>.</li><br/>
+          </ul>
+        </span>
+      </section>
+      
+      <!-- G1GC - Long Mixed Collection -->
+      <section>
+        <h2>G1GC - Long Mixed Collection</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <strong class="color2">Mixed Collections seem to take too long</strong> <br/>
+          <ul style="font-size: 0.9em"><br/>
+            <li>Determine which generation is taking the time (Set <span class="color2">gc+ergo+cset=trace</span> in logging.</li><br/>
+            <li>The logs will then show <em class="color2">predicted young region</em> and <em class="color2">predicted old region</em> times.</li><br/>
+            <li>Spread reclamations to more mixed collections via <code>-XX:G1MixedGCCountTarget</code>.</li><br/>
+            <li>Limit the threshold of collecting regions with high occupancy by live objects via <br/><code>-XX:G1MixedGCLiveThresholdPercent</code>.</li><br/>
+            <li>Limit space reclamation in high occupancy regions via <code>-XX:G1HeapWastePercent</code>.</li><br/>
+          </ul>
+        </span>
+      </section>
+      
+    </section>
+    
+    <section>
+      <h1 style="text-transform: none">Time's up</h1>
+      <span style="font-size:0.7em;text-align:left;margin-left: 50px">
+        <table width="100%">
+          <tr style="border: hidden; vertical-align: top">
+              <img src="images/GarbageCollectorWave.png" width="450px"/>
+          </tr>
+          <tr style="border: hidden">
+            <td style="text-align: center; vertical-align: bottom"><span style="font-size: 1.2em">My contact information</span></td>
+          </tr>
+        </table>
+        <hr/>
+        <table width="100%" style="border: hidden">
+        
+          <tr style="border: hidden">
+            <td width="33%" style="text-align:center; font-size:0.65em;border: hidden">Twitter: <br/><a
+                href="http://www.twitter.com/cguntur" target="_blank">http://www.twitter.com/cguntur</a>
+            </td>
+            <td width="33%" style="text-align:center;font-size:0.65em;border: hidden">LinkedIn: <br/><a
+                href="http://www.linkedin.com/in/chandraguntur" target="_blank">http://www.linkedin.com/in/chandraguntur</a>
+            </td>
+            <td width="34%" style="text-align:center;font-size:0.65em;border: hidden">My blog: <br/><a
+                href="http://www.cguntur.me" target="_blank">http://www.cguntur.me</a>
+            </td>
+          </tr>
+        
+          <tr>
+            <td width="33%" style="text-align:center;border: hidden">
+              <a href="http://www.twitter.com/cguntur" target="_blank">
+                <img src="scaffolding/twitter_qr.png" width="150"/>
+              </a>
+            </td>
+            <td width="33%" style="text-align:center;border: hidden">
+              <a href="http://www.linkedin.com/in/chandraguntur" target="_blank">
+                <img src="scaffolding/linkedin_qr.png" width="150"/>
+              </a>
+            </td>
+            <td width="34%" style="text-align:center;border: hidden">
+              <a href="http://www.cguntur.me" target="_blank">
+                <img src="scaffolding/cguntur_qr.png" width="150"/>
+              </a>
+            </td>
+          </tr>
+        
+        </table>
+      </span>
+      <br>
+      <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a></span></span>
+    </section>
+  
+  </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        width: '80%',
+        height: '90%',
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        menu: {
+            markers: true,
+            openSlideNumber: true,
+            transitions: false,
+            themes: [
+                {name: 'Dark', theme: 'css/theme/dark.css'},
+                {name: 'Medium', theme: 'css/theme/medium.css'},
+                {name: 'Light', theme: 'css/theme/light.css'}
+            ]
+        },
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                // noinspection Annotator
+                    hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'plugin/zoom-js/zoom.js', async: true},
+            {src: 'plugin/notes/notes.js', async: true},
+            {src: 'plugin/reveal.js-menu/menu.js', async: true}
+        ]
+    });
+
+    Reveal.configure({slideNumber: 'mystyle'});
+</script>
+
+<div style="position: absolute; bottom: 20px; margin-left: 0px; width: 100%;">
+    <center>
+        <a href="http://www.twitter.com/cguntur" target="_blank" style="text-decoration:none">
+            <img src="scaffolding/twitter.svg" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">@CGuntur</span>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://www.linkedin.com/in/chandraguntur" style="text-decoration:none">
+            <img src="scaffolding/linkedin.svg" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">Chandra Guntur</span>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://github.com/c-guntur" style="text-decoration:none">
+            <img src="scaffolding/github.svg" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">gh: c-guntur</span>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://www.cguntur.me" style="text-decoration:none">
+            <img src="scaffolding/chandra.png" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">http://cguntur.me</span>
+        </a>
+    </center>
+</div>
+
+</body>
+</html>
