@@ -292,7 +292,7 @@ body {
 }
 
 .reveal a:hover {
-    color: #6ca0e8;
+    color: #A88888;
     text-shadow: none;
     border: none;
 }
@@ -355,19 +355,19 @@ body {
 }
 
 .reveal .controls .navigate-left.enabled:hover {
-    border-right-color: #6ca0e8;
+    border-right-color: #A88888;
 }
 
 .reveal .controls .navigate-right.enabled:hover {
-    border-left-color: #6ca0e8;
+    border-left-color: #A88888;
 }
 
 .reveal .controls .navigate-up.enabled:hover {
-    border-bottom-color: #6ca0e8;
+    border-bottom-color: #A88888;
 }
 
 .reveal .controls .navigate-down.enabled:hover {
-    border-top-color: #6ca0e8;
+    border-top-color: #A88888;
 }
 
 /*********************************************
@@ -400,7 +400,7 @@ body {
 }
 
 .color3 {
-    color: #D099D0;
+    color: #8c04d0;
 }
 
 .darkgraycenter {

@@ -279,8 +279,8 @@
 						<ul>
 							<li>Method area shared among all threads. </li>
 							<li>Memory required for runtime pools and code for methods and constructors.</li>
-              <li><strong>PermGen</strong> or <strong>Metaspace</strong> - Immutable state objects typically not garbage collected.</li>
-              <li><strong>CodeCache</strong> - Optimizations and profiling of code for better performance.</li>
+              <li><strong class="color1">PermGen</strong> or <strong class="color1">Metaspace</strong> - Immutable state objects typically not garbage collected.</li>
+              <li><strong class="color1">CodeCache</strong> - Optimizations and profiling of code for better performance.</li>
 						</ul>
 					</li>
           <br/>
@@ -319,7 +319,7 @@
                     <li>Copy of each method of each loaded class</li>
                   </ol>
                 </td>
-                <td style="text-align: center; vertical-align: middle">Unmanaged heap<br/><span class="color2">PermGen</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;or<br/><span class="color1">Metaspace</span></td>
+                <td style="text-align: center; vertical-align: middle">Unmanaged heap<br/><span class="color1">PermGen</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="color2">or</span><br/><span class="color1">Metaspace</span></td>
               </tr>
             
               <tr>
@@ -467,7 +467,7 @@
                   <li><span class="color2">decrements</span> the counter for each de-reference of the object.</li>
                   <li>marks object as garbage if reference count reaches zero.</li>
                   <li>is very under-performant and maintenance-heavy for JVMs.</li>
-                  <li><span class="color1">this collection pattern is fairly obsolete, not used in commercial JVMs.</span> </li>
+                  <li>is <span class="color1">fairly obsolete</span> in commercial JVMs.</li>
                 </ul>
                 <p/>
                 Memory allocator may place objects anywhere in the free space.
@@ -647,14 +647,14 @@
         <span style="font-size:0.6em;text-align:left;">
           Some notes on the existing garbage collectors:<br/>
           <ul>
-            <li>Not performant for large memory heaps (common these days).</li>
-            <li>Unpredictable and inconsistent pause-times and lesser number of STW GCs.</li>
-            <li>Memory availability is dependent on GC or compaction irrespective of the heap size.</li>
-            <li>Not much effort put into re-use of duplicated content.</li>
-            <li>The contiguous memory area arrangement reduces flexibility of "moving the walls".</li>
-            <li>Mostly focused on live object, not on garbage (an exact antithesis of the name).</li>
-            <li>JVM cannot manage most of the PermGen objects but PermGen included in the JVM managed memory.</li>
-            <li>Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
+            <li style="margin-top: 1.0em">Not performant for <span class="color2">large memory heaps</span> (common these days).</li>
+            <li style="margin-top: 1.0em"><span class="color2">Unpredictable and inconsistent pause-times</span> and lesser number of STW GCs.</li>
+            <li style="margin-top: 1.0em">Memory availability is dependent on GC or compaction irrespective of the heap size.</li>
+            <li style="margin-top: 1.0em">Not much effort put into re-use of duplicated content.</li>
+            <li style="margin-top: 1.0em">The <span class="color2">contiguous memory area arrangement</span> reduces flexibility of "moving the walls".</li>
+            <li style="margin-top: 1.0em">Mostly <span class="color2">focused on live objects</span>, not on garbage (an exact antithesis of the name).</li>
+            <li style="margin-top: 1.0em">JVM <span class="color2">cannot manage most of the PermGen objects</span> but PermGen included in the JVM managed memory.</li>
+            <li style="margin-top: 1.0em">Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
           </ul>
           <p/>
           The G1GC (<strong class="color2">Garbage First Garbage Collector</strong>), was designed and developed to resolve the above.
@@ -670,53 +670,70 @@
           <strong><em><span class="color1">Some observations</span> </em>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
-            <li>Non-contiguous memory regions of equal size.</li>
-            <li>Memory is divided into around as close to 2048 regions, as possible.</li>
-            <li>The region sizes can vary from 1 MB to 32 MB depending on the heap size.</li>
-            <li>G1 GC has a pause time-target that it tries to meet (soft real time).</li>
+            <li style="margin-top: 0.5em">Non-contiguous memory regions of equal size.</li>
+            <li style="margin-top: 0.5em">Memory is divided into around as close to 2048 regions, as possible.</li>
+            <li style="margin-top: 0.5em">The region sizes can vary from 1 MB to 32 MB depending on the heap size.</li>
+            <li style="margin-top: 0.5em">Divide by 2048, get the closest factor of 2 close to the calculated value, that is close to 2048 or above.</li>
+            <li style="margin-top: 0.5em">G1 GC has a pause time-target that it tries to meet (soft real time).</li>
           </ul>
           <p>
-          <img src="images/G1MemoryAllocation.png" width="55%"/>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+                <span style="font-size:0.9em;text-align:left;">
+                  <span class="color1">Example</span>: Calculating regions on a 9GB heap<br/>
+                  <ol>
+                    <li>9GB = 9 x 1024 MB = <strong class="color3">9216 MB</strong>.</li>
+                    <li><span class="color2">Initial region size</span> &rarr; 9216 MB &divide; 2048 regions = <strong class="color3">4.5 MB per region</strong> </li>
+                    <li><span class="color2">Lowest factor of 2 close to 4.5 = </span> <span class="color3">4</span> &rarr; 9216 &divide; 4MB = <strong class="color3">2304 regions</strong>.</li>
+                    <li><span class="color2">Next factor of 2 close to 4.5 = </span> <span class="color3">8</span> &rarr; 9216 &divide; 8MB = <strong class="color3">1152 regions</strong>.</li>
+                    <li>Since <strong class="color3">2304</strong> is closest to and above 2048, it is chosen as the number of regions to use.</li>
+                    <li>Each region is thus of <strong class="color3">4MB</strong> size.</li>
+                    <li>Watch out for <strong class="color1">Humongous</strong> objects. In this case any object <strong class="color3">2MB</strong> or above.</li>
+                    <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li>
+                    <li>Use <code>-XX:G1HeapRegionSize</code> and supply a power of 2.</li>
+                  </ol>
+                </span>
+              </td>
+              <td width="30%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1MemoryAllocation.png" width="100%"/>
+              </td>
+            </tr>
+          </table>
         </span>
       </section>
   
       <!-- Generational G1GC - Explanation -->
       <section>
         <h2>Generational GC - G1GC - Explanation</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <span class="color1">Explanation: </span><br/>
+          <ul>
+            <li style="margin-top: 0.5em">performs a <span class="color2">conc. global marking phase</span> to find live objects throughout.</li>
+            <li style="margin-top: 0.5em">post-marking, G1 knows which regions are mostly empty. </li>
+            <li style="margin-top: 0.5em">collects these regions first, which yields a large amount of free space. </li>
+            <li style="margin-top: 0.5em"><span class="color2">goes after regions that have the most garbage</span> , it is called <strong class="color1">Garbage-First</strong>.</li>
+            <li style="margin-top: 0.5em">incremental parallel copying of live objects from <strong class="color2">one or more sets</strong> of regions, called <strong class="color2">Collection Set (CSet).</strong></li>
+            <li style="margin-top: 0.5em">references to objects in the region are tracked via <strong class="color2">Remembered Sets (RSet)</strong>.</li>
+          </ul>
+        </span>
         <table width="100%">
-          <tr style="border: hidden">
-            <td width="70%" style="font-size: 0.85em; vertical-align: middle;border: hidden">
-              <span style="font-size:0.6em;text-align:left;">
-                <span class="color1">Explanation: </span><br/>
-                <ul>
-                  <li>performs a <span class="color2">conc. global marking phase</span> to find live objects throughout.</li>
-                  <li>post-marking, G1 knows which regions are mostly empty. </li>
-                  <li>collects these regions first, which yields a large amount of free space. </li>
-                  <li><span class="color2">goes after regions that have the most garbage</span> , it is called <strong class="color1">Garbage-First</strong>.</li>
-                  <li>incremental parallel copying of live objects from one or more sets of regions, called <strong class="color2">Collection Set (CSet).</strong></li>
-                  <li>references to objects in the region are tracked via <strong class="color2">Remembered Sets (RSet)</strong>.</li>
-                </ul>
-              </span>
-            </td>
-            <td width="30%" style="text-align: center; vertical-align: middle; border: hidden">
-              <img src="images/G1MemoryAllocation.png" width="100%"/>
-            </td>
-          </tr>
           <tr style="border: hidden">
             <td width="70%" style="font-size: 0.85em; vertical-align: middle;border: hidden">
               <span style="font-size:0.6em;text-align:left;">
                 <span class="color1">GC Phases</span> - when OldGen tenancy reaches a certain limit, rather than a simple young gen:<br/>
                 
                 <ul>
-                  <li><strong class="color2">Young Only Phase</strong>:
+                  <li><strong class="color2">Young Only Phase</strong>:<br/>
+                    A continuous young-only collection process runs until a threshold is reached. <br/>At that point:<br/>
                     <ol>
-                      <li><span class="color2">Initial Mark</span>: Concurrently mark <em class="color1">live</em> objects.</li>
+                      <li><span class="color2">Initial Mark</span>: STW, concurrently mark <em class="color1">live</em> objects.</li>
                       <li><span class="color2">Re-Mark</span>: STW, global reference processing, summary of liveness calculated.</li>
-                      <li><span class="color2">Cleanup</span>: STW, reclaim empty regions, <em class="color2">optionally</em> run a space reclamation phase <em class="color2">finally</em> a YoungGC.</li>
+                      <li><span class="color2">Cleanup</span>: STW, reclaim space, <em class="color2">optionally</em> run space reclamation.</li>
                     </ol>
                   </li>
                   <li><strong class="color2">Space Reclamation Phase</strong>:
-                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;multiple mixed collections evacuate live objects from the mixed regions to compact.
+                    <ol><li>Multiple <span class="color2">mixed collections</span> evacuate live objects from the mixed regions to compact.</li></ol>
                   </li>
                 </ul>
                 <!--
@@ -752,6 +769,49 @@
             Picture influenced by the Oracle GC Tuning Guide: <a href="https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm" target="_balnk">https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm</a>
         </span></span>
       </section>
+      
+      <!-- Generational G1GC - What triggers Initial Mark -->
+      <section>
+        <h2>Generational G1GC - What triggers Initial Mark</h2>
+        <span style="font-size:0.7em;text-align:left;">
+          <strong><em><span class="color1">What triggers the Initial Mark</span> </em>: </strong>
+          <br/>
+          <ul style="font-size: 0.8em">
+            <li><strong class="color2">Initiating Heap Occupancy Percent (IHOP)</strong> &Rarr; <code>-XX:InitiatingHeapOccupancyPercent</code>: <br/>
+              <ul>
+                <li>Default value is <span class="color3">45</span>, thus an Initial Mark is triggered when old gen heap size is 45% filled.</li>
+                <li>This is just an initiating value. G1 determines via measurement what the optimal percentage should be.</li>
+                <li>Such an adaptive HOP can be turned off by unsetting the flag (notice the -): <code>-XX:-G1UseAdaptiveIHOP</code>.</li>
+                <li>Turning off the Adaptive IHOP will make the G1 collector rely on the IHOP value alone.</li>
+                <li>This value is usually considered a <em class="color2">soft threshold</em>, reaching this limit <em class="color1">may not</em> immediately trigger <span class="color2">Initial Mark</span>.</li>
+              </ul>
+            </li>
+          </ul>
+          <br/><br/>
+          <ul style="font-size: 0.8em">
+            <li><strong class="color2">Guaranteed Survivor Space Availability Percent</strong> &Rarr; <code>-XX:G1ReservePercent</code>: <br/>
+              <ul>
+                <li>Default value is <span class="color3">10</span>, thus an Initial Mark is triggered when survivor space availability falls to 10% filled.</li>
+                <li>This is flat unchanging value. G1 honors the value set during startup.</li>
+                <li>This value supercedes the Heap Occupancy Percentage triggers.</li>
+                <li>This value is usually considered a <em class="color2">hard threshold</em>, reaching this limit <em class="color1">will</em> immediately trigger <span class="color2">Initial Mark</span>.</li>
+              </ul>
+            </li>
+          </ul>
+          <br/><br/>
+          <ul style="font-size: 0.8em">
+            <li><strong class="color2">A Humongous allocation is reached</strong>: <br/>
+              <ul>
+                <li>Humongous objects are objects of size <span class="color3">50%</span> or greater than a region size.</li>
+                <li><span class="color2">Directly allocated to Old gen.</span> regions to avoid the potentially costly collections and moves of young gen.</li>
+                <li>G1 tries to eagerly reclaim in these objects are not referenced across many collections.</li>
+                <li>Can be disabled by a <code>-XX:-G1EagerReclaimHumongousObjects</code>, may need to turn on Experimental options.</li>
+              </ul>
+            </li>
+          </ul>
+          <br/>
+        </span>
+      </section>
   
       <!-- Generational G1GC - Young Collection -->
       <section>
@@ -764,7 +824,7 @@
             <li>Dead objects are collected.</li>
             <li>Live objects are compacted and copied into a Survivor region.</li>
             <li>There is a certain percentage of heap space always available for Survivor space.</li>
-            <li>This is controlled by the flag <code>-XX:G1ReservePercent</code> (default = 10%).</li>
+            <li>This is controlled by the flag <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
           </ul>
           <p>
           <img src="images/G1_1_MinorGC.png" width="55%"/>
@@ -781,8 +841,8 @@
             <li>Young Collection includes compact copying from survivor to tenured after objects survive a few iterations.</li>
             <li>G1 continues with the <strong>young collection</strong> <strong class="color2">until either of the below is reached</strong>:</li>
             <ul>
-              <li>reaches a configurable soft limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = 45%).</li>
-              <li>reaches the configurable strict limit of <code>-XX:G1ReservePercent</code> (default = 10%).</li>
+              <li>reaches a configurable soft limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = <span class="color3">45</span>).</li>
+              <li>reaches the configurable strict limit of <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
             </ul>
             <li>If either constraint is met, it triggers the start of a concurrent GC.</li>
           </ul>
@@ -816,9 +876,9 @@
           <ul style="font-size: 0.9em">
             <li>Concurrent Marking is followed by a young collection and then the mixed collection is triggered.</li>
             <li>This involves picking up a few regions (eden, survivor and tenured) for collection.</li>
-            <li>Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = 8).</li>
+            <li>Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = <span class="color3">8</span>).</li>
             <li>The total number of tenured regions are divided by the above number and are picked up for collection.</li>
-            <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = 5%), mixed collections will continue.</li>
+            <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>), mixed collections will continue.</li>
           </ul>
           <p>
           <img src="images/G1_4_MixedCollection.png" width="55%"/>
@@ -943,8 +1003,7 @@
         <span style="font-size:0.6em;text-align:left;">
           G1GC has several options that can be tuned for performance.
           <br/>
-          First, the best way to find out what flags exist and what their default values are, is important.
-          <br/>The <code>-version</code> is used in the examples below. This can be replaced with a java class with a <code>main(...)</code> as well.<br/>
+          Finding out what flags exist and what their default values are, is important.<br/>
           <span class="color2">Print initial defaults for the operating system</span> (caution, this is a long list, best to redirect to a file):
           <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintFlagsInitial -version</code>
           <br>
@@ -953,6 +1012,7 @@
           <br/>
           <span class="color2">Print current flags</span>:
           <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintCommandLineFlags -version</code>
+          <br/><span style="font-size: 0.8em">The <code>-version</code> is used in the examples below. This can be replaced with a java class with a <code>main(...)</code> as well.</span><br/>
         </span>
       </section>
   
