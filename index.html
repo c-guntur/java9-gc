@@ -1268,7 +1268,8 @@
         width: '80%',
         height: '90%',
 
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // transition: 'slide', // none/fade/slide/convex/concave/zoom
+        transition: Reveal.getQueryHash().transition || 'default',
 
         menu: {
             markers: true,
@@ -1280,6 +1281,11 @@
                 {name: 'Light', theme: 'css/theme/light.css'}
             ]
         },
+        
+        // spotlight: {
+        //     presentingCursor: 'arrow', // none, arrow, crosshair, pointer, default
+        //     presentingCursorOnlyVisibleWhenSpotlightVisible: false
+        // },
 
         // More info https://github.com/hakimel/reveal.js#dependencies
         dependencies: [
@@ -1306,6 +1312,7 @@
             },
             {src: 'plugin/zoom-js/zoom.js', async: true},
             {src: 'plugin/notes/notes.js', async: true},
+            // {src: 'plugin/spotlight/spotlight.js'},
             {src: 'plugin/reveal.js-menu/menu.js', async: true}
         ]
     });
