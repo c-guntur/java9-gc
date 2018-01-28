@@ -403,9 +403,8 @@ body {
     color: #FF99FF;
 }
 
-.darkgraycenter {
-    color: darkgray;
-    text-align:center;
+.dimtext {
+    color: #777777;
 }
 
 .reveal .slide-number {

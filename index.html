@@ -48,7 +48,7 @@
       <h4>&nbsp;</h4>
       <img src="images/DukeGarbageCollector.png" height="400"/>
       <br>
-      <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">
+      <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">
         Below icons are from SuperTinyIcons: <a href="https://github.com/edent/SuperTinyIcons" target="_balnk">https://github.com/edent/SuperTinyIcons</a>
       </span></span>
     </section>
@@ -110,7 +110,9 @@
         </table>
       </span>
       <br>
-      <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a></span></span>
+      <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">
+        LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a>
+      </span></span>
     </section>
     
     <!-- Agenda -->
@@ -119,23 +121,22 @@
       <span style="margin-left: 10%">
         Topics covered:<br/>
         <ul style="font-size: 0.7em;line-height: 50px;margin-left: 20%">
-          <li>Brief walk-through:<br/>
+          <li>10 minute walk-through:<br/>
             <ul>
-              <li>Java Memory - Model</li>
-              <li>Java Memory - Usage</li>
-              <li>Java Memory - Allocation</li>
-              <li>Garbage Collection - Basics</li>
-              <li>Garbage Collection - Patterns</li>
+              <li><span class="dimtext">Java Memory - Model</span></li>
+              <li><span class="dimtext">Java Memory - Usage</span></li>
+              <li><span class="dimtext">Java Memory - Allocation</span></li>
+              <li><span class="dimtext">Garbage Collection - Basics</span></li>
+              <li><span class="dimtext">Garbage Collection - Patterns</span></li>
+              <li><span class="dimtext">Garbage Collection - Generational</span></li>
             </ul>
           </li>
-          <br/>
-          <li>Garbage Collection - Generational</li>
-          <li>Garbage Collection - Logging Options</li>
-          <li>Garbage Collection - Tuning Options</li>
-          <br/>
+          <li>G1GC - How it works</li>
+          <li>G1GC - Logging Options</li>
+          <li>G1GC - Common Tuning Situations</li>
           <li>A discussion (Time permitting):
             <ul>
-                <li>Garbage Collection - Future</li>
+              <li><span class="dimtext">Garbage Collection - Future</span></li>
             </ul>
           </li>
         </ul>
@@ -168,13 +169,13 @@
                 Some are shared across all threads while others are per-thread areas.
                 <br/>
                 <ol>
-                  <li><strong class="color2">Program Counter (PC) Register </strong> - <strong class="darkgraycenter">Per Thread</strong>:
+                  <li><strong class="color2">Program Counter (PC) Register </strong> - <strong class="dimtext">Per Thread</strong>:
                     <ul>
                       <li>has the address of the current JVM instruction being executed.</li>
                     </ul>
                   </li>
                   <br/>
-                  <li><strong class="color2">JVM Stack</strong> - <strong class="darkgraycenter">Per Thread</strong>:
+                  <li><strong class="color2">JVM Stack</strong> - <strong class="dimtext">Per Thread</strong>:
                     <ul>
                       <li>JVM pushes to or pops from the stack frame.</li>
                       <li>any exception in execution results in tracing this stack frame to produce a stack trace.</li>
@@ -182,7 +183,7 @@
                     </ul>
                   </li>
                   <br/>
-                  <li><strong class="color2">Native Methods Stack</strong> - <strong class="darkgraycenter">Per Thread</strong>:
+                  <li><strong class="color2">Native Methods Stack</strong> - <strong class="dimtext">Per Thread</strong>:
                     <ul>
                       <li>storage area for native methods.</li>
                       <li>also referred to as 'C Stacks'.</li>
@@ -208,7 +209,7 @@
               <span style="font-size:0.65em;text-align:left;">
                 Some are shared across all threads while others are per-thread areas.
                 <ol start="4">
-                  <li><strong class="color2">Method Area</strong> - <strong class="darkgraycenter">Shared</strong>:
+                  <li><strong class="color2">Method Area</strong> - <strong class="dimtext">Shared</strong>:
                     <ul>
                       <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method byte-codes.</li>
                       <li>Oracle Hotspot VM refers to this area as Permanent Generation (PermGen).</li>
@@ -216,7 +217,7 @@
                     </ul>
                   </li>
                   <br/>
-                  <li><strong class="color2">Runtime Constant Pool</strong> - <strong class="darkgraycenter">Shared</strong>:
+                  <li><strong class="color2">Runtime Constant Pool</strong> - <strong class="dimtext">Shared</strong>:
                     <ul>
                       <li><span class="color1">the most core area for the JVM</span>.</li>
                       <li>contains all constants of any interface and class.</li>
@@ -225,7 +226,7 @@
                     </ul>
                   </li>
                   <br/>
-                  <li><strong class="color2">Heap</strong> - <strong class="darkgraycenter">Shared</strong>:
+                  <li><strong class="color2">Heap</strong> - <strong class="dimtext">Shared</strong>:
                     <ul>
                       <li>space that stores instances or objects, and is a target of garbage collection.</li>
                       <li>most JVM performance revolves around the heap.</li>
@@ -582,7 +583,7 @@
           <img src="images/GenerationalMemoryAreas.png" width="65%"/>
         </span>
         <br>
-        <span class="darkgraycenter"><span style="font-size: 0.35em; display: block">
+        <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
             Picture influenced by Jörg Prante's writeup: <a href="http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html" target="_balnk">http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html</a>
         </span></span>
       </section>
@@ -662,10 +663,27 @@
           <span class="color1">It is the new default collector for JDK 9</span>.
         </span>
       </section>
-  
-      <!-- Generational G1GC - Pictorial -->
+    </section>
+    
+    <!-- G1GC -->
+    <section>
+      
+      <!-- Garbage First Garbage Collector -->
       <section>
-        <h2>Generational G1GC - Pictorial</h2>
+        <h2>Garbage First Garbage Collector</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          Java 9 introduced a new <span class="color2">default</span> Generational Garbage Collector.
+          <p/>
+          This new collector is called <span class="color1">Garbage First Garbage Collector (G1GC)</span>.<br/>
+          <br/>
+          <img src="images/G1MemoryAllocation.png" width="55%"/>
+        </span>
+        
+      </section>
+  
+      <!-- G1GC - Pictorial -->
+      <section>
+        <h2>G1GC - Pictorial</h2>
         <span style="font-size:0.6em;text-align:left;">
           <strong><em><span class="color1">Some observations</span> </em>: </strong>
           <br/>
@@ -673,7 +691,6 @@
             <li style="margin-top: 0.5em">Non-contiguous memory regions of equal size.</li>
             <li style="margin-top: 0.5em">Memory is divided into around as close to 2048 regions, as possible.</li>
             <li style="margin-top: 0.5em">The region sizes can vary from 1 MB to 32 MB depending on the heap size.</li>
-            <li style="margin-top: 0.5em">Divide by 2048, get the closest factor of 2 close to the calculated value, that is close to 2048 or above.</li>
             <li style="margin-top: 0.5em">G1 GC has a pause time-target that it tries to meet (soft real time).</li>
           </ul>
           <p>
@@ -681,7 +698,7 @@
             <tr style="border: hidden">
               <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
                 <span style="font-size:0.9em;text-align:left;">
-                  <span class="color1">Example</span>: Calculating regions on a 9GB heap<br/>
+                  <span class="color1">Math Stuff</span>: Calculating regions on a 9GB heap<br/>
                   <ol>
                     <li>9GB = 9 x 1024 MB = <strong class="color3">9216 MB</strong>.</li>
                     <li><span class="color2">Initial region size</span> &rarr; 9216 MB &divide; 2048 regions = <strong class="color3">4.5 MB per region</strong> </li>
@@ -689,9 +706,9 @@
                     <li><span class="color2">Next factor of 2 close to 4.5 = </span> <span class="color3">8</span> &rarr; 9216 &divide; 8MB = <strong class="color3">1152 regions</strong>.</li>
                     <li>Since <strong class="color3">2304</strong> is closest to and above 2048, it is chosen as the number of regions to use.</li>
                     <li>Each region is thus of <strong class="color3">4MB</strong> size.</li>
-                    <li>Watch out for <strong class="color1">Humongous</strong> objects. In this case any object <strong class="color3">2MB</strong> or above.</li>
                     <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li>
                     <li>Use <code>-XX:G1HeapRegionSize</code> and supply a power of 2.</li>
+                    <li>Watch out for <strong class="color1">Humongous</strong> objects. In this case any object <strong class="color3">2MB</strong> or above.</li>
                   </ol>
                 </span>
               </td>
@@ -703,9 +720,9 @@
         </span>
       </section>
   
-      <!-- Generational G1GC - Explanation -->
+      <!-- G1GC - Explanation -->
       <section>
-        <h2>Generational GC - G1GC - Explanation</h2>
+        <h2>G1GC - Explanation</h2>
         <span style="font-size:0.6em;text-align:left;">
           <span class="color1">Explanation: </span><br/>
           <ul>
@@ -756,23 +773,23 @@
         </table>
       </section>
   
-      <!-- Generational G1GC - Cycle -->
+      <!-- G1GC - Cycle -->
       <section>
-        <h2>Generational G1GC - Cycle</h2>
+        <h2>G1GC - Cycle</h2>
         <span style="font-size:0.65em;text-align:left;">
           <strong><span class="color1">Expanded G1GC Cycle</span> : </strong>
           <br/>
           <img src="images/G1GC_Cycle.png" width="65%"/>
         </span>
         <br>
-        <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">
+        <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">
             Picture influenced by the Oracle GC Tuning Guide: <a href="https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm" target="_balnk">https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm</a>
         </span></span>
       </section>
       
-      <!-- Generational G1GC - What triggers Initial Mark -->
+      <!-- G1GC - What triggers Initial Mark -->
       <section>
-        <h2>Generational G1GC - What triggers Initial Mark</h2>
+        <h2>G1GC - What triggers Initial Mark</h2>
         <span style="font-size:0.7em;text-align:left;">
           <strong><em><span class="color1">What triggers the Initial Mark</span> </em>: </strong>
           <br/>
@@ -781,7 +798,7 @@
               <ul>
                 <li>Default value is <span class="color3">45</span>, thus an Initial Mark is triggered when old gen heap size is 45% filled.</li>
                 <li>This is just an initiating value. G1 determines via measurement what the optimal percentage should be.</li>
-                <li>Such an adaptive HOP can be turned off by unsetting the flag (notice the -): <code>-XX:-G1UseAdaptiveIHOP</code>.</li>
+                <li>Such an adaptive HOP can be turned off by un-setting the flag (<span class="dimtext">notice the -</span>): <code>-XX:-G1UseAdaptiveIHOP</code>.</li>
                 <li>Turning off the Adaptive IHOP will make the G1 collector rely on the IHOP value alone.</li>
                 <li>This value is usually considered a <em class="color2">soft threshold</em>, reaching this limit <em class="color1">may not</em> immediately trigger <span class="color2">Initial Mark</span>.</li>
               </ul>
@@ -792,8 +809,8 @@
             <li><strong class="color2">Guaranteed Survivor Space Availability Percent</strong> &Rarr; <code>-XX:G1ReservePercent</code>: <br/>
               <ul>
                 <li>Default value is <span class="color3">10</span>, thus an Initial Mark is triggered when survivor space availability falls to 10% filled.</li>
-                <li>This is flat unchanging value. G1 honors the value set during startup.</li>
-                <li>This value supercedes the Heap Occupancy Percentage triggers.</li>
+                <li>This is a flat unchanging value. G1 honors the value set during startup.</li>
+                <li>This value supersedes the Heap Occupancy Percentage triggers.</li>
                 <li>This value is usually considered a <em class="color2">hard threshold</em>, reaching this limit <em class="color1">will</em> immediately trigger <span class="color2">Initial Mark</span>.</li>
               </ul>
             </li>
@@ -813,9 +830,9 @@
         </span>
       </section>
   
-      <!-- Generational G1GC - Young Collection -->
+      <!-- G1GC - Young Collection -->
       <section>
-        <h2>Generational G1GC - Young Collection</h2>
+        <h2>G1GC - Young Collection</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">1. Young collection (Eden &rarr; Survivor)</span>: </strong>
           <br/>
@@ -831,9 +848,9 @@
         </span>
       </section>
 
-      <!-- Generational G1GC - Compact Copying -->
+      <!-- G1GC - Compact Copying -->
       <section>
-        <h2>Generational G1GC - Compact Copying</h2>
+        <h2>G1GC - Compact Copying</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
           <br/>
@@ -851,9 +868,9 @@
         </span>
       </section>
   
-      <!-- Generational G1GC - Concurrent Marking -->
+      <!-- G1GC - Concurrent Marking -->
       <section>
-        <h2>Generational G1GC - Concurrent Marking</h2>
+        <h2>G1GC - Concurrent Marking</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">3. Concurrent Marking</span>: </strong>
           <br/>
@@ -867,9 +884,9 @@
         </span>
       </section>
   
-      <!-- Generational G1GC - Mixed Collection -->
+      <!-- G1GC - Mixed Collection -->
       <section>
-        <h2>Generational G1GC - Mixed Collection</h2>
+        <h2>G1GC - Mixed Collection</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">4. Mixed Collection</span>: </strong>
           <br/>
@@ -884,107 +901,107 @@
           <img src="images/G1_4_MixedCollection.png" width="55%"/>
         </span>
       </section>
+    </section>
   
-      <!-- Generational GC - Summary -->
-      <section>
-        <h2>Generational Garbage Collection - Summary</h2>
+    <!-- GC - Summary -->
+    <section>
+      <h2>Generational Garbage Collection - Summary</h2>
 
-        <span style="font-size:0.6em;text-align:left;">Common JVM options to use a specific collector:</span><br/>
-        <table style="font-size: 0.55em;text-align: left;width: 90%">
-          <thead>
-            <tr>
-              <th style="text-align: center; width: 15%">Type</th>
-              <th style="text-align: center; width: 15%">Young GC</th>
-              <th style="text-align: center; width: 15%">Tenured GC</th>
-              <th style="text-align: left;">JVM Option</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="text-align: center; vertical-align: middle"><strong>Serial GC</strong></td>
-              <td style="text-align: center; vertical-align: middle">Serial</td>
-              <td style="text-align: center; vertical-align: middle">Serial</td>
-              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseSerialGC</code></td>
-            </tr>
-          
-            <tr>
-              <td style="text-align: center; vertical-align: middle"><strong>Parallel GC</strong></td>
-              <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">Scavenge</span></td>
-              <td style="text-align: center; vertical-align: middle">Parallel</td>
-              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParallelGC -XX:+UseParallelOldGC</code></td>
-            </tr>
-          
-            <tr>
-              <td style="text-align: center; vertical-align: middle"><strong>CMS GC</strong></td>
-              <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">New</span></td>
-              <td style="text-align: center; vertical-align: middle">CMS</td>
-              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</code></td>
-            </tr>
-          
-            <tr>
-              <td style="text-align: center; vertical-align: middle"><strong>G1 GC</strong></td>
-              <td style="text-align: center; vertical-align: middle" colspan="2">G1GC</td>
-              <td style="text-align: left; vertical-align: middle"><code>-XX:+UseG1GC</code></td>
-            </tr>
-          
-          </tbody>
-        </table>
-
-        <br/>
-        <span style="font-size:0.6em;text-align:left;">Differences in collectors:</span><br/>
-        <table style="font-size: 0.55em;text-align: left;width: 90%">
-          <thead>
+      <span style="font-size:0.6em;text-align:left;">Common JVM options to use a specific collector:</span><br/>
+      <table style="font-size: 0.55em;text-align: left;width: 90%">
+        <thead>
           <tr>
-            <th style="text-align: center; width: 13%">Type</th>
-            <th style="text-align: center; width: 12%">Parallel</th>
-            <th style="text-align: center; width: 12%">Concurrent</th>
-            <th style="text-align: center; width: 16%">Young GC</th>
-            <th style="text-align: center; width: 16%">Tenured GC</th>
-            <th style="text-align: center; width: 31%">Feature</th>
+            <th style="text-align: center; width: 15%">Type</th>
+            <th style="text-align: center; width: 15%">Young GC</th>
+            <th style="text-align: center; width: 15%">Tenured GC</th>
+            <th style="text-align: left;">JVM Option</th>
           </tr>
-          </thead>
-    
-          <tbody>
+        </thead>
+        <tbody>
           <tr>
             <td style="text-align: center; vertical-align: middle"><strong>Serial GC</strong></td>
-            <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
-            <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
             <td style="text-align: center; vertical-align: middle">Serial</td>
             <td style="text-align: center; vertical-align: middle">Serial</td>
-            <td style="text-align: center; vertical-align: middle">Batch processing</td>
+            <td style="text-align: left; vertical-align: middle"><code>-XX:+UseSerialGC</code></td>
           </tr>
-    
+        
           <tr>
             <td style="text-align: center; vertical-align: middle"><strong>Parallel GC</strong></td>
-            <td style="text-align: center; vertical-align: middle">Yes</td>
-            <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
+            <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">Scavenge</span></td>
             <td style="text-align: center; vertical-align: middle">Parallel</td>
-            <td style="text-align: center; vertical-align: middle">Parallel</td>
-            <td style="text-align: center; vertical-align: middle">High throughput</td>
+            <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParallelGC -XX:+UseParallelOldGC</code></td>
           </tr>
-    
+        
           <tr>
             <td style="text-align: center; vertical-align: middle"><strong>CMS GC</strong></td>
-            <td style="text-align: center; vertical-align: middle">Yes</td>
-            <td style="text-align: center; vertical-align: middle">Yes</td>
-            <td style="text-align: center; vertical-align: middle">Parallel</td>
-            <td style="text-align: center; vertical-align: middle">Parallel & Conc.</td>
-            <td style="text-align: center; vertical-align: middle">Low Pause</td>
+            <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">New</span></td>
+            <td style="text-align: center; vertical-align: middle">CMS</td>
+            <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</code></td>
           </tr>
-    
+        
           <tr>
             <td style="text-align: center; vertical-align: middle"><strong>G1 GC</strong></td>
-            <td style="text-align: center; vertical-align: middle">Yes</td>
-            <td style="text-align: center; vertical-align: middle">Yes</td>
-            <td style="text-align: center; vertical-align: middle">Parallel</td>
-            <td style="text-align: center; vertical-align: middle">Parallel & Conc.</td>
-            <td style="text-align: center; vertical-align: middle">Low pause & High throughput</td>
+            <td style="text-align: center; vertical-align: middle" colspan="2">G1GC</td>
+            <td style="text-align: left; vertical-align: middle"><code>-XX:+UseG1GC</code></td>
           </tr>
-          </tbody>
-        </table>
-      </section>
-      
+        
+        </tbody>
+      </table>
+
+      <br/>
+      <span style="font-size:0.6em;text-align:left;">Differences in collectors:</span><br/>
+      <table style="font-size: 0.55em;text-align: left;width: 90%">
+        <thead>
+        <tr>
+          <th style="text-align: center; width: 13%">Type</th>
+          <th style="text-align: center; width: 12%">Parallel</th>
+          <th style="text-align: center; width: 12%">Concurrent</th>
+          <th style="text-align: center; width: 16%">Young GC</th>
+          <th style="text-align: center; width: 16%">Tenured GC</th>
+          <th style="text-align: center; width: 31%">Feature</th>
+        </tr>
+        </thead>
+  
+        <tbody>
+        <tr>
+          <td style="text-align: center; vertical-align: middle"><strong>Serial GC</strong></td>
+          <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
+          <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
+          <td style="text-align: center; vertical-align: middle">Serial</td>
+          <td style="text-align: center; vertical-align: middle">Serial</td>
+          <td style="text-align: center; vertical-align: middle">Batch processing</td>
+        </tr>
+  
+        <tr>
+          <td style="text-align: center; vertical-align: middle"><strong>Parallel GC</strong></td>
+          <td style="text-align: center; vertical-align: middle">Yes</td>
+          <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
+          <td style="text-align: center; vertical-align: middle">Parallel</td>
+          <td style="text-align: center; vertical-align: middle">Parallel</td>
+          <td style="text-align: center; vertical-align: middle">High throughput</td>
+        </tr>
+  
+        <tr>
+          <td style="text-align: center; vertical-align: middle"><strong>CMS GC</strong></td>
+          <td style="text-align: center; vertical-align: middle">Yes</td>
+          <td style="text-align: center; vertical-align: middle">Yes</td>
+          <td style="text-align: center; vertical-align: middle">Parallel</td>
+          <td style="text-align: center; vertical-align: middle">Parallel & Conc.</td>
+          <td style="text-align: center; vertical-align: middle">Low Pause</td>
+        </tr>
+  
+        <tr>
+          <td style="text-align: center; vertical-align: middle"><strong>G1 GC</strong></td>
+          <td style="text-align: center; vertical-align: middle">Yes</td>
+          <td style="text-align: center; vertical-align: middle">Yes</td>
+          <td style="text-align: center; vertical-align: middle">Parallel</td>
+          <td style="text-align: center; vertical-align: middle">Parallel & Conc.</td>
+          <td style="text-align: center; vertical-align: middle">Low pause & High throughput</td>
+        </tr>
+        </tbody>
+      </table>
     </section>
+    
     
     <!-- G1GC - Logging Options -->
     <section>
@@ -1004,10 +1021,10 @@
           G1GC has several options that can be tuned for performance.
           <br/>
           Finding out what flags exist and what their default values are, is important.<br/>
-          <span class="color2">Print initial defaults for the operating system</span> (caution, this is a long list, best to redirect to a file):
+          <span class="color2">Print initial defaults for the operating system</span> (<span class="dimtext">caution, this is a long list, best to redirect to a file</span>):
           <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintFlagsInitial -version</code>
           <br>
-          <span class="color2">Print final defaults for the jvm, with overrides on the defaults</span> (caution, this is a long list):
+          <span class="color2">Print final defaults for the jvm, with overrides on the defaults</span> (<span class="dimtext">caution, this is a long list, best to redirect to a file</span>):
           <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintFlagsFinal -version</code>
           <br/>
           <span class="color2">Print current flags</span>:
@@ -1016,13 +1033,18 @@
         </span>
       </section>
   
-      <!-- G1GC - How to log -->
+      <!-- G1GC - Logging G1GC processes -->
       <section>
-        <h2>GC - JVM Flags To Log</h2>
+        <h2>G1GC - Logging G1GC processes</h2>
     
         <span style="font-size:0.6em;text-align:left;">Common JVM options to print GC logs:</span><br/>
         <span style="font-size:0.4em;text-align:left;">Unified logging changes (for reference use):
-          <code>java -Xlog:help</code> ( flag style is now consistent: <span class="color2"> -Xlog : &lt;tags to log&gt; : &lt;where to log&gt; : &lt;decorations&gt; </span>)<br/></span>
+          <code>java -Xlog:help</code><br/>
+        </span>
+        <span style="font-size:0.6em;text-align:left;">
+          <span class="dimtext">Understanding the content in the table:</span> <span class="color2">-Xlog</span> : <span class="color2">&lt;tags to log&gt;</span> : <span class="color2">&lt;where to log&gt;</span> : <span class="color2">&lt;decorations&gt; </span>
+        </span>
+        <br/>
         <table style="font-size: 0.45em;text-align: left;width: 100%">
           
           <thead>
@@ -1034,21 +1056,21 @@
           </thead>
           
           <tbody>
-          <tr style="color:#888888;">
+          <tr class="dimtext">
             <td style="text-align: center; vertical-align: middle; ">Pre-G1GC</td>
-            <td style="text-align: left; vertical-align: middle; "><code style="color:#888888;">-Xloggc:/path/to/gc.log</code></td>
+            <td style="text-align: left; vertical-align: middle; "><span class="dimtext">-Xloggc:/path/to/gc.log</span></td>
             <td style="text-align: left; vertical-align: middle; ">Destination path for the logs.</td>
           </tr>
 
-          <tr style="color:#888888;">
+          <tr class="dimtext">
             <td style="text-align: center; vertical-align: middle">Pre-G1GC</td>
-            <td style="text-align: left; vertical-align: middle"><code style="color: #888888">-XX:+PrintGCDetails</code></td>
+            <td style="text-align: left; vertical-align: middle"><span class="dimtext">-XX:+PrintGCDetails</span></td>
             <td style="text-align: left; vertical-align: middle">Increases the verbosity of logged content. </td>
           </tr>
 
-          <tr style="color:#888888;">
+          <tr class="dimtext">
             <td style="text-align: center; vertical-align: middle">Pre-G1GC</td>
-            <td style="text-align: left; vertical-align: middle"><code style="color: #888888">-XX:+PrintGCDateStamps</code></td>
+            <td style="text-align: left; vertical-align: middle"><span class="dimtext">-XX:+PrintGCDateStamps</span></td>
             <td style="text-align: left; vertical-align: middle">Log date and timestamp of the collection.</td>
           </tr>
 
@@ -1065,13 +1087,13 @@
           <tr>
             <td style="text-align: center; vertical-align: middle">G1GC</td>
             <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc,safepoint</code></td>
-            <td style="text-align: left; vertical-align: middle">Log messages with <em style="color:#888;">either</em> <strong class="color2">gc</strong> <em style="color:#888;">or</em> <strong class="color2">safepoint</strong> tags (exclusive), both using 'info' level, to stdout, with default decorations.</td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <em class="dimtext">either</em> <strong class="color2">gc</strong> <em class="dimtext">or</em> <strong class="color2">safepoint</strong> tags (exclusive), both using 'info' level, to stdout, with default decorations.</td>
           </tr>
           
           <tr>
             <td style="text-align: center; vertical-align: middle">G1GC</td>
             <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc+ref=debug</code></td>
-            <td style="text-align: left; vertical-align: middle">Log messages with <em style="color:#888;">both</em> <strong class="color2">gc</strong> <em style="color:#888;">and</em> <strong class="color2">ref</strong> tags, using <strong class="color2">debug</strong> level, to stdout, with default decorations.</td>
+            <td style="text-align: left; vertical-align: middle">Log messages with <em class="dimtext">both</em> <strong class="color2">gc</strong> <em class="dimtext">and</em> <strong class="color2">ref</strong> tags, using <strong class="color2">debug</strong> level, to stdout, with default decorations.</td>
           </tr>
           
           <tr>
@@ -1082,7 +1104,7 @@
 
           <tr>
             <td style="text-align: center; vertical-align: middle">G1GC</td>
-            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc=trace:file=gc.txt:uptimemillis, pids:filecount=5, filesize=1m</code></td>
+            <td style="text-align: left; vertical-align: middle"><code>-Xlog:gc=trace:file=gc.txt:uptimemillis, pids:filecount=5,filesize=1m</code></td>
             <td style="text-align: left; vertical-align: middle">Log messages with <strong class="color2">gc</strong> tag using <strong class="color2">trace</strong> level to a <strong class="color2">rotating logs of 5 files</strong> of size <strong class="color2">1MB</strong>,
               using the base name <strong class="color2">gc.txt</strong>, with <strong class="color2">uptimemillis</strong> and <strong class="color2">pid</strong> decorations.</td>
           </tr>
@@ -1105,14 +1127,13 @@
     </section>
   
     <!-- G1GC - Performance definitions -->
-    
     <section>
   
-      <!-- G1GC - Tuning Options -->
+      <!-- G1GC - Common Tuning Situations -->
       <section>
-        <h2>G1GC - Tuning Options</h2>
+        <h2>G1GC - Common Tuning Situations</h2>
         <span style="font-size:0.65em;text-align:left;">
-          In this section salient tuning options are discussed.
+          In this section some tuning options for common issues are discussed.
         </span>
       </section>
   
@@ -1248,7 +1269,7 @@
         </table>
       </span>
       <br>
-      <span class="darkgraycenter"><span style="font-size: 0.25em; display: block">LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a></span></span>
+      <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a></span></span>
     </section>
   
   </div>
@@ -1259,16 +1280,14 @@
 <script src="js/reveal.js"></script>
 
 <script>
-    // More info https://github.com/hakimel/reveal.js#configuration
     Reveal.initialize({
         controls: true,
         progress: true,
         history: true,
         center: true,
         width: '80%',
-        height: '90%',
+        height: '95%',
 
-        // transition: 'slide', // none/fade/slide/convex/concave/zoom
         transition: Reveal.getQueryHash().transition || 'default',
 
         menu: {
@@ -1282,33 +1301,28 @@
             ]
         },
         
-        // spotlight: {
-        //     presentingCursor: 'arrow', // none, arrow, crosshair, pointer, default
-        //     presentingCursorOnlyVisibleWhenSpotlightVisible: false
-        // },
-
-        // More info https://github.com/hakimel/reveal.js#dependencies
         dependencies: [
             {
                 src: 'lib/js/classList.js', condition: function () {
-                return !document.body.classList;
-            }
+                  return !document.body.classList;
+                }
             },
             {
                 src: 'plugin/markdown/marked.js', condition: function () {
-                return !!document.querySelector('[data-markdown]');
-            }
+                  return !!document.querySelector('[data-markdown]');
+                }
             },
             {
                 src: 'plugin/markdown/markdown.js', condition: function () {
-                return !!document.querySelector('[data-markdown]');
-            }
-            },
-            {
-                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-                // noinspection Annotator
-                    hljs.initHighlightingOnLoad();
-            }
+                  return !!document.querySelector('[data-markdown]');
+                }
+            // }
+            // ,
+            // {
+            //     src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+            //     // noinspection Annotator
+            //     hljs.initHighlightingOnLoad();
+            // }
             },
             {src: 'plugin/zoom-js/zoom.js', async: true},
             {src: 'plugin/notes/notes.js', async: true},
