@@ -654,7 +654,7 @@
             <li style="margin-top: 1.0em">Not much effort put into re-use of duplicated content.</li>
             <li style="margin-top: 1.0em">The <span class="color2">contiguous memory area arrangement</span> reduces flexibility of "moving the walls".</li>
             <li style="margin-top: 1.0em">Mostly <span class="color2">focused on live objects</span>, not on garbage (an exact antithesis of the name).</li>
-            <li style="margin-top: 1.0em">JVM <span class="color2">cannot manage most of the PermGen objects</span> but PermGen included in the JVM managed memory.</li>
+            <li style="margin-top: 1.0em">JVM <span class="color2">limited in allocating the PermGen space within the heap</span> and is limited by JVM heap size.</li>
             <li style="margin-top: 1.0em">Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
           </ul>
           <p/>
@@ -688,12 +688,12 @@
           <strong><em><span class="color1">Some observations</span> </em>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
-            <li style="margin-top: 0.5em">Non-contiguous memory regions of equal size.</li>
-            <li style="margin-top: 0.5em">Memory is divided into around as close to 2048 regions, as possible.</li>
-            <li style="margin-top: 0.5em">The region sizes can vary from 1 MB to 32 MB depending on the heap size.</li>
-            <li style="margin-top: 0.5em">G1 GC has a pause time-target that it tries to meet (soft real time).</li>
+            <li style="margin-top: 0.5em">Non-contiguous memory regions of <strong class="color2">equal size</strong>.</li>
+            <li style="margin-top: 0.5em">Memory is <strong class="color2">divided into around as close to 2048 regions</strong>, as possible.</li>
+            <li style="margin-top: 0.5em">The region sizes can <strong class="color2">range from 1 MB to 32 MB</strong> depending on the heap size.</li>
+            <li style="margin-top: 0.5em">G1 GC has a <strong class="color2">pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
           </ul>
-          <p>
+          <hr/>
           <table width="100%">
             <tr style="border: hidden">
               <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
@@ -733,44 +733,45 @@
             <li style="margin-top: 0.5em">incremental parallel copying of live objects from <strong class="color2">one or more sets</strong> of regions, called <strong class="color2">Collection Set (CSet).</strong></li>
             <li style="margin-top: 0.5em">references to objects in the region are tracked via <strong class="color2">Remembered Sets (RSet)</strong>.</li>
           </ul>
+          <hr/>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="70%" style="font-size: 0.85em; vertical-align: middle;border: hidden">
+                <span style="font-size:0.6em;text-align:left;">
+                  <span class="color1">GC Phases</span> - when OldGen tenancy reaches a certain limit, rather than a simple young gen:<br/>
+                  
+                  <ul>
+                    <li><strong class="color2">Young Only Phase</strong>:<br/>
+                      A continuous young-only collection process runs until a threshold is reached. <br/>At that point:<br/>
+                      <ol>
+                        <li><span class="color2">Initial Mark</span>: STW, concurrently mark <em class="color1">live</em> objects.</li>
+                        <li><span class="color2">Re-Mark</span>: STW, global reference processing, summary of liveness calculated.</li>
+                        <li><span class="color2">Cleanup</span>: STW, reclaim space, <em class="color2">optionally</em> run space reclamation.</li>
+                      </ol>
+                    </li>
+                    <li><strong class="color2">Space Reclamation Phase</strong>:
+                      <ol><li>Multiple <span class="color2">mixed collections</span> evacuate live objects from the mixed regions to compact.</li></ol>
+                    </li>
+                  </ul>
+                  <!--
+                  <p>G1 does away with the compaction (defrag) phase of the Parallel GC, since all of its data lives
+                  in small regions that are relabelled as data of different ages is moved around; no defragmentation of
+                  a large area is needed. If your heap is small this won't make much difference; if your heap is large
+                  then avoiding defrag is noticeable in performance.
+                  Down side: an object which is over half the size of one of the many small regions in the heap,
+                  will be hard to handle and will cause slowdowns. These are called "humongous objects" and
+                  you want to avoid them.  If you have to, resize your regions, or restructure your code to avoid
+                  such objects.</p>
+                  -->
+                  <p/>
+              </span>
+              </td>
+              <td width="30%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1GC_Cycle.png" width="100%"/>
+              </td>
+            </tr>
+          </table>
         </span>
-        <table width="100%">
-          <tr style="border: hidden">
-            <td width="70%" style="font-size: 0.85em; vertical-align: middle;border: hidden">
-              <span style="font-size:0.6em;text-align:left;">
-                <span class="color1">GC Phases</span> - when OldGen tenancy reaches a certain limit, rather than a simple young gen:<br/>
-                
-                <ul>
-                  <li><strong class="color2">Young Only Phase</strong>:<br/>
-                    A continuous young-only collection process runs until a threshold is reached. <br/>At that point:<br/>
-                    <ol>
-                      <li><span class="color2">Initial Mark</span>: STW, concurrently mark <em class="color1">live</em> objects.</li>
-                      <li><span class="color2">Re-Mark</span>: STW, global reference processing, summary of liveness calculated.</li>
-                      <li><span class="color2">Cleanup</span>: STW, reclaim space, <em class="color2">optionally</em> run space reclamation.</li>
-                    </ol>
-                  </li>
-                  <li><strong class="color2">Space Reclamation Phase</strong>:
-                    <ol><li>Multiple <span class="color2">mixed collections</span> evacuate live objects from the mixed regions to compact.</li></ol>
-                  </li>
-                </ul>
-                <!--
-                <p>G1 does away with the compaction (defrag) phase of the Parallel GC, since all of its data lives
-                in small regions that are relabelled as data of different ages is moved around; no defragmentation of
-                a large area is needed. If your heap is small this won't make much difference; if your heap is large
-                then avoiding defrag is noticeable in performance.
-                Down side: an object which is over half the size of one of the many small regions in the heap,
-                will be hard to handle and will cause slowdowns. These are called "humongous objects" and
-                you want to avoid them.  If you have to, resize your regions, or restructure your code to avoid
-                such objects.</p>
-                -->
-                <p/>
-            </span>
-            </td>
-            <td width="30%" style="text-align: center; vertical-align: middle; border: hidden">
-              <img src="images/G1GC_Cycle.png" width="100%"/>
-            </td>
-          </tr>
-        </table>
       </section>
   
       <!-- G1GC - Cycle -->
@@ -899,6 +900,24 @@
           </ul>
           <p>
           <img src="images/G1_4_MixedCollection.png" width="55%"/>
+        </span>
+      </section>
+      
+      <section>
+        <h2>G1GC - Metaspace</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          Some notes on MetaSpace versus PermGen:<br/>
+          <ul>
+            <li style="margin-top: 1.0em"><span class="dimtext">PermGen allocated as a part of JVM Heap</span>.</li>
+            <li style="margin-top: 1.0em"><span class="dimtext">PermGen thus limited in upper bounds by heap size</span>.</li>
+            <li style="margin-top: 1.0em"><span class="dimtext">PermGen could not take advantage of O/S memory swaps</span>.</li>
+            <li style="margin-top: 1.0em"><span class="dimtext">Default PermGen size is 64M (85M for 64-bit scaled pointers)</span>.</li>
+            <li style="margin-top: 1.0em">Metaspace (or rather metaspaces) are <span class="color2">not a panacea</span> for <code>OutOfMemoryError</code>s.</li>
+            <li style="margin-top: 1.0em">Metaspace is <span class="color2">allocated from the O/S memory, rather than the JVM heap</span>.</li>
+            <li style="margin-top: 1.0em">Initial Metaspace Size is set by <code>-XX:MetaspaceSize</code> (<span class="dimtext">replaces -XX:PermSize</span>), default = <span class="color3">21.8M</span>.</li>
+            <li style="margin-top: 1.0em">Max Metaspace is set by <code>-XX:MaxMetaspaceSize</code> (<span class="dimtext">replaces -XX:MaxPermSize</span>), default = <span class="color3">unlimited</span>.</li>
+            <li style="margin-top: 1.0em">When porting from PermGen, simply replace <code>-XX:PermSize</code> and <code>-XX:MaxPermSize</code> with the new options.</li>
+          </ul>
         </span>
       </section>
     </section>
