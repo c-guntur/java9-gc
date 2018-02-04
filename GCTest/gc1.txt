@@ -1,0 +1,1066 @@
+GCTest N=2000000
+CMD = java -Xlog:gc*,gc+phases=trace:file=gc1.txt GCTest
+
+
+[0.015s][info][gc,heap] Heap region size: 1M
+[0.019s][info][gc     ] Using G1
+[0.019s][info][gc,heap,coops] Heap address: 0x00000006c0000000, size: 4096 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+[0.159s][info][gc,start     ] GC(0) Pause Young (G1 Evacuation Pause)
+[0.159s][info][gc,task      ] GC(0) Using 4 workers of 4 for evacuation
+[0.177s][info][gc,phases    ] GC(0)   Pre Evacuate Collection Set: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Choose Collection Set: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Humongous Register: 0.0ms
+[0.177s][trace][gc,phases    ] GC(0)       Humongous Total: 4
+[0.177s][trace][gc,phases    ] GC(0)       Humongous Candidate: 0
+[0.177s][info ][gc,phases    ] GC(0)   Evacuate Collection Set: 17.6ms
+[0.177s][trace][gc,phases    ] GC(0)       GC Worker Start (ms):     Min: 158.8, Avg: 159.0, Max: 159.2, Diff:  0.3, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.2, Max:  0.4, Diff:  0.3, Sum:  0.8, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.2, Diff:  0.2, Sum:  0.2, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       StringTable Roots (ms):   Min:  0.0, Avg:  0.2, Max:  0.3, Diff:  0.3, Sum:  0.6, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       CLDG Roots (ms):          Min:  0.0, Avg:  0.1, Max:  0.4, Diff:  0.4, Sum:  0.4, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     Update RS (ms):           Min:  0.0, Avg:  1.6, Max:  2.8, Diff:  2.8, Sum:  6.4, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)       Processed Buffers:        Min: 0, Avg:  0.8, Max: 1, Diff: 1, Sum: 3, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     Scan RS (ms):             Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     Object Copy (ms):         Min: 14.4, Avg: 15.6, Max: 17.1, Diff:  2.7, Sum: 62.5, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     GC Worker Total (ms):     Min: 17.3, Avg: 17.5, Max: 17.6, Diff:  0.3, Sum: 69.8, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)       GC Worker End (ms):       Min: 176.4, Avg: 176.4, Max: 176.4, Diff:  0.0, Workers: 4
+[0.177s][info ][gc,phases    ] GC(0)   Post Evacuate Collection Set: 0.2ms
+[0.177s][debug][gc,phases    ] GC(0)     Code Roots Fixup: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Preserve CM Refs: 0.0ms
+[0.177s][trace][gc,phases    ] GC(0)       Parallel Preserve CM Refs (ms): skipped
+[0.177s][debug][gc,phases    ] GC(0)     Reference Processing: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Clear Card Table: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Reference Enqueuing: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Merge Per-Thread State: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Code Roots Purge: 0.0ms
+[0.177s][debug][gc,phases    ] GC(0)     Redirty Cards: 0.0ms
+[0.177s][trace][gc,phases    ] GC(0)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.177s][trace][gc,phases    ] GC(0)         Redirtied Cards:          Min: 0, Avg: 226.0, Max: 468, Diff: 468, Sum: 904, Workers: 4
+[0.177s][debug][gc,phases    ] GC(0)     Free Collection Set: 0.1ms
+[0.177s][trace][gc,phases    ] GC(0)       Free Collection Set Serial: 0.0ms
+[0.177s][trace][gc,phases    ] GC(0)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.177s][trace][gc,phases    ] GC(0)       Non-Young Free Collection Set (ms): skipped
+[0.177s][debug][gc,phases    ] GC(0)     Humongous Reclaim: 0.0ms
+[0.177s][trace][gc,phases    ] GC(0)       Humongous Reclaimed: 0
+[0.177s][debug][gc,phases    ] GC(0)     Expand Heap After Collection: 0.0ms
+[0.177s][info ][gc,phases    ] GC(0)   Other: 0.2ms
+[0.177s][info ][gc,heap      ] GC(0) Eden regions: 14->0(10)
+[0.177s][info ][gc,heap      ] GC(0) Survivor regions: 0->2(2)
+[0.177s][info ][gc,heap      ] GC(0) Old regions: 0->13
+[0.177s][info ][gc,heap      ] GC(0) Humongous regions: 32->32
+[0.177s][info ][gc,metaspace ] GC(0) Metaspace: 4005K->4005K(1056768K)
+[0.177s][info ][gc           ] GC(0) Pause Young (G1 Evacuation Pause) 46M->46M(256M) 18.311ms
+[0.177s][info ][gc,cpu       ] GC(0) User=0.05s Sys=0.02s Real=0.02s
+[0.184s][info ][gc,start     ] GC(1) Pause Young (G1 Evacuation Pause)
+[0.184s][info ][gc,task      ] GC(1) Using 4 workers of 4 for evacuation
+[0.203s][info ][gc,phases    ] GC(1)   Pre Evacuate Collection Set: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Choose Collection Set: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Humongous Register: 0.0ms
+[0.203s][trace][gc,phases    ] GC(1)       Humongous Total: 4
+[0.203s][trace][gc,phases    ] GC(1)       Humongous Candidate: 0
+[0.203s][info ][gc,phases    ] GC(1)   Evacuate Collection Set: 19.0ms
+[0.203s][trace][gc,phases    ] GC(1)       GC Worker Start (ms):     Min: 183.7, Avg: 183.9, Max: 184.1, Diff:  0.4, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.2, Max:  0.4, Diff:  0.4, Sum:  0.6, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       StringTable Roots (ms):   Min:  0.0, Avg:  0.1, Max:  0.5, Diff:  0.5, Sum:  0.5, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       CLDG Roots (ms):          Min:  0.0, Avg:  0.1, Max:  0.3, Diff:  0.3, Sum:  0.3, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     Update RS (ms):           Min:  0.0, Avg:  1.8, Max:  3.1, Diff:  3.1, Sum:  7.1, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)       Processed Buffers:        Min: 0, Avg:  2.0, Max: 3, Diff: 3, Sum: 8, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     Scan RS (ms):             Min:  0.0, Avg:  0.1, Max:  0.4, Diff:  0.4, Sum:  0.4, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.1, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     Object Copy (ms):         Min: 15.4, Avg: 16.7, Max: 18.6, Diff:  3.2, Sum: 66.8, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     GC Worker Total (ms):     Min: 18.6, Avg: 18.8, Max: 19.0, Diff:  0.4, Sum: 75.2, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)       GC Worker End (ms):       Min: 202.7, Avg: 202.7, Max: 202.7, Diff:  0.0, Workers: 4
+[0.203s][info ][gc,phases    ] GC(1)   Post Evacuate Collection Set: 0.1ms
+[0.203s][debug][gc,phases    ] GC(1)     Code Roots Fixup: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Preserve CM Refs: 0.0ms
+[0.203s][trace][gc,phases    ] GC(1)       Parallel Preserve CM Refs (ms): skipped
+[0.203s][debug][gc,phases    ] GC(1)     Reference Processing: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Clear Card Table: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Reference Enqueuing: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Merge Per-Thread State: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Code Roots Purge: 0.0ms
+[0.203s][debug][gc,phases    ] GC(1)     Redirty Cards: 0.0ms
+[0.203s][trace][gc,phases    ] GC(1)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.203s][trace][gc,phases    ] GC(1)         Redirtied Cards:          Min: 0, Avg: 418.2, Max: 935, Diff: 935, Sum: 1673, Workers: 4
+[0.203s][debug][gc,phases    ] GC(1)     Free Collection Set: 0.0ms
+[0.203s][trace][gc,phases    ] GC(1)       Free Collection Set Serial: 0.0ms
+[0.203s][trace][gc,phases    ] GC(1)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.203s][trace][gc,phases    ] GC(1)       Non-Young Free Collection Set (ms): skipped
+[0.203s][debug][gc,phases    ] GC(1)     Humongous Reclaim: 0.0ms
+[0.203s][trace][gc,phases    ] GC(1)       Humongous Reclaimed: 0
+[0.203s][debug][gc,phases    ] GC(1)     Expand Heap After Collection: 0.0ms
+[0.203s][info ][gc,phases    ] GC(1)   Other: 0.1ms
+[0.203s][info ][gc,heap      ] GC(1) Eden regions: 10->0(14)
+[0.203s][info ][gc,heap      ] GC(1) Survivor regions: 2->2(2)
+[0.203s][info ][gc,heap      ] GC(1) Old regions: 13->23
+[0.203s][info ][gc,heap      ] GC(1) Humongous regions: 32->32
+[0.203s][info ][gc,metaspace ] GC(1) Metaspace: 4006K->4006K(1056768K)
+[0.203s][info ][gc           ] GC(1) Pause Young (G1 Evacuation Pause) 56M->57M(256M) 19.835ms
+[0.203s][info ][gc,cpu       ] GC(1) User=0.04s Sys=0.00s Real=0.02s
+[0.209s][info ][gc,start     ] GC(2) Pause Young (G1 Evacuation Pause)
+[0.209s][info ][gc,task      ] GC(2) Using 4 workers of 4 for evacuation
+[0.236s][info ][gc,phases    ] GC(2)   Pre Evacuate Collection Set: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Choose Collection Set: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Humongous Register: 0.0ms
+[0.237s][trace][gc,phases    ] GC(2)       Humongous Total: 4
+[0.237s][trace][gc,phases    ] GC(2)       Humongous Candidate: 0
+[0.237s][info ][gc,phases    ] GC(2)   Evacuate Collection Set: 26.8ms
+[0.237s][trace][gc,phases    ] GC(2)       GC Worker Start (ms):     Min: 209.5, Avg: 209.5, Max: 209.5, Diff:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Ext Root Scanning (ms):   Min:  0.2, Avg:  0.3, Max:  0.3, Diff:  0.0, Sum:  1.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.0, Sum:  0.1, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       StringTable Roots (ms):   Min:  0.1, Avg:  0.2, Max:  0.2, Diff:  0.1, Sum:  0.7, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.1, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Update RS (ms):           Min:  1.8, Avg:  4.1, Max:  5.0, Diff:  3.2, Sum: 16.3, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)       Processed Buffers:        Min: 1, Avg:  1.5, Max: 2, Diff: 1, Sum: 6, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Scan RS (ms):             Min:  0.0, Avg:  0.2, Max:  1.0, Diff:  0.9, Sum:  1.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Object Copy (ms):         Min: 21.5, Avg: 22.2, Max: 23.7, Diff:  2.2, Sum: 88.7, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     GC Worker Total (ms):     Min: 26.8, Avg: 26.8, Max: 26.8, Diff:  0.0, Sum: 107.1, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)       GC Worker End (ms):       Min: 236.3, Avg: 236.3, Max: 236.3, Diff:  0.0, Workers: 4
+[0.237s][info ][gc,phases    ] GC(2)   Post Evacuate Collection Set: 0.2ms
+[0.237s][debug][gc,phases    ] GC(2)     Code Roots Fixup: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Preserve CM Refs: 0.0ms
+[0.237s][trace][gc,phases    ] GC(2)       Parallel Preserve CM Refs (ms): skipped
+[0.237s][debug][gc,phases    ] GC(2)     Reference Processing: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Clear Card Table: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Reference Enqueuing: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Merge Per-Thread State: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Code Roots Purge: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Redirty Cards: 0.0ms
+[0.237s][trace][gc,phases    ] GC(2)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][trace][gc,phases    ] GC(2)         Redirtied Cards:          Min: 0, Avg: 212.8, Max: 466, Diff: 466, Sum: 851, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Free Collection Set: 0.1ms
+[0.237s][trace][gc,phases    ] GC(2)       Free Collection Set Serial: 0.0ms
+[0.237s][trace][gc,phases    ] GC(2)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.237s][trace][gc,phases    ] GC(2)       Non-Young Free Collection Set (ms): skipped
+[0.237s][debug][gc,phases    ] GC(2)     Humongous Reclaim: 0.0ms
+[0.237s][trace][gc,phases    ] GC(2)       Humongous Reclaimed: 0
+[0.237s][debug][gc,phases    ] GC(2)     Expand Heap After Collection: 0.0ms
+[0.237s][info ][gc,phases    ] GC(2)   Other: 0.2ms
+[0.237s][info ][gc,heap      ] GC(2) Eden regions: 14->0(21)
+[0.237s][info ][gc,heap      ] GC(2) Survivor regions: 2->2(2)
+[0.237s][info ][gc,heap      ] GC(2) Old regions: 23->38
+[0.237s][info ][gc,heap      ] GC(2) Humongous regions: 32->32
+[0.237s][info ][gc,metaspace ] GC(2) Metaspace: 4006K->4006K(1056768K)
+[0.237s][info ][gc           ] GC(2) Pause Young (G1 Evacuation Pause) 71M->72M(256M) 27.497ms
+[0.237s][info ][gc,cpu       ] GC(2) User=0.06s Sys=0.02s Real=0.03s
+[0.245s][info ][gc,start     ] GC(3) Pause Young (G1 Evacuation Pause)
+[0.245s][info ][gc,task      ] GC(3) Using 4 workers of 4 for evacuation
+[0.274s][info ][gc,phases    ] GC(3)   Pre Evacuate Collection Set: 0.1ms
+[0.274s][debug][gc,phases    ] GC(3)     Choose Collection Set: 0.0ms
+[0.274s][debug][gc,phases    ] GC(3)     Humongous Register: 0.1ms
+[0.274s][trace][gc,phases    ] GC(3)       Humongous Total: 4
+[0.274s][trace][gc,phases    ] GC(3)       Humongous Candidate: 0
+[0.274s][info ][gc,phases    ] GC(3)   Evacuate Collection Set: 28.6ms
+[0.274s][trace][gc,phases    ] GC(3)       GC Worker Start (ms):     Min: 245.2, Avg: 246.2, Max: 247.2, Diff:  2.0, Workers: 4
+[0.274s][debug][gc,phases    ] GC(3)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.3, Diff:  0.3, Sum:  0.3, Workers: 4
+[0.274s][trace][gc,phases    ] GC(3)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.274s][trace][gc,phases    ] GC(3)       StringTable Roots (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.3, Workers: 4
+[0.274s][trace][gc,phases    ] GC(3)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.274s][trace][gc,phases    ] GC(3)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.274s][trace][gc,phases    ] GC(3)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.274s][trace][gc,phases    ] GC(3)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     Update RS (ms):           Min:  2.7, Avg:  3.8, Max:  4.3, Diff:  1.6, Sum: 15.3, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)       Processed Buffers:        Min: 2, Avg:  2.2, Max: 3, Diff: 1, Sum: 9, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     Scan RS (ms):             Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     Object Copy (ms):         Min: 22.6, Avg: 23.6, Max: 24.0, Diff:  1.5, Sum: 94.3, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     GC Worker Total (ms):     Min: 26.6, Avg: 27.6, Max: 28.6, Diff:  2.0, Sum: 110.3, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)       GC Worker End (ms):       Min: 273.7, Avg: 273.7, Max: 273.8, Diff:  0.0, Workers: 4
+[0.275s][info ][gc,phases    ] GC(3)   Post Evacuate Collection Set: 0.1ms
+[0.275s][debug][gc,phases    ] GC(3)     Code Roots Fixup: 0.0ms
+[0.275s][debug][gc,phases    ] GC(3)     Preserve CM Refs: 0.0ms
+[0.275s][trace][gc,phases    ] GC(3)       Parallel Preserve CM Refs (ms): skipped
+[0.275s][debug][gc,phases    ] GC(3)     Reference Processing: 0.0ms
+[0.275s][debug][gc,phases    ] GC(3)     Clear Card Table: 0.0ms
+[0.275s][debug][gc,phases    ] GC(3)     Reference Enqueuing: 0.0ms
+[0.275s][debug][gc,phases    ] GC(3)     Merge Per-Thread State: 0.0ms
+[0.275s][debug][gc,phases    ] GC(3)     Code Roots Purge: 0.0ms
+[0.275s][debug][gc,phases    ] GC(3)     Redirty Cards: 0.0ms
+[0.275s][trace][gc,phases    ] GC(3)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.275s][trace][gc,phases    ] GC(3)         Redirtied Cards:          Min: 0, Avg: 304.2, Max: 827, Diff: 827, Sum: 1217, Workers: 4
+[0.275s][debug][gc,phases    ] GC(3)     Free Collection Set: 0.0ms
+[0.275s][trace][gc,phases    ] GC(3)       Free Collection Set Serial: 0.0ms
+[0.275s][trace][gc,phases    ] GC(3)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.275s][trace][gc,phases    ] GC(3)       Non-Young Free Collection Set (ms): skipped
+[0.275s][debug][gc,phases    ] GC(3)     Humongous Reclaim: 0.0ms
+[0.275s][trace][gc,phases    ] GC(3)       Humongous Reclaimed: 0
+[0.275s][debug][gc,phases    ] GC(3)     Expand Heap After Collection: 0.0ms
+[0.275s][info ][gc,phases    ] GC(3)   Other: 0.1ms
+[0.275s][info ][gc,heap      ] GC(3) Eden regions: 21->0(25)
+[0.275s][info ][gc,heap      ] GC(3) Survivor regions: 2->3(3)
+[0.275s][info ][gc,heap      ] GC(3) Old regions: 38->59
+[0.275s][info ][gc,heap      ] GC(3) Humongous regions: 32->32
+[0.275s][info ][gc,metaspace ] GC(3) Metaspace: 4006K->4006K(1056768K)
+[0.275s][info ][gc           ] GC(3) Pause Young (G1 Evacuation Pause) 93M->94M(256M) 30.356ms
+[0.275s][info ][gc,cpu       ] GC(3) User=0.06s Sys=0.02s Real=0.03s
+[0.282s][info ][gc,start     ] GC(4) Pause Young (G1 Evacuation Pause)
+[0.282s][info ][gc,task      ] GC(4) Using 4 workers of 4 for evacuation
+[0.323s][info ][gc,phases    ] GC(4)   Pre Evacuate Collection Set: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Choose Collection Set: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Humongous Register: 0.0ms
+[0.323s][trace][gc,phases    ] GC(4)       Humongous Total: 4
+[0.323s][trace][gc,phases    ] GC(4)       Humongous Candidate: 0
+[0.323s][info ][gc,phases    ] GC(4)   Evacuate Collection Set: 35.6ms
+[0.323s][trace][gc,phases    ] GC(4)       GC Worker Start (ms):     Min: 282.1, Avg: 282.1, Max: 282.1, Diff:  0.0, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       StringTable Roots (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.3, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     Update RS (ms):           Min:  2.8, Avg:  3.8, Max:  5.2, Diff:  2.4, Sum: 15.4, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)       Processed Buffers:        Min: 2, Avg:  2.5, Max: 3, Diff: 1, Sum: 10, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     Scan RS (ms):             Min:  0.0, Avg:  0.1, Max:  0.3, Diff:  0.3, Sum:  0.3, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     Object Copy (ms):         Min: 30.2, Avg: 31.5, Max: 32.4, Diff:  2.2, Sum: 126.0, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)       Termination Attempts:     Min: 1, Avg:  3.2, Max: 6, Diff: 5, Sum: 13, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     GC Worker Total (ms):     Min: 35.6, Avg: 35.6, Max: 35.6, Diff:  0.0, Sum: 142.4, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)       GC Worker End (ms):       Min: 317.7, Avg: 317.7, Max: 317.7, Diff:  0.0, Workers: 4
+[0.323s][info ][gc,phases    ] GC(4)   Post Evacuate Collection Set: 4.7ms
+[0.323s][debug][gc,phases    ] GC(4)     Code Roots Fixup: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Preserve CM Refs: 0.0ms
+[0.323s][trace][gc,phases    ] GC(4)       Parallel Preserve CM Refs (ms): skipped
+[0.323s][debug][gc,phases    ] GC(4)     Reference Processing: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Clear Card Table: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Reference Enqueuing: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Merge Per-Thread State: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Code Roots Purge: 0.0ms
+[0.323s][debug][gc,phases    ] GC(4)     Redirty Cards: 0.0ms
+[0.323s][trace][gc,phases    ] GC(4)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.323s][trace][gc,phases    ] GC(4)         Redirtied Cards:          Min: 0, Avg: 433.2, Max: 973, Diff: 973, Sum: 1733, Workers: 4
+[0.323s][debug][gc,phases    ] GC(4)     Free Collection Set: 0.0ms
+[0.323s][trace][gc,phases    ] GC(4)       Free Collection Set Serial: 0.0ms
+[0.323s][trace][gc,phases    ] GC(4)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.323s][trace][gc,phases    ] GC(4)       Non-Young Free Collection Set (ms): skipped
+[0.323s][debug][gc,phases    ] GC(4)     Humongous Reclaim: 0.0ms
+[0.323s][trace][gc,phases    ] GC(4)       Humongous Reclaimed: 0
+[0.323s][debug][gc,phases    ] GC(4)     Expand Heap After Collection: 4.7ms
+[0.323s][info ][gc,phases    ] GC(4)   Other: 0.1ms
+[0.323s][info ][gc,heap      ] GC(4) Eden regions: 25->0(34)
+[0.323s][info ][gc,heap      ] GC(4) Survivor regions: 3->4(4)
+[0.323s][info ][gc,heap      ] GC(4) Old regions: 59->84
+[0.323s][info ][gc,heap      ] GC(4) Humongous regions: 32->32
+[0.323s][info ][gc,metaspace ] GC(4) Metaspace: 4006K->4006K(1056768K)
+[0.323s][info ][gc           ] GC(4) Pause Young (G1 Evacuation Pause) 119M->120M(768M) 41.178ms
+[0.323s][info ][gc,cpu       ] GC(4) User=0.07s Sys=0.02s Real=0.04s
+[0.352s][info ][gc,start     ] GC(5) Pause Young (G1 Evacuation Pause)
+[0.353s][info ][gc,task      ] GC(5) Using 4 workers of 4 for evacuation
+[0.394s][info ][gc,phases    ] GC(5)   Pre Evacuate Collection Set: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Choose Collection Set: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Humongous Register: 0.0ms
+[0.394s][trace][gc,phases    ] GC(5)       Humongous Total: 4
+[0.394s][trace][gc,phases    ] GC(5)       Humongous Candidate: 0
+[0.394s][info ][gc,phases    ] GC(5)   Evacuate Collection Set: 41.2ms
+[0.394s][trace][gc,phases    ] GC(5)       GC Worker Start (ms):     Min: 352.6, Avg: 352.7, Max: 352.8, Diff:  0.2, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.6, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       StringTable Roots (ms):   Min:  0.0, Avg:  0.3, Max:  1.0, Diff:  0.9, Sum:  1.3, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     Update RS (ms):           Min:  3.9, Avg:  4.9, Max:  5.5, Diff:  1.6, Sum: 19.5, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)       Processed Buffers:        Min: 2, Avg:  2.5, Max: 3, Diff: 1, Sum: 10, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     Scan RS (ms):             Min:  0.0, Avg:  0.2, Max:  0.7, Diff:  0.7, Sum:  0.7, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     Object Copy (ms):         Min: 35.3, Avg: 35.9, Max: 36.4, Diff:  1.1, Sum: 143.5, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     GC Worker Total (ms):     Min: 41.0, Avg: 41.1, Max: 41.2, Diff:  0.2, Sum: 164.4, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)       GC Worker End (ms):       Min: 393.8, Avg: 393.8, Max: 393.8, Diff:  0.0, Workers: 4
+[0.394s][info ][gc,phases    ] GC(5)   Post Evacuate Collection Set: 0.2ms
+[0.394s][debug][gc,phases    ] GC(5)     Code Roots Fixup: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Preserve CM Refs: 0.0ms
+[0.394s][trace][gc,phases    ] GC(5)       Parallel Preserve CM Refs (ms): skipped
+[0.394s][debug][gc,phases    ] GC(5)     Reference Processing: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Clear Card Table: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Reference Enqueuing: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Merge Per-Thread State: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Code Roots Purge: 0.0ms
+[0.394s][debug][gc,phases    ] GC(5)     Redirty Cards: 0.0ms
+[0.394s][trace][gc,phases    ] GC(5)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.394s][trace][gc,phases    ] GC(5)         Redirtied Cards:          Min: 256, Avg: 512.0, Max: 973, Diff: 717, Sum: 2048, Workers: 4
+[0.394s][debug][gc,phases    ] GC(5)     Free Collection Set: 0.1ms
+[0.394s][trace][gc,phases    ] GC(5)       Free Collection Set Serial: 0.0ms
+[0.394s][trace][gc,phases    ] GC(5)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.394s][trace][gc,phases    ] GC(5)       Non-Young Free Collection Set (ms): skipped
+[0.394s][debug][gc,phases    ] GC(5)     Humongous Reclaim: 0.0ms
+[0.394s][trace][gc,phases    ] GC(5)       Humongous Reclaimed: 0
+[0.394s][debug][gc,phases    ] GC(5)     Expand Heap After Collection: 0.0ms
+[0.394s][info ][gc,phases    ] GC(5)   Other: 0.2ms
+[0.394s][info ][gc,heap      ] GC(5) Eden regions: 34->0(37)
+[0.394s][info ][gc,heap      ] GC(5) Survivor regions: 4->5(5)
+[0.394s][info ][gc,heap      ] GC(5) Old regions: 84->118
+[0.394s][info ][gc,heap      ] GC(5) Humongous regions: 32->32
+[0.394s][info ][gc,metaspace ] GC(5) Metaspace: 4006K->4006K(1056768K)
+[0.394s][info ][gc           ] GC(5) Pause Young (G1 Evacuation Pause) 154M->155M(768M) 41.892ms
+[0.394s][info ][gc,cpu       ] GC(5) User=0.09s Sys=0.03s Real=0.04s
+[0.402s][info ][gc,start     ] GC(6) Pause Young (G1 Evacuation Pause)
+[0.402s][info ][gc,task      ] GC(6) Using 4 workers of 4 for evacuation
+[0.450s][info ][gc,phases    ] GC(6)   Pre Evacuate Collection Set: 0.0ms
+[0.450s][debug][gc,phases    ] GC(6)     Choose Collection Set: 0.0ms
+[0.450s][debug][gc,phases    ] GC(6)     Humongous Register: 0.0ms
+[0.450s][trace][gc,phases    ] GC(6)       Humongous Total: 4
+[0.450s][trace][gc,phases    ] GC(6)       Humongous Candidate: 0
+[0.450s][info ][gc,phases    ] GC(6)   Evacuate Collection Set: 47.9ms
+[0.450s][trace][gc,phases    ] GC(6)       GC Worker Start (ms):     Min: 402.0, Avg: 402.2, Max: 402.6, Diff:  0.7, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.4, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       StringTable Roots (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.3, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     Update RS (ms):           Min:  6.0, Avg:  6.6, Max:  7.5, Diff:  1.5, Sum: 26.2, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)       Processed Buffers:        Min: 3, Avg:  3.2, Max: 4, Diff: 1, Sum: 13, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     Scan RS (ms):             Min:  0.0, Avg:  0.2, Max:  0.5, Diff:  0.5, Sum:  0.9, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     Object Copy (ms):         Min: 40.1, Avg: 40.7, Max: 41.0, Diff:  0.9, Sum: 162.6, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.450s][debug][gc,phases    ] GC(6)     GC Worker Total (ms):     Min: 47.2, Avg: 47.6, Max: 47.9, Diff:  0.6, Sum: 190.4, Workers: 4
+[0.450s][trace][gc,phases    ] GC(6)       GC Worker End (ms):       Min: 449.8, Avg: 449.8, Max: 449.8, Diff:  0.0, Workers: 4
+[0.450s][info ][gc,phases    ] GC(6)   Post Evacuate Collection Set: 0.1ms
+[0.450s][debug][gc,phases    ] GC(6)     Code Roots Fixup: 0.0ms
+[0.450s][debug][gc,phases    ] GC(6)     Preserve CM Refs: 0.0ms
+[0.451s][trace][gc,phases    ] GC(6)       Parallel Preserve CM Refs (ms): skipped
+[0.451s][debug][gc,phases    ] GC(6)     Reference Processing: 0.0ms
+[0.451s][debug][gc,phases    ] GC(6)     Clear Card Table: 0.0ms
+[0.451s][debug][gc,phases    ] GC(6)     Reference Enqueuing: 0.0ms
+[0.451s][debug][gc,phases    ] GC(6)     Merge Per-Thread State: 0.0ms
+[0.451s][debug][gc,phases    ] GC(6)     Code Roots Purge: 0.0ms
+[0.451s][debug][gc,phases    ] GC(6)     Redirty Cards: 0.0ms
+[0.451s][trace][gc,phases    ] GC(6)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.451s][trace][gc,phases    ] GC(6)         Redirtied Cards:          Min: 0, Avg: 556.8, Max: 1373, Diff: 1373, Sum: 2227, Workers: 4
+[0.451s][debug][gc,phases    ] GC(6)     Free Collection Set: 0.1ms
+[0.451s][trace][gc,phases    ] GC(6)       Free Collection Set Serial: 0.0ms
+[0.451s][trace][gc,phases    ] GC(6)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.451s][trace][gc,phases    ] GC(6)       Non-Young Free Collection Set (ms): skipped
+[0.451s][debug][gc,phases    ] GC(6)     Humongous Reclaim: 0.0ms
+[0.451s][trace][gc,phases    ] GC(6)       Humongous Reclaimed: 0
+[0.451s][debug][gc,phases    ] GC(6)     Expand Heap After Collection: 0.0ms
+[0.451s][info ][gc,phases    ] GC(6)   Other: 0.1ms
+[0.451s][info ][gc,heap      ] GC(6) Eden regions: 37->0(45)
+[0.451s][info ][gc,heap      ] GC(6) Survivor regions: 5->6(6)
+[0.451s][info ][gc,heap      ] GC(6) Old regions: 118->155
+[0.451s][info ][gc,heap      ] GC(6) Humongous regions: 32->32
+[0.451s][info ][gc,metaspace ] GC(6) Metaspace: 4006K->4006K(1056768K)
+[0.451s][info ][gc           ] GC(6) Pause Young (G1 Evacuation Pause) 192M->193M(768M) 48.750ms
+[0.451s][info ][gc,cpu       ] GC(6) User=0.10s Sys=0.02s Real=0.04s
+[0.460s][info ][gc,start     ] GC(7) Pause Young (G1 Evacuation Pause)
+[0.460s][info ][gc,task      ] GC(7) Using 4 workers of 4 for evacuation
+[0.515s][info ][gc,phases    ] GC(7)   Pre Evacuate Collection Set: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Choose Collection Set: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Humongous Register: 0.0ms
+[0.515s][trace][gc,phases    ] GC(7)       Humongous Total: 4
+[0.515s][trace][gc,phases    ] GC(7)       Humongous Candidate: 0
+[0.515s][info ][gc,phases    ] GC(7)   Evacuate Collection Set: 54.1ms
+[0.515s][trace][gc,phases    ] GC(7)       GC Worker Start (ms):     Min: 460.3, Avg: 460.3, Max: 460.3, Diff:  0.0, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       StringTable Roots (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.3, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     Update RS (ms):           Min:  5.6, Avg:  6.5, Max:  7.5, Diff:  1.9, Sum: 26.2, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)       Processed Buffers:        Min: 3, Avg:  3.8, Max: 5, Diff: 2, Sum: 15, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     Scan RS (ms):             Min:  0.0, Avg:  0.2, Max:  0.9, Diff:  0.9, Sum:  0.9, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     Object Copy (ms):         Min: 46.5, Avg: 47.2, Max: 47.5, Diff:  1.0, Sum: 188.9, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     GC Worker Total (ms):     Min: 54.1, Avg: 54.1, Max: 54.1, Diff:  0.0, Sum: 216.4, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)       GC Worker End (ms):       Min: 514.4, Avg: 514.4, Max: 514.4, Diff:  0.0, Workers: 4
+[0.515s][info ][gc,phases    ] GC(7)   Post Evacuate Collection Set: 0.2ms
+[0.515s][debug][gc,phases    ] GC(7)     Code Roots Fixup: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Preserve CM Refs: 0.0ms
+[0.515s][trace][gc,phases    ] GC(7)       Parallel Preserve CM Refs (ms): skipped
+[0.515s][debug][gc,phases    ] GC(7)     Reference Processing: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Clear Card Table: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Reference Enqueuing: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Merge Per-Thread State: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Code Roots Purge: 0.0ms
+[0.515s][debug][gc,phases    ] GC(7)     Redirty Cards: 0.0ms
+[0.515s][trace][gc,phases    ] GC(7)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.515s][trace][gc,phases    ] GC(7)         Redirtied Cards:          Min: 0, Avg: 680.8, Max: 1383, Diff: 1383, Sum: 2723, Workers: 4
+[0.515s][debug][gc,phases    ] GC(7)     Free Collection Set: 0.1ms
+[0.515s][trace][gc,phases    ] GC(7)       Free Collection Set Serial: 0.0ms
+[0.515s][trace][gc,phases    ] GC(7)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.515s][trace][gc,phases    ] GC(7)       Non-Young Free Collection Set (ms): skipped
+[0.515s][debug][gc,phases    ] GC(7)     Humongous Reclaim: 0.0ms
+[0.515s][trace][gc,phases    ] GC(7)       Humongous Reclaimed: 0
+[0.515s][debug][gc,phases    ] GC(7)     Expand Heap After Collection: 0.0ms
+[0.515s][info ][gc,phases    ] GC(7)   Other: 0.1ms
+[0.515s][info ][gc,heap      ] GC(7) Eden regions: 45->0(53)
+[0.515s][info ][gc,heap      ] GC(7) Survivor regions: 6->7(7)
+[0.515s][info ][gc,heap      ] GC(7) Old regions: 155->200
+[0.515s][info ][gc,heap      ] GC(7) Humongous regions: 32->32
+[0.515s][info ][gc,metaspace ] GC(7) Metaspace: 4006K->4006K(1056768K)
+[0.515s][info ][gc           ] GC(7) Pause Young (G1 Evacuation Pause) 238M->239M(768M) 54.976ms
+[0.515s][info ][gc,cpu       ] GC(7) User=0.12s Sys=0.03s Real=0.06s
+[0.529s][info ][gc,start     ] GC(8) Pause Young (G1 Evacuation Pause)
+[0.529s][info ][gc,task      ] GC(8) Using 4 workers of 4 for evacuation
+[0.601s][info ][gc,phases    ] GC(8)   Pre Evacuate Collection Set: 0.0ms
+[0.601s][debug][gc,phases    ] GC(8)     Choose Collection Set: 0.0ms
+[0.601s][debug][gc,phases    ] GC(8)     Humongous Register: 0.0ms
+[0.602s][trace][gc,phases    ] GC(8)       Humongous Total: 4
+[0.602s][trace][gc,phases    ] GC(8)       Humongous Candidate: 0
+[0.602s][info ][gc,phases    ] GC(8)   Evacuate Collection Set: 54.4ms
+[0.602s][trace][gc,phases    ] GC(8)       GC Worker Start (ms):     Min: 529.0, Avg: 530.4, Max: 531.3, Diff:  2.3, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.2, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       StringTable Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.2, Diff:  0.2, Sum:  0.2, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     Update RS (ms):           Min:  6.4, Avg:  7.3, Max:  8.4, Diff:  1.9, Sum: 29.3, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)       Processed Buffers:        Min: 3, Avg:  4.5, Max: 6, Diff: 3, Sum: 18, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     Scan RS (ms):             Min:  0.0, Avg:  0.3, Max:  0.5, Diff:  0.5, Sum:  1.3, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     Object Copy (ms):         Min: 45.1, Avg: 45.2, Max: 45.3, Diff:  0.3, Sum: 180.7, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     GC Worker Total (ms):     Min: 52.1, Avg: 52.9, Max: 54.4, Diff:  2.3, Sum: 211.8, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)       GC Worker End (ms):       Min: 583.4, Avg: 583.4, Max: 583.4, Diff:  0.0, Workers: 4
+[0.602s][info ][gc,phases    ] GC(8)   Post Evacuate Collection Set: 18.0ms
+[0.602s][debug][gc,phases    ] GC(8)     Code Roots Fixup: 0.0ms
+[0.602s][debug][gc,phases    ] GC(8)     Preserve CM Refs: 0.0ms
+[0.602s][trace][gc,phases    ] GC(8)       Parallel Preserve CM Refs (ms): skipped
+[0.602s][debug][gc,phases    ] GC(8)     Reference Processing: 0.0ms
+[0.602s][debug][gc,phases    ] GC(8)     Clear Card Table: 0.0ms
+[0.602s][debug][gc,phases    ] GC(8)     Reference Enqueuing: 0.0ms
+[0.602s][debug][gc,phases    ] GC(8)     Merge Per-Thread State: 0.0ms
+[0.602s][debug][gc,phases    ] GC(8)     Code Roots Purge: 0.0ms
+[0.602s][debug][gc,phases    ] GC(8)     Redirty Cards: 0.0ms
+[0.602s][trace][gc,phases    ] GC(8)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.602s][trace][gc,phases    ] GC(8)         Redirtied Cards:          Min: 654, Avg: 799.0, Max: 1163, Diff: 509, Sum: 3196, Workers: 4
+[0.602s][debug][gc,phases    ] GC(8)     Free Collection Set: 0.1ms
+[0.602s][trace][gc,phases    ] GC(8)       Free Collection Set Serial: 0.0ms
+[0.602s][trace][gc,phases    ] GC(8)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[0.602s][trace][gc,phases    ] GC(8)       Non-Young Free Collection Set (ms): skipped
+[0.602s][debug][gc,phases    ] GC(8)     Humongous Reclaim: 0.0ms
+[0.602s][trace][gc,phases    ] GC(8)       Humongous Reclaimed: 0
+[0.602s][debug][gc,phases    ] GC(8)     Expand Heap After Collection: 17.9ms
+[0.602s][info ][gc,phases    ] GC(8)   Other: 0.1ms
+[0.602s][info ][gc,heap      ] GC(8) Eden regions: 53->0(97)
+[0.602s][info ][gc,heap      ] GC(8) Survivor regions: 7->8(8)
+[0.602s][info ][gc,heap      ] GC(8) Old regions: 200->253
+[0.602s][info ][gc,heap      ] GC(8) Humongous regions: 32->32
+[0.602s][info ][gc,metaspace ] GC(8) Metaspace: 4006K->4006K(1056768K)
+[0.602s][info ][gc           ] GC(8) Pause Young (G1 Evacuation Pause) 292M->292M(2100M) 73.236ms
+[0.602s][info ][gc,cpu       ] GC(8) User=0.14s Sys=0.03s Real=0.08s
+[0.679s][info ][gc,start     ] GC(9) Pause Young (G1 Evacuation Pause)
+[0.679s][info ][gc,task      ] GC(9) Using 4 workers of 4 for evacuation
+[0.791s][info ][gc,phases    ] GC(9)   Pre Evacuate Collection Set: 0.1ms
+[0.791s][debug][gc,phases    ] GC(9)     Choose Collection Set: 0.0ms
+[0.791s][debug][gc,phases    ] GC(9)     Humongous Register: 0.1ms
+[0.791s][trace][gc,phases    ] GC(9)       Humongous Total: 4
+[0.791s][trace][gc,phases    ] GC(9)       Humongous Candidate: 0
+[0.791s][info ][gc,phases    ] GC(9)   Evacuate Collection Set: 111.1ms
+[0.791s][trace][gc,phases    ] GC(9)       GC Worker Start (ms):     Min: 679.3, Avg: 680.0, Max: 682.3, Diff:  3.0, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       StringTable Roots (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     Update RS (ms):           Min:  4.7, Avg:  7.3, Max:  8.7, Diff:  4.0, Sum: 29.0, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)       Processed Buffers:        Min: 2, Avg:  3.5, Max: 4, Diff: 2, Sum: 14, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     Scan RS (ms):             Min:  1.6, Avg:  2.2, Max:  2.7, Diff:  1.1, Sum:  8.6, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     Object Copy (ms):         Min: 100.6, Avg: 100.7, Max: 100.8, Diff:  0.2, Sum: 402.8, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)       Termination Attempts:     Min: 1, Avg:  1.5, Max: 2, Diff: 1, Sum: 6, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     GC Worker Total (ms):     Min: 108.1, Avg: 110.3, Max: 111.1, Diff:  3.0, Sum: 441.2, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)       GC Worker End (ms):       Min: 790.3, Avg: 790.3, Max: 790.3, Diff:  0.0, Workers: 4
+[0.791s][info ][gc,phases    ] GC(9)   Post Evacuate Collection Set: 0.2ms
+[0.791s][debug][gc,phases    ] GC(9)     Code Roots Fixup: 0.0ms
+[0.791s][debug][gc,phases    ] GC(9)     Preserve CM Refs: 0.0ms
+[0.791s][trace][gc,phases    ] GC(9)       Parallel Preserve CM Refs (ms): skipped
+[0.791s][debug][gc,phases    ] GC(9)     Reference Processing: 0.0ms
+[0.791s][debug][gc,phases    ] GC(9)     Clear Card Table: 0.0ms
+[0.791s][debug][gc,phases    ] GC(9)     Reference Enqueuing: 0.0ms
+[0.791s][debug][gc,phases    ] GC(9)     Merge Per-Thread State: 0.0ms
+[0.791s][debug][gc,phases    ] GC(9)     Code Roots Purge: 0.0ms
+[0.791s][debug][gc,phases    ] GC(9)     Redirty Cards: 0.0ms
+[0.791s][trace][gc,phases    ] GC(9)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.791s][trace][gc,phases    ] GC(9)         Redirtied Cards:          Min: 0, Avg: 1412.2, Max: 4267, Diff: 4267, Sum: 5649, Workers: 4
+[0.791s][debug][gc,phases    ] GC(9)     Free Collection Set: 0.1ms
+[0.791s][trace][gc,phases    ] GC(9)       Free Collection Set Serial: 0.0ms
+[0.791s][trace][gc,phases    ] GC(9)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 2
+[0.791s][trace][gc,phases    ] GC(9)       Non-Young Free Collection Set (ms): skipped
+[0.791s][debug][gc,phases    ] GC(9)     Humongous Reclaim: 0.0ms
+[0.791s][trace][gc,phases    ] GC(9)       Humongous Reclaimed: 0
+[0.791s][debug][gc,phases    ] GC(9)     Expand Heap After Collection: 0.0ms
+[0.791s][info ][gc,phases    ] GC(9)   Other: 0.2ms
+[0.791s][info ][gc,heap      ] GC(9) Eden regions: 97->0(91)
+[0.791s][info ][gc,heap      ] GC(9) Survivor regions: 8->14(14)
+[0.791s][info ][gc,heap      ] GC(9) Old regions: 253->345
+[0.791s][info ][gc,heap      ] GC(9) Humongous regions: 32->32
+[0.791s][info ][gc,metaspace ] GC(9) Metaspace: 4006K->4006K(1056768K)
+[0.791s][info ][gc           ] GC(9) Pause Young (G1 Evacuation Pause) 389M->390M(2100M) 111.910ms
+[0.791s][info ][gc,cpu       ] GC(9) User=0.24s Sys=0.06s Real=0.12s
+[0.811s][info ][gc,start     ] GC(10) Pause Young (G1 Evacuation Pause)
+[0.811s][info ][gc,task      ] GC(10) Using 4 workers of 4 for evacuation
+[0.935s][info ][gc,phases    ] GC(10)   Pre Evacuate Collection Set: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Choose Collection Set: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Humongous Register: 0.0ms
+[0.935s][trace][gc,phases    ] GC(10)       Humongous Total: 4
+[0.935s][trace][gc,phases    ] GC(10)       Humongous Candidate: 0
+[0.935s][info ][gc,phases    ] GC(10)   Evacuate Collection Set: 123.0ms
+[0.935s][trace][gc,phases    ] GC(10)       GC Worker Start (ms):     Min: 811.3, Avg: 813.7, Max: 817.5, Diff:  6.2, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.2, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       StringTable Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.1, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     Update RS (ms):           Min: 10.0, Avg: 15.1, Max: 17.8, Diff:  7.8, Sum: 60.4, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)       Processed Buffers:        Min: 6, Avg:  7.5, Max: 9, Diff: 3, Sum: 30, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     Scan RS (ms):             Min:  0.8, Avg:  1.0, Max:  1.7, Diff:  0.9, Sum:  4.2, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     Object Copy (ms):         Min: 103.4, Avg: 103.9, Max: 104.2, Diff:  0.8, Sum: 415.7, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)       Termination Attempts:     Min: 1, Avg:  9.8, Max: 17, Diff: 16, Sum: 39, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     GC Worker Other (ms):     Min:  0.0, Avg:  0.4, Max:  1.6, Diff:  1.6, Sum:  1.7, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     GC Worker Total (ms):     Min: 116.8, Avg: 120.6, Max: 123.0, Diff:  6.2, Sum: 482.3, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)       GC Worker End (ms):       Min: 934.3, Avg: 934.3, Max: 934.3, Diff:  0.0, Workers: 4
+[0.935s][info ][gc,phases    ] GC(10)   Post Evacuate Collection Set: 0.3ms
+[0.935s][debug][gc,phases    ] GC(10)     Code Roots Fixup: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Preserve CM Refs: 0.0ms
+[0.935s][trace][gc,phases    ] GC(10)       Parallel Preserve CM Refs (ms): skipped
+[0.935s][debug][gc,phases    ] GC(10)     Reference Processing: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Clear Card Table: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Reference Enqueuing: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Merge Per-Thread State: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Code Roots Purge: 0.0ms
+[0.935s][debug][gc,phases    ] GC(10)     Redirty Cards: 0.0ms
+[0.935s][trace][gc,phases    ] GC(10)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[0.935s][trace][gc,phases    ] GC(10)         Redirtied Cards:          Min: 0, Avg: 1577.5, Max: 3183, Diff: 3183, Sum: 6310, Workers: 4
+[0.935s][debug][gc,phases    ] GC(10)     Free Collection Set: 0.2ms
+[0.935s][trace][gc,phases    ] GC(10)       Free Collection Set Serial: 0.0ms
+[0.935s][trace][gc,phases    ] GC(10)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 2
+[0.935s][trace][gc,phases    ] GC(10)       Non-Young Free Collection Set (ms): skipped
+[0.935s][debug][gc,phases    ] GC(10)     Humongous Reclaim: 0.0ms
+[0.935s][trace][gc,phases    ] GC(10)       Humongous Reclaimed: 0
+[0.935s][debug][gc,phases    ] GC(10)     Expand Heap After Collection: 0.0ms
+[0.935s][info ][gc,phases    ] GC(10)   Other: 0.1ms
+[0.935s][info ][gc,heap      ] GC(10) Eden regions: 91->0(91)
+[0.935s][info ][gc,heap      ] GC(10) Survivor regions: 14->14(14)
+[0.935s][info ][gc,heap      ] GC(10) Old regions: 345->436
+[0.935s][info ][gc,heap      ] GC(10) Humongous regions: 32->32
+[0.935s][info ][gc,metaspace ] GC(10) Metaspace: 4006K->4006K(1056768K)
+[0.935s][info ][gc           ] GC(10) Pause Young (G1 Evacuation Pause) 481M->482M(2100M) 123.856ms
+[0.935s][info ][gc,cpu       ] GC(10) User=0.26s Sys=0.05s Real=0.12s
+[0.949s][info ][gc,start     ] GC(11) Pause Young (G1 Evacuation Pause)
+[0.949s][info ][gc,task      ] GC(11) Using 4 workers of 4 for evacuation
+[1.061s][info ][gc,phases    ] GC(11)   Pre Evacuate Collection Set: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Choose Collection Set: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Humongous Register: 0.0ms
+[1.061s][trace][gc,phases    ] GC(11)       Humongous Total: 4
+[1.061s][trace][gc,phases    ] GC(11)       Humongous Candidate: 0
+[1.061s][info ][gc,phases    ] GC(11)   Evacuate Collection Set: 111.4ms
+[1.061s][trace][gc,phases    ] GC(11)       GC Worker Start (ms):     Min: 949.0, Avg: 950.7, Max: 952.8, Diff:  3.8, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.3, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       StringTable Roots (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     Update RS (ms):           Min: 15.7, Avg: 17.3, Max: 18.7, Diff:  3.0, Sum: 69.2, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)       Processed Buffers:        Min: 8, Avg:  9.0, Max: 10, Diff: 2, Sum: 36, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     Scan RS (ms):             Min:  0.0, Avg:  0.7, Max:  1.1, Diff:  1.1, Sum:  2.9, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     Object Copy (ms):         Min: 91.2, Avg: 91.5, Max: 91.7, Diff:  0.4, Sum: 365.9, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     GC Worker Total (ms):     Min: 107.6, Avg: 109.7, Max: 111.4, Diff:  3.8, Sum: 438.7, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)       GC Worker End (ms):       Min: 1060.4, Avg: 1060.4, Max: 1060.4, Diff:  0.0, Workers: 4
+[1.061s][info ][gc,phases    ] GC(11)   Post Evacuate Collection Set: 0.2ms
+[1.061s][debug][gc,phases    ] GC(11)     Code Roots Fixup: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Preserve CM Refs: 0.0ms
+[1.061s][trace][gc,phases    ] GC(11)       Parallel Preserve CM Refs (ms): skipped
+[1.061s][debug][gc,phases    ] GC(11)     Reference Processing: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Clear Card Table: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Reference Enqueuing: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Merge Per-Thread State: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Code Roots Purge: 0.0ms
+[1.061s][debug][gc,phases    ] GC(11)     Redirty Cards: 0.0ms
+[1.061s][trace][gc,phases    ] GC(11)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[1.061s][trace][gc,phases    ] GC(11)         Redirtied Cards:          Min: 0, Avg: 1406.0, Max: 1975, Diff: 1975, Sum: 5624, Workers: 4
+[1.061s][debug][gc,phases    ] GC(11)     Free Collection Set: 0.2ms
+[1.061s][trace][gc,phases    ] GC(11)       Free Collection Set Serial: 0.0ms
+[1.061s][trace][gc,phases    ] GC(11)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 2
+[1.061s][trace][gc,phases    ] GC(11)       Non-Young Free Collection Set (ms): skipped
+[1.061s][debug][gc,phases    ] GC(11)     Humongous Reclaim: 0.0ms
+[1.061s][trace][gc,phases    ] GC(11)       Humongous Reclaimed: 0
+[1.061s][debug][gc,phases    ] GC(11)     Expand Heap After Collection: 0.0ms
+[1.061s][info ][gc,phases    ] GC(11)   Other: 0.1ms
+[1.061s][info ][gc,heap      ] GC(11) Eden regions: 91->0(91)
+[1.061s][info ][gc,heap      ] GC(11) Survivor regions: 14->14(14)
+[1.061s][info ][gc,heap      ] GC(11) Old regions: 436->528
+[1.061s][info ][gc,heap      ] GC(11) Humongous regions: 32->32
+[1.061s][info ][gc,metaspace ] GC(11) Metaspace: 4006K->4006K(1056768K)
+[1.061s][info ][gc           ] GC(11) Pause Young (G1 Evacuation Pause) 573M->574M(2100M) 112.126ms
+[1.061s][info ][gc,cpu       ] GC(11) User=0.25s Sys=0.06s Real=0.12s
+[1.077s][info ][gc,start     ] GC(12) Pause Young (G1 Evacuation Pause)
+[1.077s][info ][gc,task      ] GC(12) Using 4 workers of 4 for evacuation
+[1.201s][info ][gc,phases    ] GC(12)   Pre Evacuate Collection Set: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Choose Collection Set: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Humongous Register: 0.0ms
+[1.201s][trace][gc,phases    ] GC(12)       Humongous Total: 4
+[1.201s][trace][gc,phases    ] GC(12)       Humongous Candidate: 0
+[1.201s][info ][gc,phases    ] GC(12)   Evacuate Collection Set: 115.7ms
+[1.201s][trace][gc,phases    ] GC(12)       GC Worker Start (ms):     Min: 1077.0, Avg: 1077.0, Max: 1077.0, Diff:  0.0, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       StringTable Roots (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.3, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     Update RS (ms):           Min: 13.5, Avg: 14.2, Max: 15.7, Diff:  2.2, Sum: 56.8, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)       Processed Buffers:        Min: 7, Avg:  7.2, Max: 8, Diff: 1, Sum: 29, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     Scan RS (ms):             Min:  0.0, Avg:  0.6, Max:  1.0, Diff:  1.0, Sum:  2.5, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     Object Copy (ms):         Min: 99.8, Avg: 100.7, Max: 101.0, Diff:  1.2, Sum: 402.6, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)       Termination Attempts:     Min: 1, Avg:  2.0, Max: 4, Diff: 3, Sum: 8, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     GC Worker Total (ms):     Min: 115.7, Avg: 115.7, Max: 115.7, Diff:  0.0, Sum: 462.7, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)       GC Worker End (ms):       Min: 1192.7, Avg: 1192.7, Max: 1192.7, Diff:  0.0, Workers: 4
+[1.201s][info ][gc,phases    ] GC(12)   Post Evacuate Collection Set: 8.2ms
+[1.201s][debug][gc,phases    ] GC(12)     Code Roots Fixup: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Preserve CM Refs: 0.0ms
+[1.201s][trace][gc,phases    ] GC(12)       Parallel Preserve CM Refs (ms): skipped
+[1.201s][debug][gc,phases    ] GC(12)     Reference Processing: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Clear Card Table: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Reference Enqueuing: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Merge Per-Thread State: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Code Roots Purge: 0.0ms
+[1.201s][debug][gc,phases    ] GC(12)     Redirty Cards: 0.1ms
+[1.201s][trace][gc,phases    ] GC(12)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.201s][trace][gc,phases    ] GC(12)         Redirtied Cards:          Min: 0, Avg: 1426.0, Max: 5704, Diff: 5704, Sum: 5704, Workers: 4
+[1.201s][debug][gc,phases    ] GC(12)     Free Collection Set: 0.1ms
+[1.201s][trace][gc,phases    ] GC(12)       Free Collection Set Serial: 0.0ms
+[1.201s][trace][gc,phases    ] GC(12)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 2
+[1.201s][trace][gc,phases    ] GC(12)       Non-Young Free Collection Set (ms): skipped
+[1.201s][debug][gc,phases    ] GC(12)     Humongous Reclaim: 0.0ms
+[1.201s][trace][gc,phases    ] GC(12)       Humongous Reclaimed: 0
+[1.201s][debug][gc,phases    ] GC(12)     Expand Heap After Collection: 7.9ms
+[1.201s][info ][gc,phases    ] GC(12)   Other: 0.1ms
+[1.201s][info ][gc,heap      ] GC(12) Eden regions: 91->0(130)
+[1.201s][info ][gc,heap      ] GC(12) Survivor regions: 14->14(14)
+[1.201s][info ][gc,heap      ] GC(12) Old regions: 528->620
+[1.201s][info ][gc,heap      ] GC(12) Humongous regions: 32->32
+[1.201s][info ][gc,metaspace ] GC(12) Metaspace: 4006K->4006K(1056768K)
+[1.201s][info ][gc           ] GC(12) Pause Young (G1 Evacuation Pause) 665M->666M(2899M) 124.528ms
+[1.201s][info ][gc,cpu       ] GC(12) User=0.25s Sys=0.06s Real=0.13s
+[1.312s][info ][gc,start     ] GC(13) Pause Young (G1 Evacuation Pause)
+[1.312s][info ][gc,task      ] GC(13) Using 4 workers of 4 for evacuation
+[1.433s][info ][gc,phases    ] GC(13)   Pre Evacuate Collection Set: 0.1ms
+[1.433s][debug][gc,phases    ] GC(13)     Choose Collection Set: 0.0ms
+[1.433s][debug][gc,phases    ] GC(13)     Humongous Register: 0.1ms
+[1.433s][trace][gc,phases    ] GC(13)       Humongous Total: 4
+[1.433s][trace][gc,phases    ] GC(13)       Humongous Candidate: 0
+[1.433s][info ][gc,phases    ] GC(13)   Evacuate Collection Set: 119.8ms
+[1.433s][trace][gc,phases    ] GC(13)       GC Worker Start (ms):     Min: 1312.5, Avg: 1312.6, Max: 1312.6, Diff:  0.0, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       StringTable Roots (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.3, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     Update RS (ms):           Min:  9.1, Avg: 10.2, Max: 11.3, Diff:  2.2, Sum: 40.8, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)       Processed Buffers:        Min: 4, Avg:  4.5, Max: 5, Diff: 1, Sum: 18, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     Scan RS (ms):             Min:  1.6, Avg:  2.8, Max:  4.0, Diff:  2.4, Sum: 11.1, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     Object Copy (ms):         Min: 106.5, Avg: 106.6, Max: 106.7, Diff:  0.2, Sum: 426.3, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)       Termination Attempts:     Min: 1, Avg:  1.5, Max: 2, Diff: 1, Sum: 6, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     GC Worker Total (ms):     Min: 119.7, Avg: 119.7, Max: 119.7, Diff:  0.0, Sum: 478.9, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)       GC Worker End (ms):       Min: 1432.3, Avg: 1432.3, Max: 1432.3, Diff:  0.0, Workers: 4
+[1.433s][info ][gc,phases    ] GC(13)   Post Evacuate Collection Set: 0.4ms
+[1.433s][debug][gc,phases    ] GC(13)     Code Roots Fixup: 0.0ms
+[1.433s][debug][gc,phases    ] GC(13)     Preserve CM Refs: 0.0ms
+[1.433s][trace][gc,phases    ] GC(13)       Parallel Preserve CM Refs (ms): skipped
+[1.433s][debug][gc,phases    ] GC(13)     Reference Processing: 0.0ms
+[1.433s][debug][gc,phases    ] GC(13)     Clear Card Table: 0.1ms
+[1.433s][debug][gc,phases    ] GC(13)     Reference Enqueuing: 0.0ms
+[1.433s][debug][gc,phases    ] GC(13)     Merge Per-Thread State: 0.0ms
+[1.433s][debug][gc,phases    ] GC(13)     Code Roots Purge: 0.0ms
+[1.433s][debug][gc,phases    ] GC(13)     Redirty Cards: 0.1ms
+[1.433s][trace][gc,phases    ] GC(13)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[1.433s][trace][gc,phases    ] GC(13)         Redirtied Cards:          Min: 0, Avg: 1963.8, Max: 4925, Diff: 4925, Sum: 7855, Workers: 4
+[1.433s][debug][gc,phases    ] GC(13)     Free Collection Set: 0.2ms
+[1.433s][trace][gc,phases    ] GC(13)       Free Collection Set Serial: 0.1ms
+[1.433s][trace][gc,phases    ] GC(13)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.0, Sum:  0.1, Workers: 3
+[1.433s][trace][gc,phases    ] GC(13)       Non-Young Free Collection Set (ms): skipped
+[1.433s][debug][gc,phases    ] GC(13)     Humongous Reclaim: 0.0ms
+[1.433s][trace][gc,phases    ] GC(13)       Humongous Reclaimed: 0
+[1.433s][debug][gc,phases    ] GC(13)     Expand Heap After Collection: 0.0ms
+[1.433s][info ][gc,phases    ] GC(13)   Other: 0.2ms
+[1.433s][info ][gc,heap      ] GC(13) Eden regions: 130->0(126)
+[1.433s][info ][gc,heap      ] GC(13) Survivor regions: 14->18(18)
+[1.433s][info ][gc,heap      ] GC(13) Old regions: 620->747
+[1.433s][info ][gc,heap      ] GC(13) Humongous regions: 32->32
+[1.433s][info ][gc,metaspace ] GC(13) Metaspace: 4006K->4006K(1056768K)
+[1.433s][info ][gc           ] GC(13) Pause Young (G1 Evacuation Pause) 796M->797M(2899M) 120.989ms
+[1.433s][info ][gc,cpu       ] GC(13) User=0.29s Sys=0.05s Real=0.12s
+[1.457s][info ][gc,start     ] GC(14) Pause Young (G1 Evacuation Pause)
+[1.457s][info ][gc,task      ] GC(14) Using 4 workers of 4 for evacuation
+[1.616s][info ][gc,phases    ] GC(14)   Pre Evacuate Collection Set: 0.1ms
+[1.616s][debug][gc,phases    ] GC(14)     Choose Collection Set: 0.0ms
+[1.616s][debug][gc,phases    ] GC(14)     Humongous Register: 0.1ms
+[1.616s][trace][gc,phases    ] GC(14)       Humongous Total: 4
+[1.616s][trace][gc,phases    ] GC(14)       Humongous Candidate: 0
+[1.616s][info ][gc,phases    ] GC(14)   Evacuate Collection Set: 158.0ms
+[1.616s][trace][gc,phases    ] GC(14)       GC Worker Start (ms):     Min: 1457.2, Avg: 1457.2, Max: 1457.2, Diff:  0.0, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       StringTable Roots (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.3, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     Update RS (ms):           Min: 17.8, Avg: 18.6, Max: 19.7, Diff:  1.9, Sum: 74.4, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)       Processed Buffers:        Min: 9, Avg:  9.8, Max: 11, Diff: 2, Sum: 39, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     Scan RS (ms):             Min:  0.0, Avg:  0.7, Max:  1.3, Diff:  1.3, Sum:  2.9, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     Object Copy (ms):         Min: 138.0, Avg: 138.5, Max: 138.6, Diff:  0.6, Sum: 553.9, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     GC Worker Total (ms):     Min: 157.9, Avg: 158.0, Max: 158.0, Diff:  0.0, Sum: 631.8, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)       GC Worker End (ms):       Min: 1615.2, Avg: 1615.2, Max: 1615.2, Diff:  0.0, Workers: 4
+[1.616s][info ][gc,phases    ] GC(14)   Post Evacuate Collection Set: 0.3ms
+[1.616s][debug][gc,phases    ] GC(14)     Code Roots Fixup: 0.0ms
+[1.616s][debug][gc,phases    ] GC(14)     Preserve CM Refs: 0.0ms
+[1.616s][trace][gc,phases    ] GC(14)       Parallel Preserve CM Refs (ms): skipped
+[1.616s][debug][gc,phases    ] GC(14)     Reference Processing: 0.0ms
+[1.616s][debug][gc,phases    ] GC(14)     Clear Card Table: 0.1ms
+[1.616s][debug][gc,phases    ] GC(14)     Reference Enqueuing: 0.0ms
+[1.616s][debug][gc,phases    ] GC(14)     Merge Per-Thread State: 0.0ms
+[1.616s][debug][gc,phases    ] GC(14)     Code Roots Purge: 0.0ms
+[1.616s][debug][gc,phases    ] GC(14)     Redirty Cards: 0.1ms
+[1.616s][trace][gc,phases    ] GC(14)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[1.616s][trace][gc,phases    ] GC(14)         Redirtied Cards:          Min: 1168, Avg: 1906.0, Max: 2737, Diff: 1569, Sum: 7624, Workers: 4
+[1.616s][debug][gc,phases    ] GC(14)     Free Collection Set: 0.2ms
+[1.616s][trace][gc,phases    ] GC(14)       Free Collection Set Serial: 0.1ms
+[1.616s][trace][gc,phases    ] GC(14)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 3
+[1.616s][trace][gc,phases    ] GC(14)       Non-Young Free Collection Set (ms): skipped
+[1.616s][debug][gc,phases    ] GC(14)     Humongous Reclaim: 0.0ms
+[1.616s][trace][gc,phases    ] GC(14)       Humongous Reclaimed: 0
+[1.616s][debug][gc,phases    ] GC(14)     Expand Heap After Collection: 0.0ms
+[1.616s][info ][gc,phases    ] GC(14)   Other: 0.1ms
+[1.616s][info ][gc,heap      ] GC(14) Eden regions: 126->0(126)
+[1.616s][info ][gc,heap      ] GC(14) Survivor regions: 18->18(18)
+[1.616s][info ][gc,heap      ] GC(14) Old regions: 747->874
+[1.616s][info ][gc,heap      ] GC(14) Humongous regions: 32->32
+[1.616s][info ][gc,metaspace ] GC(14) Metaspace: 4006K->4006K(1056768K)
+[1.616s][info ][gc           ] GC(14) Pause Young (G1 Evacuation Pause) 923M->923M(2899M) 158.811ms
+[1.616s][info ][gc,cpu       ] GC(14) User=0.33s Sys=0.07s Real=0.16s
+[1.636s][info ][gc,start     ] GC(15) Pause Young (G1 Evacuation Pause)
+[1.636s][info ][gc,task      ] GC(15) Using 4 workers of 4 for evacuation
+[1.807s][info ][gc,phases    ] GC(15)   Pre Evacuate Collection Set: 0.1ms
+[1.807s][debug][gc,phases    ] GC(15)     Choose Collection Set: 0.0ms
+[1.807s][debug][gc,phases    ] GC(15)     Humongous Register: 0.1ms
+[1.807s][trace][gc,phases    ] GC(15)       Humongous Total: 4
+[1.807s][trace][gc,phases    ] GC(15)       Humongous Candidate: 0
+[1.807s][info ][gc,phases    ] GC(15)   Evacuate Collection Set: 170.6ms
+[1.807s][trace][gc,phases    ] GC(15)       GC Worker Start (ms):     Min: 1636.0, Avg: 1636.1, Max: 1636.1, Diff:  0.1, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       StringTable Roots (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     Update RS (ms):           Min: 23.3, Avg: 23.9, Max: 24.7, Diff:  1.4, Sum: 95.4, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)       Processed Buffers:        Min: 9, Avg: 10.2, Max: 11, Diff: 2, Sum: 41, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     Scan RS (ms):             Min:  0.0, Avg:  0.8, Max:  1.5, Diff:  1.5, Sum:  3.4, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     Object Copy (ms):         Min: 145.7, Avg: 145.7, Max: 145.8, Diff:  0.1, Sum: 582.9, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     GC Worker Total (ms):     Min: 170.5, Avg: 170.5, Max: 170.6, Diff:  0.1, Sum: 682.2, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)       GC Worker End (ms):       Min: 1806.6, Avg: 1806.6, Max: 1806.6, Diff:  0.0, Workers: 4
+[1.807s][info ][gc,phases    ] GC(15)   Post Evacuate Collection Set: 0.3ms
+[1.807s][debug][gc,phases    ] GC(15)     Code Roots Fixup: 0.0ms
+[1.807s][debug][gc,phases    ] GC(15)     Preserve CM Refs: 0.0ms
+[1.807s][trace][gc,phases    ] GC(15)       Parallel Preserve CM Refs (ms): skipped
+[1.807s][debug][gc,phases    ] GC(15)     Reference Processing: 0.0ms
+[1.807s][debug][gc,phases    ] GC(15)     Clear Card Table: 0.1ms
+[1.807s][debug][gc,phases    ] GC(15)     Reference Enqueuing: 0.0ms
+[1.807s][debug][gc,phases    ] GC(15)     Merge Per-Thread State: 0.0ms
+[1.807s][debug][gc,phases    ] GC(15)     Code Roots Purge: 0.0ms
+[1.807s][debug][gc,phases    ] GC(15)     Redirty Cards: 0.1ms
+[1.807s][trace][gc,phases    ] GC(15)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[1.807s][trace][gc,phases    ] GC(15)         Redirtied Cards:          Min: 1024, Avg: 1908.0, Max: 2724, Diff: 1700, Sum: 7632, Workers: 4
+[1.807s][debug][gc,phases    ] GC(15)     Free Collection Set: 0.2ms
+[1.808s][trace][gc,phases    ] GC(15)       Free Collection Set Serial: 0.0ms
+[1.808s][trace][gc,phases    ] GC(15)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 3
+[1.808s][trace][gc,phases    ] GC(15)       Non-Young Free Collection Set (ms): skipped
+[1.808s][debug][gc,phases    ] GC(15)     Humongous Reclaim: 0.0ms
+[1.808s][trace][gc,phases    ] GC(15)       Humongous Reclaimed: 0
+[1.808s][debug][gc,phases    ] GC(15)     Expand Heap After Collection: 0.0ms
+[1.808s][info ][gc,phases    ] GC(15)   Other: 0.1ms
+[1.808s][info ][gc,heap      ] GC(15) Eden regions: 126->0(126)
+[1.808s][info ][gc,heap      ] GC(15) Survivor regions: 18->18(18)
+[1.808s][info ][gc,heap      ] GC(15) Old regions: 874->1000
+[1.808s][info ][gc,heap      ] GC(15) Humongous regions: 32->32
+[1.808s][info ][gc,metaspace ] GC(15) Metaspace: 4006K->4006K(1056768K)
+[1.808s][info ][gc           ] GC(15) Pause Young (G1 Evacuation Pause) 1049M->1050M(2899M) 171.742ms
+[1.808s][info ][gc,cpu       ] GC(15) User=0.35s Sys=0.08s Real=0.17s
+[1.836s][info ][gc,start     ] GC(16) Pause Young (G1 Evacuation Pause)
+[1.836s][info ][gc,task      ] GC(16) Using 4 workers of 4 for evacuation
+[2.006s][info ][gc,phases    ] GC(16)   Pre Evacuate Collection Set: 0.1ms
+[2.006s][debug][gc,phases    ] GC(16)     Choose Collection Set: 0.0ms
+[2.006s][debug][gc,phases    ] GC(16)     Humongous Register: 0.1ms
+[2.006s][trace][gc,phases    ] GC(16)       Humongous Total: 4
+[2.006s][trace][gc,phases    ] GC(16)       Humongous Candidate: 0
+[2.006s][info ][gc,phases    ] GC(16)   Evacuate Collection Set: 164.0ms
+[2.006s][trace][gc,phases    ] GC(16)       GC Worker Start (ms):     Min: 1836.6, Avg: 1836.6, Max: 1836.6, Diff:  0.0, Workers: 4
+[2.006s][debug][gc,phases    ] GC(16)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[2.006s][trace][gc,phases    ] GC(16)       Thread Roots (ms):        Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.006s][trace][gc,phases    ] GC(16)       StringTable Roots (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.3, Workers: 4
+[2.006s][trace][gc,phases    ] GC(16)       Universe Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.006s][trace][gc,phases    ] GC(16)       JNI Handles Roots (ms):   Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.006s][trace][gc,phases    ] GC(16)       ObjectSynchronizer Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.006s][trace][gc,phases    ] GC(16)       FlatProfiler Roots (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       Management Roots (ms):    Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       SystemDictionary Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       CLDG Roots (ms):          Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       JVMTI Roots (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       CM RefProcessor Roots (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       Wait For Strong CLD (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       Weak CLD Roots (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       SATB Filtering (ms):      Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     Update RS (ms):           Min: 17.7, Avg: 18.0, Max: 18.6, Diff:  0.9, Sum: 72.2, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)       Processed Buffers:        Min: 8, Avg:  8.8, Max: 10, Diff: 2, Sum: 35, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       Scan HCC (ms):            Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     Scan RS (ms):             Min:  0.4, Avg:  0.9, Max:  1.2, Diff:  0.8, Sum:  3.6, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     Object Copy (ms):         Min: 144.7, Avg: 144.8, Max: 144.9, Diff:  0.2, Sum: 579.2, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     GC Worker Total (ms):     Min: 163.9, Avg: 163.9, Max: 163.9, Diff:  0.0, Sum: 655.7, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)       GC Worker End (ms):       Min: 2000.5, Avg: 2000.5, Max: 2000.5, Diff:  0.0, Workers: 4
+[2.007s][info ][gc,phases    ] GC(16)   Post Evacuate Collection Set: 5.6ms
+[2.007s][debug][gc,phases    ] GC(16)     Code Roots Fixup: 0.0ms
+[2.007s][debug][gc,phases    ] GC(16)     Preserve CM Refs: 0.0ms
+[2.007s][trace][gc,phases    ] GC(16)       Parallel Preserve CM Refs (ms): skipped
+[2.007s][debug][gc,phases    ] GC(16)     Reference Processing: 0.0ms
+[2.007s][debug][gc,phases    ] GC(16)     Clear Card Table: 0.1ms
+[2.007s][debug][gc,phases    ] GC(16)     Reference Enqueuing: 0.0ms
+[2.007s][debug][gc,phases    ] GC(16)     Merge Per-Thread State: 0.0ms
+[2.007s][debug][gc,phases    ] GC(16)     Code Roots Purge: 0.0ms
+[2.007s][debug][gc,phases    ] GC(16)     Redirty Cards: 0.1ms
+[2.007s][trace][gc,phases    ] GC(16)       Parallel Redirty (ms):    Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.1, Workers: 4
+[2.007s][trace][gc,phases    ] GC(16)         Redirtied Cards:          Min: 0, Avg: 1920.5, Max: 7682, Diff: 7682, Sum: 7682, Workers: 4
+[2.007s][debug][gc,phases    ] GC(16)     Free Collection Set: 0.2ms
+[2.007s][trace][gc,phases    ] GC(16)       Free Collection Set Serial: 0.0ms
+[2.007s][trace][gc,phases    ] GC(16)       Young Free Collection Set (ms): Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 1
+[2.007s][trace][gc,phases    ] GC(16)       Non-Young Free Collection Set (ms): skipped
+[2.007s][debug][gc,phases    ] GC(16)     Humongous Reclaim: 0.0ms
+[2.007s][trace][gc,phases    ] GC(16)       Humongous Reclaimed: 0
+[2.007s][debug][gc,phases    ] GC(16)     Expand Heap After Collection: 5.2ms
+[2.007s][info ][gc,phases    ] GC(16)   Other: 0.2ms
+[2.007s][info ][gc,heap      ] GC(16) Eden regions: 126->0(150)
+[2.007s][info ][gc,heap      ] GC(16) Survivor regions: 18->18(18)
+[2.007s][info ][gc,heap      ] GC(16) Old regions: 1000->1127
+[2.007s][info ][gc,heap      ] GC(16) Humongous regions: 32->32
+[2.007s][info ][gc,metaspace ] GC(16) Metaspace: 4006K->4006K(1056768K)
+[2.007s][info ][gc           ] GC(16) Pause Young (G1 Evacuation Pause) 1176M->1177M(3378M) 170.480ms
+[2.007s][info ][gc,cpu       ] GC(16) User=0.33s Sys=0.08s Real=0.17s
+[6.785s][info ][gc,heap,exit ] Heap
+[6.785s][info ][gc,heap,exit ]  garbage-first heap   total 3459072K, used 1303552K [0x00000006c0000000, 0x00000006c0106990, 0x00000007c0000000)
+[6.785s][info ][gc,heap,exit ]   region size 1024K, 115 young (117760K), 18 survivors (18432K)
+[6.785s][info ][gc,heap,exit ]  Metaspace       used 5139K, capacity 5236K, committed 5376K, reserved 1056768K
+[6.785s][info ][gc,heap,exit ]   class space    used 442K, capacity 483K, committed 512K, reserved 1048576K

@@ -1,0 +1,626 @@
+GCTest N=2000000
+CMD = java -Xlog:gc*,gc+phases=debug:file=gc2.txt GCTest
+
+[0.014s][info][gc,heap] Heap region size: 1M
+[0.018s][info][gc     ] Using G1
+[0.018s][info][gc,heap,coops] Heap address: 0x00000006c0000000, size: 4096 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+[0.171s][info][gc,start     ] GC(0) Pause Young (G1 Evacuation Pause)
+[0.171s][info][gc,task      ] GC(0) Using 4 workers of 4 for evacuation
+[0.186s][info][gc,phases    ] GC(0)   Pre Evacuate Collection Set: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Choose Collection Set: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Humongous Register: 0.0ms
+[0.186s][info ][gc,phases    ] GC(0)   Evacuate Collection Set: 15.2ms
+[0.186s][debug][gc,phases    ] GC(0)     Ext Root Scanning (ms):   Min:  0.2, Avg:  0.2, Max:  0.4, Diff:  0.2, Sum:  0.9, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)     Update RS (ms):           Min:  0.0, Avg:  1.5, Max:  2.6, Diff:  2.6, Sum:  6.0, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)       Processed Buffers:        Min: 0, Avg:  0.8, Max: 1, Diff: 1, Sum: 3, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)     Scan RS (ms):             Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.1, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)     Object Copy (ms):         Min: 12.2, Avg: 13.4, Max: 14.8, Diff:  2.7, Sum: 53.5, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.186s][debug][gc,phases    ] GC(0)     GC Worker Total (ms):     Min: 15.1, Avg: 15.1, Max: 15.1, Diff:  0.0, Sum: 60.5, Workers: 4
+[0.186s][info ][gc,phases    ] GC(0)   Post Evacuate Collection Set: 0.1ms
+[0.186s][debug][gc,phases    ] GC(0)     Code Roots Fixup: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Preserve CM Refs: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Reference Processing: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Clear Card Table: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Reference Enqueuing: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Merge Per-Thread State: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Code Roots Purge: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Redirty Cards: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Free Collection Set: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Humongous Reclaim: 0.0ms
+[0.186s][debug][gc,phases    ] GC(0)     Expand Heap After Collection: 0.0ms
+[0.186s][info ][gc,phases    ] GC(0)   Other: 0.1ms
+[0.186s][info ][gc,heap      ] GC(0) Eden regions: 14->0(10)
+[0.186s][info ][gc,heap      ] GC(0) Survivor regions: 0->2(2)
+[0.186s][info ][gc,heap      ] GC(0) Old regions: 0->13
+[0.186s][info ][gc,heap      ] GC(0) Humongous regions: 32->32
+[0.186s][info ][gc,metaspace ] GC(0) Metaspace: 4005K->4005K(1056768K)
+[0.186s][info ][gc           ] GC(0) Pause Young (G1 Evacuation Pause) 46M->46M(256M) 15.543ms
+[0.186s][info ][gc,cpu       ] GC(0) User=0.04s Sys=0.02s Real=0.02s
+[0.189s][info ][gc,start     ] GC(1) Pause Young (G1 Evacuation Pause)
+[0.189s][info ][gc,task      ] GC(1) Using 4 workers of 4 for evacuation
+[0.206s][info ][gc,phases    ] GC(1)   Pre Evacuate Collection Set: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Choose Collection Set: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Humongous Register: 0.0ms
+[0.206s][info ][gc,phases    ] GC(1)   Evacuate Collection Set: 16.3ms
+[0.206s][debug][gc,phases    ] GC(1)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.2, Max:  0.3, Diff:  0.3, Sum:  0.7, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)     Update RS (ms):           Min:  0.7, Avg:  1.6, Max:  2.9, Diff:  2.2, Sum:  6.4, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)       Processed Buffers:        Min: 1, Avg:  1.5, Max: 2, Diff: 1, Sum: 6, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)     Scan RS (ms):             Min:  0.0, Avg:  0.1, Max:  0.3, Diff:  0.3, Sum:  0.5, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.1, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)     Object Copy (ms):         Min: 12.7, Avg: 13.8, Max: 14.5, Diff:  1.9, Sum: 55.2, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)     Termination (ms):         Min:  0.0, Avg:  0.4, Max:  0.5, Diff:  0.5, Sum:  1.5, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.206s][debug][gc,phases    ] GC(1)     GC Worker Total (ms):     Min: 15.8, Avg: 16.1, Max: 16.3, Diff:  0.4, Sum: 64.3, Workers: 4
+[0.206s][info ][gc,phases    ] GC(1)   Post Evacuate Collection Set: 0.1ms
+[0.206s][debug][gc,phases    ] GC(1)     Code Roots Fixup: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Preserve CM Refs: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Reference Processing: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Clear Card Table: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Reference Enqueuing: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Merge Per-Thread State: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Code Roots Purge: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Redirty Cards: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Free Collection Set: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Humongous Reclaim: 0.0ms
+[0.206s][debug][gc,phases    ] GC(1)     Expand Heap After Collection: 0.0ms
+[0.206s][info ][gc,phases    ] GC(1)   Other: 0.1ms
+[0.206s][info ][gc,heap      ] GC(1) Eden regions: 10->0(14)
+[0.206s][info ][gc,heap      ] GC(1) Survivor regions: 2->2(2)
+[0.206s][info ][gc,heap      ] GC(1) Old regions: 13->23
+[0.206s][info ][gc,heap      ] GC(1) Humongous regions: 32->32
+[0.206s][info ][gc,metaspace ] GC(1) Metaspace: 4006K->4006K(1056768K)
+[0.206s][info ][gc           ] GC(1) Pause Young (G1 Evacuation Pause) 56M->57M(256M) 16.805ms
+[0.206s][info ][gc,cpu       ] GC(1) User=0.03s Sys=0.01s Real=0.02s
+[0.216s][info ][gc,start     ] GC(2) Pause Young (G1 Evacuation Pause)
+[0.216s][info ][gc,task      ] GC(2) Using 4 workers of 4 for evacuation
+[0.237s][info ][gc,phases    ] GC(2)   Pre Evacuate Collection Set: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Choose Collection Set: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Humongous Register: 0.0ms
+[0.237s][info ][gc,phases    ] GC(2)   Evacuate Collection Set: 20.3ms
+[0.237s][debug][gc,phases    ] GC(2)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Update RS (ms):           Min:  2.0, Avg:  2.7, Max:  3.8, Diff:  1.9, Sum: 10.9, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)       Processed Buffers:        Min: 1, Avg:  1.8, Max: 3, Diff: 2, Sum: 7, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Scan RS (ms):             Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Object Copy (ms):         Min: 16.3, Avg: 17.2, Max: 17.9, Diff:  1.6, Sum: 68.7, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.237s][debug][gc,phases    ] GC(2)     GC Worker Total (ms):     Min: 19.6, Avg: 20.1, Max: 20.3, Diff:  0.7, Sum: 80.3, Workers: 4
+[0.237s][info ][gc,phases    ] GC(2)   Post Evacuate Collection Set: 0.1ms
+[0.237s][debug][gc,phases    ] GC(2)     Code Roots Fixup: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Preserve CM Refs: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Reference Processing: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Clear Card Table: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Reference Enqueuing: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Merge Per-Thread State: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Code Roots Purge: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Redirty Cards: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Free Collection Set: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Humongous Reclaim: 0.0ms
+[0.237s][debug][gc,phases    ] GC(2)     Expand Heap After Collection: 0.0ms
+[0.237s][info ][gc,phases    ] GC(2)   Other: 0.1ms
+[0.237s][info ][gc,heap      ] GC(2) Eden regions: 14->0(22)
+[0.237s][info ][gc,heap      ] GC(2) Survivor regions: 2->2(2)
+[0.237s][info ][gc,heap      ] GC(2) Old regions: 23->38
+[0.237s][info ][gc,heap      ] GC(2) Humongous regions: 32->32
+[0.237s][info ][gc,metaspace ] GC(2) Metaspace: 4006K->4006K(1056768K)
+[0.237s][info ][gc           ] GC(2) Pause Young (G1 Evacuation Pause) 71M->72M(256M) 20.680ms
+[0.237s][info ][gc,cpu       ] GC(2) User=0.05s Sys=0.01s Real=0.02s
+[0.252s][info ][gc,start     ] GC(3) Pause Young (G1 Evacuation Pause)
+[0.252s][info ][gc,task      ] GC(3) Using 4 workers of 4 for evacuation
+[0.288s][info ][gc,phases    ] GC(3)   Pre Evacuate Collection Set: 0.0ms
+[0.288s][debug][gc,phases    ] GC(3)     Choose Collection Set: 0.0ms
+[0.288s][debug][gc,phases    ] GC(3)     Humongous Register: 0.0ms
+[0.288s][info ][gc,phases    ] GC(3)   Evacuate Collection Set: 36.3ms
+[0.288s][debug][gc,phases    ] GC(3)     Ext Root Scanning (ms):   Min:  0.0, Avg:  2.0, Max:  7.4, Diff:  7.3, Sum:  7.8, Workers: 4
+[0.288s][debug][gc,phases    ] GC(3)     Update RS (ms):           Min:  2.2, Avg:  7.3, Max:  9.1, Diff:  6.9, Sum: 29.1, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)       Processed Buffers:        Min: 1, Avg:  2.0, Max: 3, Diff: 2, Sum: 8, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)     Scan RS (ms):             Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.2, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)     Object Copy (ms):         Min: 26.4, Avg: 26.8, Max: 27.1, Diff:  0.7, Sum: 107.4, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.289s][debug][gc,phases    ] GC(3)     GC Worker Total (ms):     Min: 36.0, Avg: 36.1, Max: 36.3, Diff:  0.2, Sum: 144.6, Workers: 4
+[0.289s][info ][gc,phases    ] GC(3)   Post Evacuate Collection Set: 0.1ms
+[0.289s][debug][gc,phases    ] GC(3)     Code Roots Fixup: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Preserve CM Refs: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Reference Processing: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Clear Card Table: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Reference Enqueuing: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Merge Per-Thread State: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Code Roots Purge: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Redirty Cards: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Free Collection Set: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Humongous Reclaim: 0.0ms
+[0.289s][debug][gc,phases    ] GC(3)     Expand Heap After Collection: 0.0ms
+[0.289s][info ][gc,phases    ] GC(3)   Other: 0.2ms
+[0.289s][info ][gc,heap      ] GC(3) Eden regions: 22->0(25)
+[0.289s][info ][gc,heap      ] GC(3) Survivor regions: 2->3(3)
+[0.289s][info ][gc,heap      ] GC(3) Old regions: 38->60
+[0.289s][info ][gc,heap      ] GC(3) Humongous regions: 32->32
+[0.289s][info ][gc,metaspace ] GC(3) Metaspace: 4006K->4006K(1056768K)
+[0.289s][info ][gc           ] GC(3) Pause Young (G1 Evacuation Pause) 94M->94M(256M) 36.755ms
+[0.289s][info ][gc,cpu       ] GC(3) User=0.07s Sys=0.02s Real=0.04s
+[0.294s][info ][gc,start     ] GC(4) Pause Young (G1 Evacuation Pause)
+[0.294s][info ][gc,task      ] GC(4) Using 4 workers of 4 for evacuation
+[0.338s][info ][gc,phases    ] GC(4)   Pre Evacuate Collection Set: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Choose Collection Set: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Humongous Register: 0.0ms
+[0.338s][info ][gc,phases    ] GC(4)   Evacuate Collection Set: 38.9ms
+[0.338s][debug][gc,phases    ] GC(4)     Ext Root Scanning (ms):   Min:  0.2, Avg:  0.2, Max:  0.2, Diff:  0.0, Sum:  0.7, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)     Update RS (ms):           Min:  3.6, Avg:  5.5, Max:  8.4, Diff:  4.8, Sum: 22.2, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)       Processed Buffers:        Min: 2, Avg:  2.8, Max: 3, Diff: 1, Sum: 11, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)     Scan RS (ms):             Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.1, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)     Object Copy (ms):         Min: 30.3, Avg: 33.1, Max: 35.0, Diff:  4.7, Sum: 132.5, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.338s][debug][gc,phases    ] GC(4)     GC Worker Total (ms):     Min: 38.9, Avg: 38.9, Max: 38.9, Diff:  0.0, Sum: 155.5, Workers: 4
+[0.338s][info ][gc,phases    ] GC(4)   Post Evacuate Collection Set: 4.6ms
+[0.338s][debug][gc,phases    ] GC(4)     Code Roots Fixup: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Preserve CM Refs: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Reference Processing: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Clear Card Table: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Reference Enqueuing: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Merge Per-Thread State: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Code Roots Purge: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Redirty Cards: 0.1ms
+[0.338s][debug][gc,phases    ] GC(4)     Free Collection Set: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Humongous Reclaim: 0.0ms
+[0.338s][debug][gc,phases    ] GC(4)     Expand Heap After Collection: 4.4ms
+[0.338s][info ][gc,phases    ] GC(4)   Other: 0.1ms
+[0.338s][info ][gc,heap      ] GC(4) Eden regions: 25->0(34)
+[0.338s][info ][gc,heap      ] GC(4) Survivor regions: 3->4(4)
+[0.338s][info ][gc,heap      ] GC(4) Old regions: 60->85
+[0.338s][info ][gc,heap      ] GC(4) Humongous regions: 32->32
+[0.338s][info ][gc,metaspace ] GC(4) Metaspace: 4006K->4006K(1056768K)
+[0.338s][info ][gc           ] GC(4) Pause Young (G1 Evacuation Pause) 119M->120M(768M) 43.850ms
+[0.338s][info ][gc,cpu       ] GC(4) User=0.07s Sys=0.02s Real=0.04s
+[0.373s][info ][gc,start     ] GC(5) Pause Young (G1 Evacuation Pause)
+[0.373s][info ][gc,task      ] GC(5) Using 4 workers of 4 for evacuation
+[0.418s][info ][gc,phases    ] GC(5)   Pre Evacuate Collection Set: 0.0ms
+[0.418s][debug][gc,phases    ] GC(5)     Choose Collection Set: 0.0ms
+[0.418s][debug][gc,phases    ] GC(5)     Humongous Register: 0.0ms
+[0.418s][info ][gc,phases    ] GC(5)   Evacuate Collection Set: 44.8ms
+[0.418s][debug][gc,phases    ] GC(5)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.5, Workers: 4
+[0.418s][debug][gc,phases    ] GC(5)     Update RS (ms):           Min:  3.9, Avg:  4.7, Max:  5.4, Diff:  1.6, Sum: 18.7, Workers: 4
+[0.418s][debug][gc,phases    ] GC(5)       Processed Buffers:        Min: 2, Avg:  2.2, Max: 3, Diff: 1, Sum: 9, Workers: 4
+[0.418s][debug][gc,phases    ] GC(5)     Scan RS (ms):             Min:  0.0, Avg:  0.2, Max:  0.7, Diff:  0.7, Sum:  0.7, Workers: 4
+[0.419s][debug][gc,phases    ] GC(5)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.419s][debug][gc,phases    ] GC(5)     Object Copy (ms):         Min: 38.9, Avg: 39.4, Max: 39.6, Diff:  0.7, Sum: 157.8, Workers: 4
+[0.419s][debug][gc,phases    ] GC(5)     Termination (ms):         Min:  0.0, Avg:  0.3, Max:  0.4, Diff:  0.4, Sum:  1.1, Workers: 4
+[0.419s][debug][gc,phases    ] GC(5)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.419s][debug][gc,phases    ] GC(5)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.419s][debug][gc,phases    ] GC(5)     GC Worker Total (ms):     Min: 44.5, Avg: 44.7, Max: 44.7, Diff:  0.2, Sum: 178.8, Workers: 4
+[0.419s][info ][gc,phases    ] GC(5)   Post Evacuate Collection Set: 0.2ms
+[0.419s][debug][gc,phases    ] GC(5)     Code Roots Fixup: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Preserve CM Refs: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Reference Processing: 0.1ms
+[0.419s][debug][gc,phases    ] GC(5)     Clear Card Table: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Reference Enqueuing: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Merge Per-Thread State: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Code Roots Purge: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Redirty Cards: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Free Collection Set: 0.1ms
+[0.419s][debug][gc,phases    ] GC(5)     Humongous Reclaim: 0.0ms
+[0.419s][debug][gc,phases    ] GC(5)     Expand Heap After Collection: 0.0ms
+[0.419s][info ][gc,phases    ] GC(5)   Other: 0.1ms
+[0.419s][info ][gc,heap      ] GC(5) Eden regions: 34->0(37)
+[0.419s][info ][gc,heap      ] GC(5) Survivor regions: 4->5(5)
+[0.419s][info ][gc,heap      ] GC(5) Old regions: 85->119
+[0.419s][info ][gc,heap      ] GC(5) Humongous regions: 32->32
+[0.419s][info ][gc,metaspace ] GC(5) Metaspace: 4006K->4006K(1056768K)
+[0.419s][info ][gc           ] GC(5) Pause Young (G1 Evacuation Pause) 154M->155M(768M) 45.486ms
+[0.419s][info ][gc,cpu       ] GC(5) User=0.09s Sys=0.03s Real=0.05s
+[0.428s][info ][gc,start     ] GC(6) Pause Young (G1 Evacuation Pause)
+[0.428s][info ][gc,task      ] GC(6) Using 4 workers of 4 for evacuation
+[0.485s][info ][gc,phases    ] GC(6)   Pre Evacuate Collection Set: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Choose Collection Set: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Humongous Register: 0.0ms
+[0.485s][info ][gc,phases    ] GC(6)   Evacuate Collection Set: 56.8ms
+[0.485s][debug][gc,phases    ] GC(6)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)     Update RS (ms):           Min:  5.3, Avg:  6.2, Max:  8.4, Diff:  3.1, Sum: 25.0, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)       Processed Buffers:        Min: 2, Avg:  3.0, Max: 4, Diff: 2, Sum: 12, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)     Scan RS (ms):             Min:  0.0, Avg:  0.2, Max:  0.5, Diff:  0.5, Sum:  0.8, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)     Object Copy (ms):         Min: 48.2, Avg: 50.2, Max: 50.9, Diff:  2.6, Sum: 200.7, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)       Termination Attempts:     Min: 1, Avg:  2.5, Max: 4, Diff: 3, Sum: 10, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.485s][debug][gc,phases    ] GC(6)     GC Worker Total (ms):     Min: 56.7, Avg: 56.7, Max: 56.7, Diff:  0.0, Sum: 227.0, Workers: 4
+[0.485s][info ][gc,phases    ] GC(6)   Post Evacuate Collection Set: 0.1ms
+[0.485s][debug][gc,phases    ] GC(6)     Code Roots Fixup: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Preserve CM Refs: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Reference Processing: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Clear Card Table: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Reference Enqueuing: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Merge Per-Thread State: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Code Roots Purge: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Redirty Cards: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Free Collection Set: 0.1ms
+[0.485s][debug][gc,phases    ] GC(6)     Humongous Reclaim: 0.0ms
+[0.485s][debug][gc,phases    ] GC(6)     Expand Heap After Collection: 0.0ms
+[0.485s][info ][gc,phases    ] GC(6)   Other: 0.1ms
+[0.485s][info ][gc,heap      ] GC(6) Eden regions: 37->0(44)
+[0.485s][info ][gc,heap      ] GC(6) Survivor regions: 5->6(6)
+[0.485s][info ][gc,heap      ] GC(6) Old regions: 119->156
+[0.485s][info ][gc,heap      ] GC(6) Humongous regions: 32->32
+[0.485s][info ][gc,metaspace ] GC(6) Metaspace: 4006K->4006K(1056768K)
+[0.485s][info ][gc           ] GC(6) Pause Young (G1 Evacuation Pause) 192M->193M(768M) 57.351ms
+[0.485s][info ][gc,cpu       ] GC(6) User=0.10s Sys=0.02s Real=0.06s
+[0.495s][info ][gc,start     ] GC(7) Pause Young (G1 Evacuation Pause)
+[0.495s][info ][gc,task      ] GC(7) Using 4 workers of 4 for evacuation
+[0.560s][info ][gc,phases    ] GC(7)   Pre Evacuate Collection Set: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Choose Collection Set: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Humongous Register: 0.0ms
+[0.560s][info ][gc,phases    ] GC(7)   Evacuate Collection Set: 64.3ms
+[0.560s][debug][gc,phases    ] GC(7)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)     Update RS (ms):           Min:  6.1, Avg:  6.8, Max:  7.7, Diff:  1.6, Sum: 27.1, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)       Processed Buffers:        Min: 3, Avg:  4.0, Max: 5, Diff: 2, Sum: 16, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)     Scan RS (ms):             Min:  0.0, Avg:  0.3, Max:  0.7, Diff:  0.7, Sum:  1.2, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)     Object Copy (ms):         Min: 56.5, Avg: 57.1, Max: 57.4, Diff:  0.9, Sum: 228.6, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)       Termination Attempts:     Min: 1, Avg:  2.0, Max: 3, Diff: 2, Sum: 8, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.560s][debug][gc,phases    ] GC(7)     GC Worker Total (ms):     Min: 64.3, Avg: 64.3, Max: 64.3, Diff:  0.0, Sum: 257.3, Workers: 4
+[0.560s][info ][gc,phases    ] GC(7)   Post Evacuate Collection Set: 0.2ms
+[0.560s][debug][gc,phases    ] GC(7)     Code Roots Fixup: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Preserve CM Refs: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Reference Processing: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Clear Card Table: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Reference Enqueuing: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Merge Per-Thread State: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Code Roots Purge: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Redirty Cards: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Free Collection Set: 0.1ms
+[0.560s][debug][gc,phases    ] GC(7)     Humongous Reclaim: 0.0ms
+[0.560s][debug][gc,phases    ] GC(7)     Expand Heap After Collection: 0.0ms
+[0.560s][info ][gc,phases    ] GC(7)   Other: 0.1ms
+[0.560s][info ][gc,heap      ] GC(7) Eden regions: 44->0(51)
+[0.560s][info ][gc,heap      ] GC(7) Survivor regions: 6->7(7)
+[0.560s][info ][gc,heap      ] GC(7) Old regions: 156->199
+[0.560s][info ][gc,heap      ] GC(7) Humongous regions: 32->32
+[0.560s][info ][gc,metaspace ] GC(7) Metaspace: 4006K->4006K(1056768K)
+[0.560s][info ][gc           ] GC(7) Pause Young (G1 Evacuation Pause) 237M->238M(768M) 64.943ms
+[0.560s][info ][gc,cpu       ] GC(7) User=0.12s Sys=0.03s Real=0.06s
+[0.572s][info ][gc,start     ] GC(8) Pause Young (G1 Evacuation Pause)
+[0.572s][info ][gc,task      ] GC(8) Using 4 workers of 4 for evacuation
+[0.655s][info ][gc,phases    ] GC(8)   Pre Evacuate Collection Set: 0.0ms
+[0.655s][debug][gc,phases    ] GC(8)     Choose Collection Set: 0.0ms
+[0.655s][debug][gc,phases    ] GC(8)     Humongous Register: 0.0ms
+[0.655s][info ][gc,phases    ] GC(8)   Evacuate Collection Set: 66.4ms
+[0.655s][debug][gc,phases    ] GC(8)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[0.655s][debug][gc,phases    ] GC(8)     Update RS (ms):           Min:  7.3, Avg:  8.9, Max: 10.8, Diff:  3.5, Sum: 35.6, Workers: 4
+[0.655s][debug][gc,phases    ] GC(8)       Processed Buffers:        Min: 4, Avg:  5.0, Max: 6, Diff: 2, Sum: 20, Workers: 4
+[0.655s][debug][gc,phases    ] GC(8)     Scan RS (ms):             Min:  0.0, Avg:  0.4, Max:  0.8, Diff:  0.8, Sum:  1.4, Workers: 4
+[0.655s][debug][gc,phases    ] GC(8)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.655s][debug][gc,phases    ] GC(8)     Object Copy (ms):         Min: 55.2, Avg: 56.3, Max: 56.7, Diff:  1.5, Sum: 225.1, Workers: 4
+[0.656s][debug][gc,phases    ] GC(8)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.3, Workers: 4
+[0.656s][debug][gc,phases    ] GC(8)       Termination Attempts:     Min: 1, Avg:  2.5, Max: 5, Diff: 4, Sum: 10, Workers: 4
+[0.656s][debug][gc,phases    ] GC(8)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.656s][debug][gc,phases    ] GC(8)     GC Worker Total (ms):     Min: 64.0, Avg: 65.7, Max: 66.4, Diff:  2.4, Sum: 262.9, Workers: 4
+[0.656s][info ][gc,phases    ] GC(8)   Post Evacuate Collection Set: 16.5ms
+[0.656s][debug][gc,phases    ] GC(8)     Code Roots Fixup: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Preserve CM Refs: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Reference Processing: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Clear Card Table: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Reference Enqueuing: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Merge Per-Thread State: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Code Roots Purge: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Redirty Cards: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Free Collection Set: 0.1ms
+[0.656s][debug][gc,phases    ] GC(8)     Humongous Reclaim: 0.0ms
+[0.656s][debug][gc,phases    ] GC(8)     Expand Heap After Collection: 16.3ms
+[0.656s][info ][gc,phases    ] GC(8)   Other: 0.1ms
+[0.656s][info ][gc,heap      ] GC(8) Eden regions: 51->0(97)
+[0.656s][info ][gc,heap      ] GC(8) Survivor regions: 7->8(8)
+[0.656s][info ][gc,heap      ] GC(8) Old regions: 199->251
+[0.656s][info ][gc,heap      ] GC(8) Humongous regions: 32->32
+[0.656s][info ][gc,metaspace ] GC(8) Metaspace: 4006K->4006K(1056768K)
+[0.656s][info ][gc           ] GC(8) Pause Young (G1 Evacuation Pause) 289M->290M(2100M) 83.288ms
+[0.656s][info ][gc,cpu       ] GC(8) User=0.15s Sys=0.03s Real=0.09s
+[0.753s][info ][gc,start     ] GC(9) Pause Young (G1 Evacuation Pause)
+[0.753s][info ][gc,task      ] GC(9) Using 4 workers of 4 for evacuation
+[0.890s][info ][gc,phases    ] GC(9)   Pre Evacuate Collection Set: 0.1ms
+[0.890s][debug][gc,phases    ] GC(9)     Choose Collection Set: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Humongous Register: 0.1ms
+[0.890s][info ][gc,phases    ] GC(9)   Evacuate Collection Set: 136.1ms
+[0.890s][debug][gc,phases    ] GC(9)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.3, Diff:  0.3, Sum:  0.3, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)     Update RS (ms):           Min:  4.5, Avg:  7.3, Max:  9.9, Diff:  5.4, Sum: 29.2, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)       Processed Buffers:        Min: 2, Avg:  3.2, Max: 4, Diff: 2, Sum: 13, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)     Scan RS (ms):             Min:  1.7, Avg:  2.6, Max:  3.3, Diff:  1.6, Sum: 10.3, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)     Object Copy (ms):         Min: 123.9, Avg: 124.1, Max: 124.2, Diff:  0.4, Sum: 496.3, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.1, Diff:  0.1, Sum:  0.2, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[0.890s][debug][gc,phases    ] GC(9)     GC Worker Total (ms):     Min: 132.1, Avg: 134.1, Max: 136.1, Diff:  4.0, Sum: 536.3, Workers: 4
+[0.890s][info ][gc,phases    ] GC(9)   Post Evacuate Collection Set: 0.3ms
+[0.890s][debug][gc,phases    ] GC(9)     Code Roots Fixup: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Preserve CM Refs: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Reference Processing: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Clear Card Table: 0.1ms
+[0.890s][debug][gc,phases    ] GC(9)     Reference Enqueuing: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Merge Per-Thread State: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Code Roots Purge: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Redirty Cards: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Free Collection Set: 0.1ms
+[0.890s][debug][gc,phases    ] GC(9)     Humongous Reclaim: 0.0ms
+[0.890s][debug][gc,phases    ] GC(9)     Expand Heap After Collection: 0.0ms
+[0.890s][info ][gc,phases    ] GC(9)   Other: 0.2ms
+[0.890s][info ][gc,heap      ] GC(9) Eden regions: 97->0(91)
+[0.890s][info ][gc,heap      ] GC(9) Survivor regions: 8->14(14)
+[0.890s][info ][gc,heap      ] GC(9) Old regions: 251->343
+[0.890s][info ][gc,heap      ] GC(9) Humongous regions: 32->32
+[0.890s][info ][gc,metaspace ] GC(9) Metaspace: 4006K->4006K(1056768K)
+[0.890s][info ][gc           ] GC(9) Pause Young (G1 Evacuation Pause) 387M->388M(2100M) 136.900ms
+[0.890s][info ][gc,cpu       ] GC(9) User=0.24s Sys=0.06s Real=0.14s
+[0.910s][info ][gc,start     ] GC(10) Pause Young (G1 Evacuation Pause)
+[0.910s][info ][gc,task      ] GC(10) Using 4 workers of 4 for evacuation
+[1.049s][info ][gc,phases    ] GC(10)   Pre Evacuate Collection Set: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Choose Collection Set: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Humongous Register: 0.0ms
+[1.049s][info ][gc,phases    ] GC(10)   Evacuate Collection Set: 138.9ms
+[1.049s][debug][gc,phases    ] GC(10)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.4, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)     Update RS (ms):           Min: 16.6, Avg: 17.5, Max: 18.9, Diff:  2.3, Sum: 70.1, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)       Processed Buffers:        Min: 5, Avg:  7.5, Max: 9, Diff: 4, Sum: 30, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)     Scan RS (ms):             Min:  0.0, Avg:  0.6, Max:  1.3, Diff:  1.3, Sum:  2.3, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)     Object Copy (ms):         Min: 119.6, Avg: 120.4, Max: 120.7, Diff:  1.1, Sum: 481.8, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)       Termination Attempts:     Min: 1, Avg:  1.2, Max: 2, Diff: 1, Sum: 5, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.049s][debug][gc,phases    ] GC(10)     GC Worker Total (ms):     Min: 138.6, Avg: 138.7, Max: 138.8, Diff:  0.2, Sum: 554.9, Workers: 4
+[1.049s][info ][gc,phases    ] GC(10)   Post Evacuate Collection Set: 0.3ms
+[1.049s][debug][gc,phases    ] GC(10)     Code Roots Fixup: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Preserve CM Refs: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Reference Processing: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Clear Card Table: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Reference Enqueuing: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Merge Per-Thread State: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Code Roots Purge: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Redirty Cards: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Free Collection Set: 0.1ms
+[1.049s][debug][gc,phases    ] GC(10)     Humongous Reclaim: 0.0ms
+[1.049s][debug][gc,phases    ] GC(10)     Expand Heap After Collection: 0.0ms
+[1.049s][info ][gc,phases    ] GC(10)   Other: 0.1ms
+[1.049s][info ][gc,heap      ] GC(10) Eden regions: 91->0(91)
+[1.049s][info ][gc,heap      ] GC(10) Survivor regions: 14->14(14)
+[1.049s][info ][gc,heap      ] GC(10) Old regions: 343->435
+[1.049s][info ][gc,heap      ] GC(10) Humongous regions: 32->32
+[1.049s][info ][gc,metaspace ] GC(10) Metaspace: 4006K->4006K(1056768K)
+[1.049s][info ][gc           ] GC(10) Pause Young (G1 Evacuation Pause) 479M->480M(2100M) 139.616ms
+[1.049s][info ][gc,cpu       ] GC(10) User=0.25s Sys=0.05s Real=0.14s
+[1.064s][info ][gc,start     ] GC(11) Pause Young (G1 Evacuation Pause)
+[1.064s][info ][gc,task      ] GC(11) Using 4 workers of 4 for evacuation
+[1.222s][info ][gc,phases    ] GC(11)   Pre Evacuate Collection Set: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Choose Collection Set: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Humongous Register: 0.0ms
+[1.222s][info ][gc,phases    ] GC(11)   Evacuate Collection Set: 156.9ms
+[1.222s][debug][gc,phases    ] GC(11)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)     Update RS (ms):           Min: 12.0, Avg: 18.0, Max: 21.4, Diff:  9.4, Sum: 72.1, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)       Processed Buffers:        Min: 7, Avg:  8.0, Max: 9, Diff: 2, Sum: 32, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)     Scan RS (ms):             Min:  0.0, Avg:  0.9, Max:  1.9, Diff:  1.9, Sum:  3.5, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)     Object Copy (ms):         Min: 135.2, Avg: 135.9, Max: 136.5, Diff:  1.3, Sum: 543.5, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)       Termination Attempts:     Min: 1, Avg:  1.5, Max: 2, Diff: 1, Sum: 6, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.222s][debug][gc,phases    ] GC(11)     GC Worker Total (ms):     Min: 149.2, Avg: 155.0, Max: 156.9, Diff:  7.7, Sum: 619.9, Workers: 4
+[1.222s][info ][gc,phases    ] GC(11)   Post Evacuate Collection Set: 0.3ms
+[1.222s][debug][gc,phases    ] GC(11)     Code Roots Fixup: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Preserve CM Refs: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Reference Processing: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Clear Card Table: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Reference Enqueuing: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Merge Per-Thread State: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Code Roots Purge: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Redirty Cards: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Free Collection Set: 0.2ms
+[1.222s][debug][gc,phases    ] GC(11)     Humongous Reclaim: 0.0ms
+[1.222s][debug][gc,phases    ] GC(11)     Expand Heap After Collection: 0.0ms
+[1.222s][info ][gc,phases    ] GC(11)   Other: 0.1ms
+[1.222s][info ][gc,heap      ] GC(11) Eden regions: 91->0(91)
+[1.222s][info ][gc,heap      ] GC(11) Survivor regions: 14->14(14)
+[1.222s][info ][gc,heap      ] GC(11) Old regions: 435->527
+[1.222s][info ][gc,heap      ] GC(11) Humongous regions: 32->32
+[1.222s][info ][gc,metaspace ] GC(11) Metaspace: 4006K->4006K(1056768K)
+[1.222s][info ][gc           ] GC(11) Pause Young (G1 Evacuation Pause) 571M->572M(2100M) 157.573ms
+[1.222s][info ][gc,cpu       ] GC(11) User=0.26s Sys=0.05s Real=0.15s
+[1.237s][info ][gc,start     ] GC(12) Pause Young (G1 Evacuation Pause)
+[1.237s][info ][gc,task      ] GC(12) Using 4 workers of 4 for evacuation
+[1.408s][info ][gc,phases    ] GC(12)   Pre Evacuate Collection Set: 0.1ms
+[1.408s][debug][gc,phases    ] GC(12)     Choose Collection Set: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Humongous Register: 0.1ms
+[1.408s][info ][gc,phases    ] GC(12)   Evacuate Collection Set: 162.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.4, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)     Update RS (ms):           Min: 23.1, Avg: 23.6, Max: 24.1, Diff:  1.0, Sum: 94.5, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)       Processed Buffers:        Min: 7, Avg:  8.2, Max: 10, Diff: 3, Sum: 33, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)     Scan RS (ms):             Min:  0.0, Avg:  0.6, Max:  1.2, Diff:  1.2, Sum:  2.4, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)     Object Copy (ms):         Min: 137.2, Avg: 137.4, Max: 137.5, Diff:  0.3, Sum: 549.4, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)       Termination Attempts:     Min: 1, Avg:  1.2, Max: 2, Diff: 1, Sum: 5, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.408s][debug][gc,phases    ] GC(12)     GC Worker Total (ms):     Min: 161.4, Avg: 161.8, Max: 161.9, Diff:  0.6, Sum: 647.1, Workers: 4
+[1.408s][info ][gc,phases    ] GC(12)   Post Evacuate Collection Set: 8.2ms
+[1.408s][debug][gc,phases    ] GC(12)     Code Roots Fixup: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Preserve CM Refs: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Reference Processing: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Clear Card Table: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Reference Enqueuing: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Merge Per-Thread State: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Code Roots Purge: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Redirty Cards: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Free Collection Set: 0.1ms
+[1.408s][debug][gc,phases    ] GC(12)     Humongous Reclaim: 0.0ms
+[1.408s][debug][gc,phases    ] GC(12)     Expand Heap After Collection: 8.0ms
+[1.408s][info ][gc,phases    ] GC(12)   Other: 0.1ms
+[1.408s][info ][gc,heap      ] GC(12) Eden regions: 91->0(130)
+[1.408s][info ][gc,heap      ] GC(12) Survivor regions: 14->14(14)
+[1.408s][info ][gc,heap      ] GC(12) Old regions: 527->619
+[1.408s][info ][gc,heap      ] GC(12) Humongous regions: 32->32
+[1.408s][info ][gc,metaspace ] GC(12) Metaspace: 4006K->4006K(1056768K)
+[1.408s][info ][gc           ] GC(12) Pause Young (G1 Evacuation Pause) 663M->665M(2899M) 170.622ms
+[1.408s][info ][gc,cpu       ] GC(12) User=0.28s Sys=0.06s Real=0.17s
+[1.538s][info ][gc,start     ] GC(13) Pause Young (G1 Evacuation Pause)
+[1.538s][info ][gc,task      ] GC(13) Using 4 workers of 4 for evacuation
+[1.712s][info ][gc,phases    ] GC(13)   Pre Evacuate Collection Set: 0.1ms
+[1.713s][debug][gc,phases    ] GC(13)     Choose Collection Set: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Humongous Register: 0.1ms
+[1.713s][info ][gc,phases    ] GC(13)   Evacuate Collection Set: 173.3ms
+[1.713s][debug][gc,phases    ] GC(13)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.3, Diff:  0.3, Sum:  0.3, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)     Update RS (ms):           Min:  9.0, Avg: 10.8, Max: 12.5, Diff:  3.5, Sum: 43.3, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)       Processed Buffers:        Min: 2, Avg:  3.8, Max: 5, Diff: 3, Sum: 15, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)     Scan RS (ms):             Min:  0.7, Avg:  4.0, Max:  6.1, Diff:  5.4, Sum: 16.2, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)     Object Copy (ms):         Min: 155.2, Avg: 155.3, Max: 155.4, Diff:  0.2, Sum: 621.0, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.3, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)       Termination Attempts:     Min: 1, Avg:  8.8, Max: 18, Diff: 17, Sum: 35, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.1, Workers: 4
+[1.713s][debug][gc,phases    ] GC(13)     GC Worker Total (ms):     Min: 168.5, Avg: 170.3, Max: 173.3, Diff:  4.8, Sum: 681.2, Workers: 4
+[1.713s][info ][gc,phases    ] GC(13)   Post Evacuate Collection Set: 0.4ms
+[1.713s][debug][gc,phases    ] GC(13)     Code Roots Fixup: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Preserve CM Refs: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Reference Processing: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Clear Card Table: 0.1ms
+[1.713s][debug][gc,phases    ] GC(13)     Reference Enqueuing: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Merge Per-Thread State: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Code Roots Purge: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Redirty Cards: 0.1ms
+[1.713s][debug][gc,phases    ] GC(13)     Free Collection Set: 0.2ms
+[1.713s][debug][gc,phases    ] GC(13)     Humongous Reclaim: 0.0ms
+[1.713s][debug][gc,phases    ] GC(13)     Expand Heap After Collection: 0.0ms
+[1.713s][info ][gc,phases    ] GC(13)   Other: 0.2ms
+[1.713s][info ][gc,heap      ] GC(13) Eden regions: 130->0(126)
+[1.713s][info ][gc,heap      ] GC(13) Survivor regions: 14->18(18)
+[1.713s][info ][gc,heap      ] GC(13) Old regions: 619->746
+[1.713s][info ][gc,heap      ] GC(13) Humongous regions: 32->32
+[1.713s][info ][gc,metaspace ] GC(13) Metaspace: 4006K->4006K(1056768K)
+[1.713s][info ][gc           ] GC(13) Pause Young (G1 Evacuation Pause) 795M->795M(2899M) 174.338ms
+[1.713s][info ][gc,cpu       ] GC(13) User=0.32s Sys=0.05s Real=0.17s
+[1.757s][info ][gc,start     ] GC(14) Pause Young (G1 Evacuation Pause)
+[1.758s][info ][gc,task      ] GC(14) Using 4 workers of 4 for evacuation
+[1.959s][info ][gc,mmu       ] GC(14) MMU target violated: 201.0ms (200.0ms/201.0ms)
+[1.959s][info ][gc,phases    ] GC(14)   Pre Evacuate Collection Set: 0.1ms
+[1.959s][debug][gc,phases    ] GC(14)     Choose Collection Set: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Humongous Register: 0.1ms
+[1.959s][info ][gc,phases    ] GC(14)   Evacuate Collection Set: 200.7ms
+[1.959s][debug][gc,phases    ] GC(14)     Ext Root Scanning (ms):   Min:  0.1, Avg:  0.1, Max:  0.1, Diff:  0.0, Sum:  0.4, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)     Update RS (ms):           Min: 10.1, Avg: 11.8, Max: 15.7, Diff:  5.7, Sum: 47.2, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)       Processed Buffers:        Min: 3, Avg:  4.8, Max: 6, Diff: 3, Sum: 19, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)     Scan RS (ms):             Min:  0.0, Avg:  3.5, Max:  5.2, Diff:  5.2, Sum: 14.1, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)     Object Copy (ms):         Min: 184.8, Avg: 185.2, Max: 185.4, Diff:  0.6, Sum: 740.9, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)     Termination (ms):         Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[1.959s][debug][gc,phases    ] GC(14)     GC Worker Total (ms):     Min: 200.7, Avg: 200.7, Max: 200.7, Diff:  0.0, Sum: 802.7, Workers: 4
+[1.959s][info ][gc,phases    ] GC(14)   Post Evacuate Collection Set: 0.3ms
+[1.959s][debug][gc,phases    ] GC(14)     Code Roots Fixup: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Preserve CM Refs: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Reference Processing: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Clear Card Table: 0.1ms
+[1.959s][debug][gc,phases    ] GC(14)     Reference Enqueuing: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Merge Per-Thread State: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Code Roots Purge: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Redirty Cards: 0.1ms
+[1.959s][debug][gc,phases    ] GC(14)     Free Collection Set: 0.2ms
+[1.959s][debug][gc,phases    ] GC(14)     Humongous Reclaim: 0.0ms
+[1.959s][debug][gc,phases    ] GC(14)     Expand Heap After Collection: 0.0ms
+[1.959s][info ][gc,phases    ] GC(14)   Other: 0.1ms
+[1.959s][info ][gc,heap      ] GC(14) Eden regions: 126->0(126)
+[1.959s][info ][gc,heap      ] GC(14) Survivor regions: 18->18(18)
+[1.959s][info ][gc,heap      ] GC(14) Old regions: 746->873
+[1.959s][info ][gc,heap      ] GC(14) Humongous regions: 32->32
+[1.959s][info ][gc,metaspace ] GC(14) Metaspace: 4006K->4006K(1056768K)
+[1.959s][info ][gc           ] GC(14) Pause Young (G1 Evacuation Pause) 921M->922M(2899M) 201.378ms
+[1.959s][info ][gc,cpu       ] GC(14) User=0.30s Sys=0.10s Real=0.20s
+[1.991s][info ][gc,start     ] GC(15) Pause Young (G1 Evacuation Pause)
+[1.991s][info ][gc,task      ] GC(15) Using 4 workers of 4 for evacuation
+[2.198s][info ][gc,mmu       ] GC(15) MMU target violated: 201.0ms (200.0ms/201.0ms)
+[2.198s][info ][gc,phases    ] GC(15)   Pre Evacuate Collection Set: 0.1ms
+[2.198s][debug][gc,phases    ] GC(15)     Choose Collection Set: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Humongous Register: 0.1ms
+[2.198s][info ][gc,phases    ] GC(15)   Evacuate Collection Set: 206.7ms
+[2.198s][debug][gc,phases    ] GC(15)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)     Update RS (ms):           Min: 18.8, Avg: 19.6, Max: 20.8, Diff:  2.0, Sum: 78.2, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)       Processed Buffers:        Min: 7, Avg:  8.8, Max: 10, Diff: 3, Sum: 35, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)     Scan RS (ms):             Min:  0.0, Avg:  0.9, Max:  1.4, Diff:  1.4, Sum:  3.5, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)     Object Copy (ms):         Min: 185.6, Avg: 185.7, Max: 185.7, Diff:  0.1, Sum: 742.7, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.2, Diff:  0.2, Sum:  0.6, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.198s][debug][gc,phases    ] GC(15)     GC Worker Total (ms):     Min: 205.4, Avg: 206.4, Max: 206.7, Diff:  1.2, Sum: 825.4, Workers: 4
+[2.198s][info ][gc,phases    ] GC(15)   Post Evacuate Collection Set: 0.4ms
+[2.198s][debug][gc,phases    ] GC(15)     Code Roots Fixup: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Preserve CM Refs: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Reference Processing: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Clear Card Table: 0.1ms
+[2.198s][debug][gc,phases    ] GC(15)     Reference Enqueuing: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Merge Per-Thread State: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Code Roots Purge: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Redirty Cards: 0.1ms
+[2.198s][debug][gc,phases    ] GC(15)     Free Collection Set: 0.2ms
+[2.198s][debug][gc,phases    ] GC(15)     Humongous Reclaim: 0.0ms
+[2.198s][debug][gc,phases    ] GC(15)     Expand Heap After Collection: 0.0ms
+[2.198s][info ][gc,phases    ] GC(15)   Other: 0.2ms
+[2.198s][info ][gc,heap      ] GC(15) Eden regions: 126->0(126)
+[2.198s][info ][gc,heap      ] GC(15) Survivor regions: 18->18(18)
+[2.198s][info ][gc,heap      ] GC(15) Old regions: 873->999
+[2.198s][info ][gc,heap      ] GC(15) Humongous regions: 32->32
+[2.198s][info ][gc,metaspace ] GC(15) Metaspace: 4006K->4006K(1056768K)
+[2.198s][info ][gc           ] GC(15) Pause Young (G1 Evacuation Pause) 1048M->1049M(2899M) 207.609ms
+[2.198s][info ][gc,cpu       ] GC(15) User=0.33s Sys=0.07s Real=0.21s
+[2.234s][info ][gc,start     ] GC(16) Pause Young (G1 Evacuation Pause)
+[2.234s][info ][gc,task      ] GC(16) Using 4 workers of 4 for evacuation
+[2.491s][info ][gc,mmu       ] GC(16) MMU target violated: 201.0ms (200.0ms/201.0ms)
+[2.491s][info ][gc,phases    ] GC(16)   Pre Evacuate Collection Set: 0.1ms
+[2.491s][debug][gc,phases    ] GC(16)     Choose Collection Set: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Humongous Register: 0.1ms
+[2.491s][info ][gc,phases    ] GC(16)   Evacuate Collection Set: 250.4ms
+[2.491s][debug][gc,phases    ] GC(16)     Ext Root Scanning (ms):   Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.4, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)     Update RS (ms):           Min: 15.3, Avg: 19.7, Max: 28.8, Diff: 13.5, Sum: 78.7, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)       Processed Buffers:        Min: 7, Avg:  8.0, Max: 9, Diff: 2, Sum: 32, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)     Scan RS (ms):             Min:  0.0, Avg:  0.8, Max:  1.4, Diff:  1.4, Sum:  3.1, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)     Code Root Scanning (ms):  Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)     Object Copy (ms):         Min: 221.3, Avg: 229.0, Max: 231.7, Diff: 10.4, Sum: 916.1, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)     Termination (ms):         Min:  0.0, Avg:  0.1, Max:  0.1, Diff:  0.1, Sum:  0.3, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)       Termination Attempts:     Min: 1, Avg:  1.0, Max: 1, Diff: 0, Sum: 4, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)     GC Worker Other (ms):     Min:  0.0, Avg:  0.0, Max:  0.0, Diff:  0.0, Sum:  0.0, Workers: 4
+[2.491s][debug][gc,phases    ] GC(16)     GC Worker Total (ms):     Min: 247.7, Avg: 249.7, Max: 250.4, Diff:  2.7, Sum: 998.8, Workers: 4
+[2.491s][info ][gc,phases    ] GC(16)   Post Evacuate Collection Set: 6.1ms
+[2.491s][debug][gc,phases    ] GC(16)     Code Roots Fixup: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Preserve CM Refs: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Reference Processing: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Clear Card Table: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Reference Enqueuing: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Merge Per-Thread State: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Code Roots Purge: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Redirty Cards: 0.1ms
+[2.491s][debug][gc,phases    ] GC(16)     Free Collection Set: 0.1ms
+[2.491s][debug][gc,phases    ] GC(16)     Humongous Reclaim: 0.0ms
+[2.491s][debug][gc,phases    ] GC(16)     Expand Heap After Collection: 5.9ms
+[2.491s][info ][gc,phases    ] GC(16)   Other: 0.2ms
+[2.491s][info ][gc,heap      ] GC(16) Eden regions: 126->0(150)
+[2.491s][info ][gc,heap      ] GC(16) Survivor regions: 18->18(18)
+[2.491s][info ][gc,heap      ] GC(16) Old regions: 999->1126
+[2.491s][info ][gc,heap      ] GC(16) Humongous regions: 32->32
+[2.491s][info ][gc,metaspace ] GC(16) Metaspace: 4006K->4006K(1056768K)
+[2.491s][info ][gc           ] GC(16) Pause Young (G1 Evacuation Pause) 1175M->1176M(3378M) 257.010ms
+[2.491s][info ][gc,cpu       ] GC(16) User=0.36s Sys=0.08s Real=0.25s
+[8.372s][info ][gc,heap,exit ] Heap
+[8.372s][info ][gc,heap,exit ]  garbage-first heap   total 3459072K, used 1304576K [0x00000006c0000000, 0x00000006c0106990, 0x00000007c0000000)
+[8.372s][info ][gc,heap,exit ]   region size 1024K, 117 young (119808K), 18 survivors (18432K)
+[8.372s][info ][gc,heap,exit ]  Metaspace       used 5152K, capacity 5244K, committed 5376K, reserved 1056768K
+[8.372s][info ][gc,heap,exit ]   class space    used 443K, capacity 485K, committed 512K, reserved 1048576K
