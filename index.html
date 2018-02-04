@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/dark.css" id="theme">
+    <link rel="stylesheet" href="css/theme/light.css" id="theme">
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
 
@@ -64,12 +64,12 @@
             </td>
             <td width="70%" style="text-align:center; font-size: 0.9em; vertical-align: middle;border: hidden">
               <ul>
-                <li>Coding since mid-nineties. Mostly Smalltalk and Java.</li>
-                <li>Spring and Spring Boot evangelist and heavy user.</li>
-                <li>Organizer/presenter at NY Java Special Interest Group (<a href="http://www.javasig.com" target="_blank">NYJavaSIG</a>).</li>
-                <li>Co-chair of NYJavaSIG Hands On Workshop (NYJavaSIG HOW).</li>
-                <li>Committed to <em class="color2">docendo discimus</em> (by teaching, you learn).</li>
-                <li>A <strong class="color2">Saganist</strong> ( the <strong class="color2">g</strong> not to be confused with a <strong class="color2">t</strong> ). 😈</li>
+                <li>coding since mid-nineties, mostly Smalltalk and Java.</li>
+                <li>an evangelist and heavy user of Spring and Spring Boot.</li>
+                <li>an organizer/presenter at <span class="color2">NY Java Special Interest Group</span> (<a href="http://www.javasig.com" target="_blank">javasig.com</a>).</li>
+                <li>a co-chair of NYJavaSIG Hands On Workshop (<span class="color2">NYJavaSIG HOW</span>).</li>
+                <li>committed to <em class="color2">docendo discimus</em> (by teaching, you learn).</li>
+                <li>a <strong class="color2">Saganist</strong> ( the <strong class="color2">g</strong> not to be confused with a <strong class="color2">t</strong> ). 😈</li>
               </ul>
             </td>
           </tr>
@@ -111,7 +111,7 @@
       </span>
       <br>
       <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">
-        LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a>
+      LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a>.
       </span></span>
     </section>
     
@@ -164,26 +164,27 @@
             <tr style="border: hidden">
               <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
                 <span style="font-size:0.65em;text-align:left;">
-                JVM uses different runtime data areas (memory areas) when running.
+                  JVM uses different runtime data areas (a.k.a <em class="color2">memory areas</em>) when running.
                 <br/>
-                Some are shared across all threads while others are per-thread areas.
+                Some areas are shared across all threads while others are per-thread.
                 <br/>
                 <ol>
-                  <li><strong class="color2">Program Counter (PC) Register </strong> - <strong class="dimtext">Per Thread</strong>:
+                  <li><strong class="color2">Program Counter (PC) Register </strong> (<strong class="dimtext">Per Thread</strong>):
                     <ul>
                       <li>has the address of the current JVM instruction being executed.</li>
                     </ul>
                   </li>
                   <br/>
-                  <li><strong class="color2">JVM Stack</strong> - <strong class="dimtext">Per Thread</strong>:
+                  <li><strong class="color2">JVM Stack</strong> (<strong class="dimtext">Per Thread</strong>):
                     <ul>
-                      <li>JVM pushes to or pops from the stack frame.</li>
-                      <li>any exception in execution results in tracing this stack frame to produce a stack trace.</li>
-                      <li>consists of a stack frame, local variable array and an operand stack, all used in execution.</li>
+                      <li>JVM pushes to - or - pops from the stack frame.</li>
+                      <li>any exception in execution results in tracing this stack frame</li>
+                      <li>the call hierarchy here is used to produce a <span class="color2">stack trace</span>.</li>
+                      <li>consists of a stack frame, local variable array and an operand stack.</li>
                     </ul>
                   </li>
                   <br/>
-                  <li><strong class="color2">Native Methods Stack</strong> - <strong class="dimtext">Per Thread</strong>:
+                  <li><strong class="color2">Native Methods Stack</strong> (<strong class="dimtext">Per Thread</strong>):
                     <ul>
                       <li>storage area for native methods.</li>
                       <li>also referred to as 'C Stacks'.</li>
@@ -212,7 +213,7 @@
                   <li><strong class="color2">Method Area</strong> - <strong class="dimtext">Shared</strong>:
                     <ul>
                       <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method byte-codes.</li>
-                      <li>Oracle Hotspot VM refers to this area as Permanent Generation (PermGen).</li>
+                      <li>Oracle Hotspot VM co-mingled this area with Permanent Generation (PermGen).</li>
                       <li>garbage collection for this area is not required by the JVM specification.</li>
                     </ul>
                   </li>
@@ -222,7 +223,7 @@
                       <li><span class="color1">the most core area for the JVM</span>.</li>
                       <li>contains all constants of any interface and class.</li>
                       <li>contains references to <strong class="color2">* ALL *</strong> fields and methods.</li>
-                      <li>JVM looks up this area upon coming across an instruction to access to any field or method.</li>
+                      <li>JVM looks up here access to any field or method to process an instruction.</li>
                     </ul>
                   </li>
                   <br/>
@@ -230,7 +231,7 @@
                     <ul>
                       <li>space that stores instances or objects, and is a target of garbage collection.</li>
                       <li>most JVM performance revolves around the heap.</li>
-                      <li>JVM spec. leaves for interpretation how JVM vendors can configure the heap to collect garbage.</li>
+                      <li>JVM vendors can configure GC per their interpretation of the JVM spec.</li>
                     </ul>
                   </li>
                 </ol>
@@ -387,48 +388,49 @@
       <section>
         <h2>Garbage Collectors - Classification</h2>
         <p/>
-        <span style="font-size:0.6em;text-align:left;">
+        <span style="font-size:0.55em;text-align:left;">
           Garbage collectors can be classified with several classifiers.
-          <table style="font-size: 0.6em;text-align: left; width: 95%">
+          <table style="font-size: 0.6em;text-align: left; width: 100%">
             
             <tbody>
               <tr>
                 <td class="tdfiller">Based on how collection runs</td>
-                <td class="tdfiller">Based on run interval of collections</td>
+                <td class="tdfiller">Based on how objects are marked</td>
               </tr>
               <tr>
                 <td style="text-align: left; vertical-align: top; width: 50%">
                   <ul>
-                    <li><strong class="color1">Concurrent collector</strong>: GC thread concurrently run with the application threads.</li>
-                    <li><strong class="color1">Stop-the-world collector</strong>: GC thread run when all application threads are halted.</li>
-                    <li><strong class="color1">Parallel collector</strong>: GC thread run in parallel with application threads using multiple CPUs.</li>
-                    <li><strong class="color2">Note</strong>: Parallel and concurrent are two different things.</li>
+                    <li><strong class="color1">Serial collector</strong>: Single GC thread runs when all application threads are halted.</li>
+                    <li><strong class="color1">Concurrent collector</strong>: GC thread(s) concurrently run with the application threads.</li>
+                    <li><strong class="color1">Parallel collector</strong>: Multiple GC threads in parallel with application threads (using multiple CPUs).</li>
                   </ul>
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 0.7em"><strong class="color2">Note</strong><span class="color2">: Parallel and concurrent are two different things.</span></span>
                 </td>
+                </td>
+                <td style="text-align: left; vertical-align: top">
+                  <ul>
+                    <li><strong class="color1">Precise</strong>: When the collector can fully identify and process all references at the time of collection.</li>
+                    <li><strong class="color1">Conservative</strong>: When collector cannot/has not fully identified references to a certain object, it assumes a reference to it exists.</li>
+                  </ul>
+                  <br/>
+                </td>
+              </tr>
+            
+              <tr>
+                <td class="tdfiller">Based on run interval of collections</td>
+                <td class="tdfiller">Based on what collection does to objects</td>
+              </tr>
+              <tr>
                 <td style="text-align: left; vertical-align: top; width: 50%">
                   <ul>
                     <li><strong class="color1">All-at-once</strong>: Entire GC operation performed in a single run.</li>
                     <li><strong class="color1">Incremental</strong>: GC operations are sliced into smaller operations, to be more performant.</li>
                   </ul>
                 </td>
-              </tr>
-            
-              <tr>
-                <td class="tdfiller">Based on what collection does to objects</td>
-                <td class="tdfiller">Based on how objects are marked</td>
-              </tr>
-              <tr>
                 <td style="text-align: left; vertical-align: top">
                   <ul>
                     <li><strong class="color1">Moving</strong>: When reachable objects are moved to a new area of memory (a.k.a compacting).</li>
                     <li><strong class="color1">Non-moving</strong>: When unreachable objects are simply released (a.k.a non-compacting).</li>
-                  </ul>
-                  <br/>
-                </td>
-                <td style="text-align: left; vertical-align: top">
-                  <ul>
-                    <li><strong class="color1">Precise</strong>: When the collector can fully identify and process all references at the time of collection.</li>
-                    <li><strong class="color1">Conservative</strong>: When collector has not fully identified all references, so it assumes a reference exists, when in doubt.</li>
                   </ul>
                   <br/>
                 </td>
@@ -468,7 +470,7 @@
                   <li><span class="color2">decrements</span> the counter for each de-reference of the object.</li>
                   <li>marks object as garbage if reference count reaches zero.</li>
                   <li>is very under-performant and maintenance-heavy for JVMs.</li>
-                  <li>is <span class="color1">fairly obsolete</span> in commercial JVMs.</li>
+                  <li>is <span class="color1">considered obsolete</span> in commercial JVMs.</li>
                 </ul>
                 <p/>
                 Memory allocator may place objects anywhere in the free space.
@@ -584,7 +586,7 @@
         </span>
         <br>
         <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
-            Picture influenced by Jörg Prante's writeup: <a href="http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html" target="_balnk">http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html</a>
+        Picture influenced by Jörg Prante's writeup: <a href="http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html" target="_balnk">http://jprante.github.io/2012/11/28/Elasticsearch-Java-Virtual-Machine-settings-explained.html</a>
         </span></span>
       </section>
 
@@ -628,7 +630,7 @@
                 <li>VM Option to enable for tenured: <code>-XX:+UseParallelOldGC</code>.</li>
               </ul>
             </li><br/>
-            <li><strong class="color2">Concurrent Mark-Sweep (CMS) Collector (mostly*) - available Java 5 onwards</strong> <br/>
+            <li><strong class="color2">Concurrent Mark-Sweep (CMS) Collector (mostly*) - available Java 1.5 onwards until Java 1.8</strong> <br/>
               <ul>
                 <li>By default, <strong>Young</strong> and <strong>tenured gen.</strong> use a CMS collector.</li>
                 <li>Does not <span class="color1">compact</span> by default, to make GC a low-pause, low-latency, but causes heap fragmentation.</li>
@@ -648,19 +650,19 @@
         <span style="font-size:0.6em;text-align:left;">
           Some notes on the existing garbage collectors:<br/>
           <ul>
-            <li style="margin-top: 1.0em">Not performant for <span class="color2">large memory heaps</span> (common these days).</li>
+            <li style="margin-top: 1.0em">Not performant for <span class="color2">large memory heaps</span> (<span class="dimtext">large heaps are common these days</span>).</li>
             <li style="margin-top: 1.0em"><span class="color2">Unpredictable and inconsistent pause-times</span> and lesser number of STW GCs.</li>
             <li style="margin-top: 1.0em">Memory availability is dependent on GC or compaction irrespective of the heap size.</li>
             <li style="margin-top: 1.0em">Not much effort put into re-use of duplicated content.</li>
             <li style="margin-top: 1.0em">The <span class="color2">contiguous memory area arrangement</span> reduces flexibility of "moving the walls".</li>
             <li style="margin-top: 1.0em">Mostly <span class="color2">focused on live objects</span>, not on garbage (an exact antithesis of the name).</li>
-            <li style="margin-top: 1.0em">JVM <span class="color2">limited in allocating the PermGen space within the heap</span> and is limited by JVM heap size.</li>
+            <li style="margin-top: 1.0em">JVM <span class="color2">limited in allocating the PermGen space</span> within the its allocated memory.</li>
             <li style="margin-top: 1.0em">Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
           </ul>
           <p/>
           The G1GC (<strong class="color2">Garbage First Garbage Collector</strong>), was designed and developed to resolve the above.
-          <br/>
-          <span class="color1">It is the new default collector for JDK 9</span>.
+          <br/><br/>
+          <span class="color1">G1GC is the new default collector since JDK 9</span>.
         </span>
       </section>
     </section>
@@ -678,7 +680,10 @@
           <br/>
           <img src="images/G1MemoryAllocation.png" width="55%"/>
         </span>
-        
+        <br/>
+        <span class="dimtext"><span style="font-size: 0.45em; display: block; text-align: center">
+        Recommended slide deck: <a href="https://www.slideshare.net/MonicaBeckwith/java-9-the-g1-gc-awakens">https://www.slideshare.net/MonicaBeckwith/java-9-the-g1-gc-awakens</a>.
+        </span></span>
       </section>
   
       <!-- G1GC - Pictorial -->
@@ -698,7 +703,7 @@
             <tr style="border: hidden">
               <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
                 <span style="font-size:0.9em;text-align:left;">
-                  <span class="color1">Math Stuff</span>: Calculating regions on a 9GB heap<br/>
+                  <span class="color1">Math Stuff</span>: Calculating regions on a <span class="color3">9GB</span> heap<br/>
                   <ol>
                     <li>9GB = 9 x 1024 MB = <strong class="color3">9216 MB</strong>.</li>
                     <li><span class="color2">Initial region size</span> &rarr; 9216 MB &divide; 2048 regions = <strong class="color3">4.5 MB per region</strong> </li>
@@ -736,15 +741,15 @@
           <hr/>
           <table width="100%">
             <tr style="border: hidden">
-              <td width="70%" style="font-size: 0.85em; vertical-align: middle;border: hidden">
-                <span style="font-size:0.6em;text-align:left;">
-                  <span class="color1">GC Phases</span> - when OldGen tenancy reaches a certain limit, rather than a simple young gen:<br/>
-                  
+              <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+                <span style="font-size:0.9em;text-align:left;">
+                  <span class="color1">GC Phases</span><br/>
+                  A continuous young-only collection process runs.<br/>
+                  <span class="dimtext">Threshold</span>: When the old gen. tenancy reaches a certain limit, rather than a simple young gen.:<br/>
                   <ul>
                     <li><strong class="color2">Young Only Phase</strong>:<br/>
-                      A continuous young-only collection process runs until a threshold is reached. <br/>At that point:<br/>
                       <ol>
-                        <li><span class="color2">Initial Mark</span>: STW, concurrently mark <em class="color1">live</em> objects.</li>
+                        <li><span class="color2">Initial Mark</span>: STW plus concurrently mark <em class="color1">live</em> objects.</li>
                         <li><span class="color2">Re-Mark</span>: STW, global reference processing, summary of liveness calculated.</li>
                         <li><span class="color2">Cleanup</span>: STW, reclaim space, <em class="color2">optionally</em> run space reclamation.</li>
                       </ol>
@@ -783,8 +788,8 @@
           <img src="images/G1GC_Cycle.png" width="65%"/>
         </span>
         <br>
-        <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">
-            Picture influenced by the Oracle GC Tuning Guide: <a href="https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm" target="_balnk">https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm</a>
+        <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
+        Picture influenced by the Oracle GC Tuning Guide: <a href="https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm" target="_balnk">https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm</a>
         </span></span>
       </section>
       
@@ -831,9 +836,9 @@
         </span>
       </section>
   
-      <!-- G1GC - Young Collection -->
+      <!-- G1GC - Young Collection (Eden) -->
       <section>
-        <h2>G1GC - Young Collection</h2>
+        <h2>G1GC - Young Collection (Eden)</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">1. Young collection (Eden &rarr; Survivor)</span>: </strong>
           <br/>
@@ -849,9 +854,9 @@
         </span>
       </section>
 
-      <!-- G1GC - Compact Copying -->
+      <!-- G1GC - Young Collection (Survivor) -->
       <section>
-        <h2>G1GC - Compact Copying</h2>
+        <h2>G1GC - Young Collection (Survivor)</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
           <br/>
@@ -876,7 +881,7 @@
           <strong><span class="color1">3. Concurrent Marking</span>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
-            <li>Concurrent marking begins with a <strong class="color2">Snapshot-At-The-Beginning (SATB)</strong>.</li>
+            <li>Concurrent marking begins with a <strong class="color2">Snapshot-At-The-Beginning (SATB)</strong> (<span class="dimtext">conservative garbage collection</span>).</li>
             <li>If more objects move to tenured after the snapshot, all such objects are <em class="color2">considered live</em>, irrespective of references.</li>
             <li>Once concurrent marking completes, a young collection is triggered.</li>
           </ul>
@@ -893,9 +898,10 @@
           <br/>
           <ul style="font-size: 0.9em">
             <li>Concurrent Marking is followed by a young collection and then the mixed collection is triggered.</li>
-            <li>This involves picking up a few regions (eden, survivor and tenured) for collection.</li>
+            <li>This involves picking up a few regions (tenured, eden and survivor) for collection.</li>
             <li>Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = <span class="color3">8</span>).</li>
             <li>The total number of tenured regions are divided by the above number and are picked up for collection.</li>
+            <li>After each collection, the liveness of the tenured region is re-evaluated.</li>
             <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>), mixed collections will continue.</li>
           </ul>
           <p>
@@ -919,6 +925,7 @@
             <li style="margin-top: 1.0em">When porting from PermGen, simply replace <code>-XX:PermSize</code> and <code>-XX:MaxPermSize</code> with the new options.</li>
           </ul>
         </span>
+        <br/>
       </section>
     </section>
   
@@ -1060,8 +1067,8 @@
         <span style="font-size:0.4em;text-align:left;">Unified logging changes (for reference use):
           <code>java -Xlog:help</code><br/>
         </span>
-        <span style="font-size:0.6em;text-align:left;">
-          <span class="dimtext">Understanding the content in the table:</span> <span class="color2">-Xlog</span> : <span class="color2">&lt;tags to log&gt;</span> : <span class="color2">&lt;where to log&gt;</span> : <span class="color2">&lt;decorations&gt; </span>
+        <span style="font-size:0.5em;text-align:left;">
+          <span class="dimtext">Understanding the content in the table:</span> <span class="color2">-Xlog</span> : <span class="color2">&lt;tags to log&gt;</span>[<span class="color2">=&lt;log level&gt;</span>]&nbsp[: <span class="color2">&lt;output&gt;</span> [: <span class="color2">&lt;decorations&gt; </span>]]
         </span>
         <br/>
         <table style="font-size: 0.45em;text-align: left;width: 100%">
@@ -1141,6 +1148,10 @@
           </tr>
           </tbody>
         </table>
+        <br/>
+        <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
+        Recommended slide deck: <a href="https://www.slideshare.net/PoonamBajaj5/lets-learn-to-talk-to-gc-logs-in-java-9">https://www.slideshare.net/PoonamBajaj5/lets-learn-to-talk-to-gc-logs-in-java-9</a>.
+        </span></span>
       </section>
 
     </section>
@@ -1238,7 +1249,24 @@
           </ul>
         </span>
       </section>
-      
+    </section>
+    
+    <section>
+      <h2>What's next in Garbage Collection?</h2>
+      <span style="font-size:0.6em;text-align:left;">
+        <strong class="color2">Shenandoah</strong><br/>
+          <ul style="font-size: 0.9em"><br/>
+            <li>Evacuation and reference updates to run concurrently with application threads.</li><br/>
+            <li>Pause times are meant to be independent of heap size.</li><br/>
+            <li>There will be other GC implementations as well.</li><br/>
+            <li>More reading material:<br/><br/>
+              <ul>
+                <li><a href="http://openjdk.java.net/jeps/189">JEP-189 (http://openjdk.java.net/jeps/189)</a></li><br/>
+                <li><a href="https://wiki.openjdk.java.net/display/shenandoah/Main">Shenandah Wiki (https://wiki.openjdk.java.net/display/shenandoah/Main)</a></li>
+              </ul>
+            </li>
+          </ul>
+      </span>
     </section>
     
     <section>
@@ -1288,7 +1316,9 @@
         </table>
       </span>
       <br>
-      <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a></span></span>
+      <span class="dimtext"><span style="font-size: 0.25em; display: block; text-align: center">
+      LinkedIn and my blog QR codes generated at QRStuff: <a href="http://www.qrstuff.com" target="_blank">http://www.qrstuff.com</a>.
+      </span></span>
     </section>
   
   </div>
