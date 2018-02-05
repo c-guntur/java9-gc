@@ -734,7 +734,7 @@
             <li style="margin-top: 0.5em">performs a <span class="color2">conc. global marking phase</span> to find live objects throughout.</li>
             <li style="margin-top: 0.5em">post-marking, G1 knows which regions are mostly empty. </li>
             <li style="margin-top: 0.5em">collects these regions first, which yields a large amount of free space. </li>
-            <li style="margin-top: 0.5em"><span class="color2">goes after regions that have the most garbage</span> , it is called <strong class="color1">Garbage-First</strong>.</li>
+            <li style="margin-top: 0.5em"><span class="color2">goes after regions that have the most garbage</span>, it is called <strong class="color1">Garbage-First</strong>.</li>
             <li style="margin-top: 0.5em">incremental parallel copying of live objects from <strong class="color2">one or more sets</strong> of regions, called <strong class="color2">Collection Set (CSet).</strong></li>
             <li style="margin-top: 0.5em">references to objects in the region are tracked via <strong class="color2">Remembered Sets (RSet)</strong>.</li>
           </ul>
@@ -753,7 +753,7 @@
                         <li><span class="color2">Re-Mark</span>: STW, global reference processing, summary of liveness calculated.</li>
                         <li><span class="color2">Cleanup</span>: STW, reclaim space, <em class="color2">optionally</em> run space reclamation.</li>
                       </ol>
-                    </li>
+                    </li><br/>
                     <li><strong class="color2">Space Reclamation Phase</strong>:
                       <ol><li>Multiple <span class="color2">mixed collections</span> evacuate live objects from the mixed regions to compact.</li></ol>
                     </li>
@@ -836,11 +836,11 @@
         </span>
       </section>
   
-      <!-- G1GC - Young Collection (Eden) -->
+      <!-- G1GC - Young Collection (Young only) -->
       <section>
-        <h2>G1GC - Young Collection (Eden)</h2>
+        <h2>G1GC - Young Collection (Young-only)</h2>
         <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">1. Young collection (Eden &rarr; Survivor)</span>: </strong>
+          <strong><span class="color1">1. Young collection (Eden &amp; Survivor &rarr; Survivor)</span>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
             <li>Young Collection first targets the most populated regions.</li>
@@ -850,13 +850,13 @@
             <li>This is controlled by the flag <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
           </ul>
           <p>
-          <img src="images/G1_1_MinorGC.png" width="55%"/>
+          <img src="images/G1_1_YoungCollection.gif" width="55%"/>
         </span>
       </section>
 
       <!-- G1GC - Young Collection (Survivor) -->
       <section>
-        <h2>G1GC - Young Collection (Survivor)</h2>
+        <h2>G1GC - Young Collection (Tenured Promotion)</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
           <br/>
@@ -870,7 +870,7 @@
             <li>If either constraint is met, it triggers the start of a concurrent GC.</li>
           </ul>
           <p>
-          <img src="images/G1_2_CompactCopying.png" width="55%"/>
+          <img src="images/G1_2_YoungPromotion.gif" width="55%"/>
         </span>
       </section>
   
@@ -905,7 +905,7 @@
             <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>), mixed collections will continue.</li>
           </ul>
           <p>
-          <img src="images/G1_4_MixedCollection.png" width="55%"/>
+          <img src="images/G1_4_MixedCollection.gif" width="55%"/>
         </span>
       </section>
       
@@ -1055,7 +1055,7 @@
           <br/>
           <span class="color2">Print current flags</span>:
           <br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>java -XX:+PrintCommandLineFlags -version</code>
-          <br/><span style="font-size: 0.8em">The <code>-version</code> is used in the examples below. This can be replaced with a java class with a <code>main(...)</code> as well.</span><br/>
+          <br/><span style="font-size: 0.6em" class="dimtext">The <code>-version</code> is used as the executable above. This can be replaced with any java class with a <code>main(...)</code> as well.</span><br/>
         </span>
       </section>
   
@@ -1171,15 +1171,15 @@
       <section>
         <h2>G1GC - Performance definitions</h2>
         <span style="font-size:0.6em;text-align:left;">
-          G1GC tuning is done to meet one of the below performance metrics:
+          G1GC tuning is done to meet one of the below performance metrics:<br/>
           <br/>
           <ul>
-            <li><strong>Throughput</strong>—the percentage of total time not spent in garbage collection, considered over long periods of time.</li>
-            <li><strong>Pause time</strong>—the length of time during which application execution is stopped while garbage collection is occurring.</li>
-            <li><strong>GC overhead</strong>—the inverse of throughput, that is, the percentage of total time spent in garbage collection.</li>
-            <li><strong>Collection frequency</strong>—how often collection occurs, relative to application execution.</li>
-            <li><strong>Footprint</strong>—a measure of size, such as heap size.</li>
-            <li><strong>Promptness</strong>—the time between when an object becomes garbage and when the memory becomes available</li>
+            <li><strong class="color2">Throughput</strong>—the percentage of total time not spent in garbage collection, considered over long periods of time.</li><br/>
+            <li><strong class="color2">Pause time</strong>—the length of time the application execution is stopped for garbage collection to occur.</li><br/>
+            <li><strong class="color2">GC overhead</strong>—the inverse of throughput, that is, the percentage of total time spent in garbage collection.</li><br/>
+            <li><strong class="color2">Collection frequency</strong>—how often collection occurs, relative to application execution.</li><br/>
+            <li><strong class="color2">Footprint</strong>—a measure of size, such as heap size.</li><br/>
+            <li><strong class="color2">Promptness</strong>—the time between when an object becomes garbage and when the memory becomes available</li>
           </ul>
         </span>
       </section>
@@ -1269,8 +1269,8 @@
       </span>
     </section>
     
-    <section>
-      <h1 style="text-transform: none">Time's up</h1>
+    <section data-menu-title="¯\_(ツ)_/¯">
+      <h1 style="text-transform: none">Time's up :: ¯\_(ツ)_/¯</h1>
       <span style="font-size:0.7em;text-align:left;margin-left: 50px">
         <table width="100%">
           <tr style="border: hidden; vertical-align: top">
