@@ -751,11 +751,14 @@
                       <ol>
                         <li><span class="color2">Initial Mark</span>: STW plus concurrently mark <em class="color1">live</em> objects.</li>
                         <li><span class="color2">Re-Mark</span>: STW, global reference processing, summary of liveness calculated.</li>
-                        <li><span class="color2">Cleanup</span>: STW, reclaim space, <em class="color2">optionally</em> run space reclamation.</li>
+                        <li><span class="color2">Cleanup</span>: STW, reclaim space, humongous GC, <em class="color2">optionally</em> run space reclamation.</li>
                       </ol>
                     </li><br/>
                     <li><strong class="color2">Space Reclamation Phase</strong>:
-                      <ol><li>Multiple <span class="color2">mixed collections</span> evacuate live objects from the mixed regions to compact.</li></ol>
+                      <ol>
+                        <li>Multiple <span class="color2">mixed collections</span> evacuate live objects from the mixed regions to compact.</li>
+                        <li>Possible humongous GC.</li>
+                      </ol>
                     </li>
                   </ul>
                   <!--
