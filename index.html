@@ -492,8 +492,12 @@
               <span style="font-size:0.65em;text-align:left;">
                 The mark/sweep collection pattern is based on <em class="color2">tracing</em>:
                 <ul>
-                  <li>marks objects as used or unused.</li>
-                  <li>deletes the unused objects.</li>
+                  <li>includes a <em class="color2">tri-color marker</em> on each object.</li>
+                  <li>all marker bits <strong class="color2">cleared (to gray)</strong> before the collection cycle.</li>
+                  <li>marks objects as <strong class="color2">used (black)</strong> or <strong class="color2">unused (white)</strong> on this bit.</li>
+                  <li>each object checked only once due to the marker bit.</li>
+                  <li>deletes the <strong class="color2">unused (white)</strong> objects.</li>
+                  <li>collection ends when the gray set is empty.</li>
                   <li>(optionally/periodically) compact or defragment space for new objects.</li>
                   <li>more <span class="color1">efficient for larger memory areas</span>.</li>
                   <li>works well on longer-lived non-volatile objects.</li>
