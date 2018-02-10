@@ -229,7 +229,7 @@
                   <br/>
                   <li><strong class="color2">Heap</strong> - <strong class="dimtext">Shared</strong>:
                     <ul>
-                      <li>space that stores instances or objects, and is a target of garbage collection.</li>
+                      <li>space to store class instances or arrays, target of garbage collection.</li>
                       <li>most JVM performance revolves around the heap.</li>
                       <li>JVM vendors can configure GC per their interpretation of the JVM spec.</li>
                     </ul>
@@ -253,9 +253,9 @@
       <section>
         <h2>Java Memory - Usage</h2>
         <span style="font-size:0.65em;text-align:left;">
-          Classloaders create instances. GC performs memory management.
+          Classloaders load classes and are used to create class instances. <br/>JIT compiler processes instructions. <br/> GC performs memory management.
           <p/>
-          <img src="images/JVM_Memory_Usage.png" width="70%"/>
+          <img src="images/JVM_Memory_Usage.png" width="65%"/>
         </span>
         <br>
       </section>
@@ -266,22 +266,21 @@
         <span style="font-size:0.7em;text-align:left;">
 				<p/>
 				<br/>
-				A typical JVM (for now) manages different kinds of memory:
+				A typical JVM has the following components for memory management:
 				<ul>
 					<li><strong class="color2">Heap</strong>:
 						<ul>
 							<li>Runtime data area where memory for class instances and arrays are managed.</li>
               <li>Part of the memory managed by Garbage Collection.</li>
-							<li>Typically divided into spaces: <strong class="color2">young</strong> (eden), <strong
-                  class="color2">survivors</strong> (to, from) and <strong class="color2">old</strong> (tenured). </li>
+							<li>Typically divided into smaller areas. </li>
 						</ul>
 					</li>
 					<br/>
-					<li><strong class="color2">Non-heap (or non-managed heap)</strong>:
+          <li><strong class="color2">Non-heap</strong> (some Java implementations call it <strong class="color2">non-managed heap</strong>):
 						<ul>
-							<li>Method area shared among all threads. </li>
+              <li><strong class="color1">Method area</strong> shared among all threads. </li>
 							<li>Memory required for runtime pools and code for methods and constructors.</li>
-              <li><strong class="color1">PermGen</strong> or <strong class="color1">Metaspace</strong> - Immutable state objects typically not garbage collected.</li>
+              <li><strong class="color1">PermGen</strong> (or <strong class="color1">Metaspace</strong>) - Holds immutable-state content - typically not garbage collected.</li>
               <li><strong class="color1">CodeCache</strong> - Optimizations and profiling of code for better performance.</li>
 						</ul>
 					</li>
@@ -316,12 +315,12 @@
               <tr>
                 <td style="text-align: left; vertical-align: middle">
                   <ol>
-                    <li>Classes loaded by class-loaders</li>
+                    <li>Class definitions (loaded by class-loaders).</li>
                     <li>Static variables.</li>
-                    <li>Copy of each method of each loaded class</li>
+                    <li>A single copy of each method definition of each class loaded.</li>
                   </ol>
                 </td>
-                <td style="text-align: center; vertical-align: middle">Unmanaged heap<br/><span class="color1">PermGen</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="color2">or</span><br/><span class="color1">Metaspace</span></td>
+                <td style="text-align: center; vertical-align: middle"><span class="color1">PermGen</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="color2">or</span><br/><span class="color1">Metaspace</span></td>
               </tr>
             
               <tr>
@@ -331,8 +330,8 @@
               <tr>
                 <td style="text-align: left; vertical-align: middle">
                   <ol>
-                    <li>Non-static variables.</li>
-                    <li>All parameters for static and non-static methods.</li>
+                    <li>Non-static class variables.</li>
+                    <li>All parameters for both static and non-static methods.</li>
                     <li>The return value of the current method.</li>
                     <li>Local variables <br/>&nbsp;&nbsp;&nbsp;&nbsp;(space allocated on invocation and de-allocated on method return).</li>
                   </ol>
@@ -347,8 +346,8 @@
               <tr>
                 <td style="text-align: left; vertical-align: middle">
                   <ol>
-                    <li>Objects created during the program execution.</li>
-                    <li>Arrays.</li>
+                    <li>Objects (class instances) created during the program execution.</li>
+                    <li>Arrays, including arrays of primitive data types.</li>
                   </ol>
                 </td>
                 <td style="text-align: center; vertical-align: middle"><span class="color1">Heap</span></td>
@@ -371,11 +370,13 @@
         <span style="font-size:0.7em;text-align:left;">
           <p/>
           <br/>
-          Garbage collection is the process of:
+          As a broad definition, <strong class="color1">garbage collection</strong> is the process of:
           <ul>
-            <li>looking up a heap of memory</li>
-            <li>identifying all objects that are in use</li>
-            <li>reclaiming memory by deleting un-used (no-reference) objects</li>
+            <li>looking up managed memory</li>
+            <li>identifying all objects that are in use (<em class="color2">live objects</em>)</li>
+            <li>marking non-live objects as <em class="color2">garbage</em> (<em class="color2">unused</em> or <em class="color2">no-reference</em> are other common terms)</li>
+            <li>[<em class="color2">occasionally</em>] reclaiming memory by deleting garbage</li>
+            <li>[<em class="color2">occasionally</em>] compacting memory defragmenting live objects, to create more contiguous space.</li>
           </ul>
           <br/>
           An unused object is the one that is no longer referenced by any part of the program.
@@ -400,12 +401,11 @@
               <tr>
                 <td style="text-align: left; vertical-align: top; width: 50%">
                   <ul>
-                    <li><strong class="color1">Serial collector</strong>: Single GC thread runs when all application threads are halted.</li>
+                    <li><strong class="color1">Serial collector</strong>: Single GC thread runs halting all application threads.</li>
+                    <li><strong class="color1">Parallel collector</strong>: Multiple GC threads in parallel halting all application threads.</li>
                     <li><strong class="color1">Concurrent collector</strong>: GC thread(s) concurrently run with the application threads.</li>
-                    <li><strong class="color1">Parallel collector</strong>: Multiple GC threads in parallel with application threads (using multiple CPUs).</li>
                   </ul>
                   &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 0.7em"><strong class="color2">Note</strong><span class="color2">: Parallel and concurrent are two different things.</span></span>
-                </td>
                 </td>
                 <td style="text-align: left; vertical-align: top">
                   <ul>
@@ -493,11 +493,11 @@
                 The mark/sweep collection pattern is based on <em class="color2">tracing</em>:
                 <ul>
                   <li>includes a <em class="color2">tri-color marker</em> on each object.</li>
-                  <li>all marker bits <strong class="color2">cleared (to gray)</strong> before the collection cycle.</li>
-                  <li>marks objects as <strong class="color2">used (black)</strong> or <strong class="color2">unused (white)</strong> on this bit.</li>
-                  <li>each object checked only once due to the marker bit.</li>
-                  <li>deletes the <strong class="color2">unused (white)</strong> objects.</li>
-                  <li>collection ends when the gray set is empty.</li>
+                  <li>all markers <strong class="color2">painted gray</strong> before the collection cycle.</li>
+                  <li>sets marker as <strong class="color2">used (black)</strong> or <strong class="color2">unused (white)</strong>.</li>
+                  <li>each object checked only once due to the marker being set.</li>
+                  <li>deletes the <strong class="color2">unused (white)</strong> marked objects.</li>
+                  <li>collection ends when the <strong class="color2">gray set</strong> is empty.</li>
                   <li>(optionally/periodically) compact or defragment space for new objects.</li>
                   <li>more <span class="color1">efficient for larger memory areas</span>.</li>
                   <li>works well on longer-lived non-volatile objects.</li>
@@ -510,7 +510,7 @@
                     </ul>
                   </li>
                   <li><span class="color1">incremental</span> collector, doesn't need a lot of free space to run.</li>
-                  <li>Can be either <span class="color1">concurrent</span> or <span class="color1">stop-the-world</span> collecting.</li>
+                  <li>can be either <span class="color1">concurrent</span> or <span class="color1">stop-the-world</span> collecting.</li>
                 </ul>
                 <br/>
                 Memory allocator moves pointer to the beginning of free space.
@@ -586,7 +586,7 @@
             <li>It is usually rare for an older generation object to reference a young generation object.</li>
           </ul>
           <p>
-          <img src="images/GenerationalMemoryAreas.png" width="65%"/>
+          <img src="images/GenerationalGarbageCollection.png" width="65%"/>
         </span>
         <br>
         <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
@@ -594,9 +594,9 @@
         </span></span>
       </section>
 
-      <!-- Generational GC - Explanation -->
+      <!-- Generational GC - Collection -->
       <section>
-        <h2>Generational GC - Explanation</h2>
+        <h2>Generational GC - Collection</h2>
         <span style="font-size:0.6em;text-align:left;">
           <strong><span class="color1">Explanation</span>: </strong>
           <br/>
@@ -608,8 +608,32 @@
             <li>objects that stay "alive" longer get moved to older generation.</li>
             <li>Permanent Generation is for storing class/method definitions and static content.</li>
           </ul>
-          <br/>
-          <img src="images/GenerationalGarbageCollection.png" width="65%"/>
+          <hr/>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="70%" style="font-size: 0.8em; vertical-align: middle;border: hidden">
+                <span style="font-size:0.9em;text-align:left;">
+                  <span class="color1">Generational Collection Summary</span><br/>
+                    <ol>
+                      <li>Objects first allocated into <strong class="color1">Eden</strong>.</li>
+                      <li>On first GC, live objects from <span class="color1">Eden</span> moved to <strong class="color1">Survivor 1</strong>.</li>
+                      <li>All objects in <span class="color1">Survivor 1</span> marked with an <strong class="color2">Age (tenure)</strong> of <span class="color3">1</span>.</li>
+                      <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li>
+                      <li>Next GC, collects live objects from <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> into <strong class="color1">Survivor <em>To</em></strong>.</li>
+                      <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by 1, while objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li>
+                      <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li>
+                      <li><strong class="dimtext">Steps 5, 6, 7</strong> recur flipping <span class="color1">Survivor 1</span> and <span class="color1">Survivor 2</span> as <em class="color1">From</em> and <em class="color1">To</em>, until <span class="color2">Age</span> threshold (default = <span class="color3">15</span>) reached for any live object.</li>
+                      <li>Next GC, live objects from the current <span class="color1">Survivor</span> with <span class="color2">Age</span> above threshold, move to <strong class="color1">Tenured</strong>.</li>
+                      <li><strong class="dimtext">Steps 5, 6, 7, 8 and 9</strong> recur until a need for a full GC.</li>
+                    </ol>
+                </span>
+              </td>
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/GenerationalMemoryAreas.png" width="100%"/>
+              </td>
+            </tr>
+          </table>
+          
         </span>
       </section>
 
@@ -698,9 +722,10 @@
           <br/>
           <ul style="font-size: 0.9em">
             <li style="margin-top: 0.5em">Non-contiguous memory regions of <strong class="color2">equal size</strong>.</li>
-            <li style="margin-top: 0.5em">Memory is <strong class="color2">divided into around as close to 2048 regions</strong>, as possible.</li>
-            <li style="margin-top: 0.5em">The region sizes can <strong class="color2">range from 1 MB to 32 MB</strong> depending on the heap size.</li>
-            <li style="margin-top: 0.5em">G1 GC has a <strong class="color2">pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
+            <li style="margin-top: 0.5em">Memory is <strong class="color2">divided into ~ 2048 or more regions</strong>.</li>
+            <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li>
+            <li style="margin-top: 0.5em"><strong class="color2">Humongous objects</strong> occupy contiguous regions and are defined as size > 50% of region size.</li>
+            <li style="margin-top: 0.5em">G1 GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
           </ul>
           <hr/>
           <table width="100%">
@@ -709,10 +734,10 @@
                 <span style="font-size:0.9em;text-align:left;">
                   <span class="color1">Math Stuff</span>: Calculating regions on a <span class="color3">9GB</span> heap<br/>
                   <ol>
-                    <li>9GB = 9 x 1024 MB = <strong class="color3">9216 MB</strong>.</li>
-                    <li><span class="color2">Initial region size</span> &rarr; 9216 MB &divide; 2048 regions = <strong class="color3">4.5 MB per region</strong> </li>
-                    <li><span class="color2">Lowest factor of 2 close to 4.5 = </span> <span class="color3">4</span> &rarr; 9216 &divide; 4MB = <strong class="color3">2304 regions</strong>.</li>
-                    <li><span class="color2">Next factor of 2 close to 4.5 = </span> <span class="color3">8</span> &rarr; 9216 &divide; 8MB = <strong class="color3">1152 regions</strong>.</li>
+                    <li>Convert heap size to MB &rarr; <span class="color2">9GB = 9 x 1024 MB = </span><strong class="color3">9216 MB</strong>.</li>
+                    <li>Approximate region size for 2048 regions &rarr; <span class="color2">9216 MB &divide; 2048 regions = </span><strong class="color3">4.5 MB per region</strong> </li>
+                    <li>Regions for factor of 2 <em class="color1">below</em> the approximate region size (= <span class="color3">4</span>) &rarr; <span class="color2">9216 &divide; 4MB = </span><strong class="color3">2304 regions</strong>.</li>
+                    <li>Regions for factor of 2 <em class="color1">above</em> the approximate region size (= <span class="color3">8</span>) &rarr; <span class="color2">9216 &divide; 8MB = </span><strong class="color3">1152 regions</strong>.</li>
                     <li>Since <strong class="color3">2304</strong> is closest to and above 2048, it is chosen as the number of regions to use.</li>
                     <li>Each region is thus of <strong class="color3">4MB</strong> size.</li>
                     <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li>
@@ -729,6 +754,95 @@
         </span>
       </section>
   
+      <!-- G1GC - Young Collection (Young only) -->
+      <section>
+        <h2>G1GC - Young Collection (Young-only)</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">1. Young collection (Eden &amp; Survivor<sub><span style="font-size: 0.7em">F</span></sub> &rarr; Survivor<sub><span style="font-size: 0.7em">T</span> </sub>)</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Young Collection first targets the most populated regions.</li>
+            <li>Dead objects are collected and evicted.</li>
+            <li>Live objects from a select <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> regions are compacted and copied into a <span class="color1">Survivor <em>To</em></span> region.</li>
+            <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Eden</span> is set to 1 with each execution of this GC. </li>
+            <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Survivor <em>From</em></span> is incremented by 1 with each execution of this GC. </li>
+          </ul>
+          <p>
+          <hr/>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_1_YoungCollectionBefore.png" width="100%"/>
+              </td>
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_1_YoungCollectionAfter.png" width="100%"/>
+              </td>
+            </tr>
+          </table>
+        </span>
+      </section>
+  
+      <!-- G1GC - Young Collection (Survivor) -->
+      <section>
+        <h2>G1GC - Young Collection (Tenured Promotion)</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Young Collection includes compact copying from survivor to tenured after objects survive a few iterations.</li>
+            <li>Dead objects are collected and evicted.</li>
+            <li>All objects in the collecting Survivor regions with <span class="color2">Age</span> <strong class="dimtext">below</strong> threshold (default = <span class="color3">15</span>) are left as-is. </li>
+            <li>All objects in the collecting Survivor regions with <span class="color2">Age</span> <strong class="dimtext">above</strong> threshold (default = <span class="color3">15</span>) are collected and moved. </li>
+          </ul>
+          <hr/>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_2_YoungPromotionBefore.png" width="100%"/>
+              </td>
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_2_YoungPromotionAfter.png" width="100%"/>
+              </td>
+            </tr>
+          </table>
+        </span>
+      </section>
+  
+      <!-- G1GC - Concurrent Marking -->
+      <section>
+        <h2>G1GC - Concurrent Marking</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">3. Concurrent Marking</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Concurrent marking begins with a <strong class="color2">Snapshot-At-The-Beginning (SATB)</strong> (<span class="dimtext">conservative garbage collection</span>).</li>
+            <li>If more objects move to tenured after the snapshot, all such objects are <em class="color2">considered live</em>, irrespective of references.</li>
+            <li>Once concurrent marking completes, a young collection is triggered.</li>
+          </ul>
+          <p>
+          <img src="images/G1_3_ConcurrentMarking.png" width="55%"/>
+        </span>
+      </section>
+  
+      <!-- G1GC - Mixed Collection -->
+      <section>
+        <h2>G1GC - Mixed Collection</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">4. Mixed Collection</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>Concurrent Marking is followed by a young collection and then the mixed collection is triggered.</li>
+            <li>This involves picking up a few regions (tenured, eden and survivor) for collection.</li>
+            <li>Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = <span class="color3">8</span>).</li>
+            <li>The total number of tenured regions are divided by the above number and are picked up for collection.</li>
+            <li>After each collection, the liveness of the tenured region is re-evaluated.</li>
+            <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>), mixed collections will continue.</li>
+          </ul>
+          <p>
+          <img src="images/G1_4_MixedCollection.gif" width="55%"/>
+        </span>
+      </section>
+  
       <!-- G1GC - Explanation -->
       <section>
         <h2>G1GC - Explanation</h2>
@@ -741,6 +855,15 @@
             <li style="margin-top: 0.5em"><span class="color2">goes after regions that have the most garbage</span>, it is called <strong class="color1">Garbage-First</strong>.</li>
             <li style="margin-top: 0.5em">incremental parallel copying of live objects from <strong class="color2">one or more sets</strong> of regions, called <strong class="color2">Collection Set (CSet).</strong></li>
             <li style="margin-top: 0.5em">references to objects in the region are tracked via <strong class="color2">Remembered Sets (RSet)</strong>.</li>
+            <li>Collection frequency is controlled by the flag <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
+            <li>This flag holds the threshold percentage of how much free space percentage should exist for a <span class="color1">Survivor To</span> to be created before a full GC.</li>
+                        <li>G1 continues with the <strong>young collection</strong> <strong class="color2">until either of the below is reached</strong>:</li>
+            <ul>
+              <li>reaches a configurable soft limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = <span class="color3">45</span>).</li>
+              <li>reaches the configurable strict limit of <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
+            </ul>
+            <li>If either constraint is met, it triggers the start of a concurrent GC.</li>
+
           </ul>
           <hr/>
           <table width="100%">
@@ -843,79 +966,6 @@
         </span>
       </section>
   
-      <!-- G1GC - Young Collection (Young only) -->
-      <section>
-        <h2>G1GC - Young Collection (Young-only)</h2>
-        <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">1. Young collection (Eden &amp; Survivor &rarr; Survivor)</span>: </strong>
-          <br/>
-          <ul style="font-size: 0.9em">
-            <li>Young Collection first targets the most populated regions.</li>
-            <li>Dead objects are collected.</li>
-            <li>Live objects are compacted and copied into a Survivor region.</li>
-            <li>There is a certain percentage of heap space always available for Survivor space.</li>
-            <li>This is controlled by the flag <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
-          </ul>
-          <p>
-          <img src="images/G1_1_YoungCollection.gif" width="55%"/>
-        </span>
-      </section>
-
-      <!-- G1GC - Young Collection (Survivor) -->
-      <section>
-        <h2>G1GC - Young Collection (Tenured Promotion)</h2>
-        <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
-          <br/>
-          <ul style="font-size: 0.9em">
-            <li>Young Collection includes compact copying from survivor to tenured after objects survive a few iterations.</li>
-            <li>G1 continues with the <strong>young collection</strong> <strong class="color2">until either of the below is reached</strong>:</li>
-            <ul>
-              <li>reaches a configurable soft limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = <span class="color3">45</span>).</li>
-              <li>reaches the configurable strict limit of <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
-            </ul>
-            <li>If either constraint is met, it triggers the start of a concurrent GC.</li>
-          </ul>
-          <p>
-          <img src="images/G1_2_YoungPromotion.gif" width="55%"/>
-        </span>
-      </section>
-  
-      <!-- G1GC - Concurrent Marking -->
-      <section>
-        <h2>G1GC - Concurrent Marking</h2>
-        <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">3. Concurrent Marking</span>: </strong>
-          <br/>
-          <ul style="font-size: 0.9em">
-            <li>Concurrent marking begins with a <strong class="color2">Snapshot-At-The-Beginning (SATB)</strong> (<span class="dimtext">conservative garbage collection</span>).</li>
-            <li>If more objects move to tenured after the snapshot, all such objects are <em class="color2">considered live</em>, irrespective of references.</li>
-            <li>Once concurrent marking completes, a young collection is triggered.</li>
-          </ul>
-          <p>
-          <img src="images/G1_3_ConcurrentMarking.png" width="55%"/>
-        </span>
-      </section>
-  
-      <!-- G1GC - Mixed Collection -->
-      <section>
-        <h2>G1GC - Mixed Collection</h2>
-        <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">4. Mixed Collection</span>: </strong>
-          <br/>
-          <ul style="font-size: 0.9em">
-            <li>Concurrent Marking is followed by a young collection and then the mixed collection is triggered.</li>
-            <li>This involves picking up a few regions (tenured, eden and survivor) for collection.</li>
-            <li>Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = <span class="color3">8</span>).</li>
-            <li>The total number of tenured regions are divided by the above number and are picked up for collection.</li>
-            <li>After each collection, the liveness of the tenured region is re-evaluated.</li>
-            <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>), mixed collections will continue.</li>
-          </ul>
-          <p>
-          <img src="images/G1_4_MixedCollection.gif" width="55%"/>
-        </span>
-      </section>
-      
       <section>
         <h2>G1GC - Metaspace</h2>
         <span style="font-size:0.6em;text-align:left;">
@@ -1191,6 +1241,23 @@
         </span>
       </section>
       
+      <section>
+        <h2>G1GC - How to tune</h2>
+        <span style="font-size: 0.8em; text-align: left;">
+          There are a few steps to performance tuning happiness. <br/>
+          Follow the <span class="color3">EMPATHY</span> model.<p/>
+          <ol>
+            <li><span class="color3">E</span><span class="color2">xecute</span> - execute the application to determine issues visually.</li>
+            <li><span class="color3">M</span><span class="color2">onitor</span> - use appropriate alerts/tools/logs to monitor.</li>
+            <li><span class="color3">P</span><span class="color2">rofile</span> - identify the areas that need special attention.</li>
+            <li><span class="color3">A</span><span class="color2">nalyze</span> - determine what needs to be done to fix issues.</li>
+            <li><span class="color3">T</span><span class="color2">une</span> - set the right parameters for sizes, ages, threads etc.</li>
+            <li><span class="color3">H</span><span class="color2">ammer</span> - test out each set of parameters thoroughly.</li>
+            <li><span class="color3">Y</span><span class="color2">ippee</span> - beer time.</li>
+          </ol>
+        </span>
+      </section>
+      
       <!-- G1GC - Frequent Full GC< -->
       <section>
         <h2>G1GC - Frequent Full GC</h2>
@@ -1269,7 +1336,7 @@
             <li>More reading material:<br/><br/>
               <ul>
                 <li><a href="http://openjdk.java.net/jeps/189">JEP-189 (http://openjdk.java.net/jeps/189)</a></li><br/>
-                <li><a href="https://wiki.openjdk.java.net/display/shenandoah/Main">Shenandah Wiki (https://wiki.openjdk.java.net/display/shenandoah/Main)</a></li>
+                <li><a href="https://wiki.openjdk.java.net/display/shenandoah/Main">Shenandoah Wiki (https://wiki.openjdk.java.net/display/shenandoah/Main)</a></li>
               </ul>
             </li>
           </ul>
