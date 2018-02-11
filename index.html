@@ -602,22 +602,22 @@
           <br/>
           <ul>
             <li>heap is broken into smaller areas (sub-heaps).</li>
-            <li>newly created objects are allocated in a "young" generation heap.</li>
-            <li>Eden itself divided into TLAB sections for individual threads and a common area.</li>
-            <li>separate GC processes run for each generation, young typically is an <span class="color2">all-at-once</span>, <span class="color2">stop-the-world</span>, <span class="color2">copying</span> collector.</li>
+            <li>newly created objects are allocated to a Young part called <strong class="color1">Eden</strong>.</li>
+            <li><span class="color1">Eden</span> itself divided into TLAB sections for individual threads and a common area.</li>
+            <li>different GC processes for each generation, young gc typically is <span class="color2">all-at-once</span>, <span class="color2">stop-the-world</span>, <span class="color2">copying</span> collector.</li>
             <li>objects that stay "alive" longer get moved to older generation.</li>
-            <li>Permanent Generation is for storing class/method definitions and static content.</li>
+            <li><strong class="color1">Permanent Generation</strong> is for storing class/method definitions and static content.</li>
           </ul>
           <hr/>
           <table width="100%">
             <tr style="border: hidden">
-              <td width="70%" style="font-size: 0.8em; vertical-align: middle;border: hidden">
+              <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
                 <span style="font-size:0.9em;text-align:left;">
                   <span class="color1">Generational Collection Summary</span><br/>
                     <ol>
                       <li>Objects first allocated into <strong class="color1">Eden</strong>.</li>
                       <li>On first GC, live objects from <span class="color1">Eden</span> moved to <strong class="color1">Survivor 1</strong>.</li>
-                      <li>All objects in <span class="color1">Survivor 1</span> marked with an <strong class="color2">Age (tenure)</strong> of <span class="color3">1</span>.</li>
+                      <li>All moved live objects from <span class="color1">Eden</span> marked with an <strong class="color2">Age (tenure)</strong> of <span class="color3">1</span>.</li>
                       <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li>
                       <li>Next GC, collects live objects from <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> into <strong class="color1">Survivor <em>To</em></strong>.</li>
                       <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by 1, while objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li>
@@ -629,7 +629,7 @@
                 </span>
               </td>
               <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
-                <img src="images/GenerationalMemoryAreas.png" width="100%"/>
+                <img src="images/GenerationalMemoryAreas.png" width="70%"/>
               </td>
             </tr>
           </table>
@@ -714,9 +714,9 @@
         </span></span>
       </section>
   
-      <!-- G1GC - Pictorial -->
+      <!-- G1GC - Regions -->
       <section>
-        <h2>G1GC - Pictorial</h2>
+        <h2>G1GC - Regions</h2>
         <span style="font-size:0.6em;text-align:left;">
           <strong><em><span class="color1">Some observations</span> </em>: </strong>
           <br/>
@@ -763,7 +763,7 @@
           <ul style="font-size: 0.9em">
             <li>Young Collection first targets the most populated regions.</li>
             <li>Dead objects are collected and evicted.</li>
-            <li>Live objects from a select <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> regions are compacted and copied into a <span class="color1">Survivor <em>To</em></span> region.</li>
+            <li>Live objects from a selected few <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> regions are compacted and copied into a <span class="color1">Survivor <em>To</em></span> region.</li>
             <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Eden</span> is set to 1 with each execution of this GC. </li>
             <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Survivor <em>From</em></span> is incremented by 1 with each execution of this GC. </li>
           </ul>
@@ -791,8 +791,8 @@
           <ul style="font-size: 0.9em">
             <li>Young Collection includes compact copying from survivor to tenured after objects survive a few iterations.</li>
             <li>Dead objects are collected and evicted.</li>
-            <li>All objects in the collecting Survivor regions with <span class="color2">Age</span> <strong class="dimtext">below</strong> threshold (default = <span class="color3">15</span>) are left as-is. </li>
-            <li>All objects in the collecting Survivor regions with <span class="color2">Age</span> <strong class="dimtext">above</strong> threshold (default = <span class="color3">15</span>) are collected and moved. </li>
+            <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <strong class="dimtext">below</strong> threshold (default = <span class="color3">15</span>) are left as-is. </li>
+            <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <strong class="dimtext">above</strong> threshold (default = <span class="color3">15</span>) are collected and moved to <strong class="color1">Tenured</strong> region. </li>
           </ul>
           <hr/>
           <table width="100%">

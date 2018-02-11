@@ -1407,3 +1407,10 @@ hr {
   margin: 1em 0;
   padding: 0;
 }
+
+.reveal .rotate_right {
+  float: left;
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */
+  transform: rotate(90deg);
+}
