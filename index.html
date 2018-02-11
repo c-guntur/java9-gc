@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/light.css" id="theme">
+    <link rel="stylesheet" href="css/theme/dark.css" id="theme">
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
 
@@ -721,10 +721,13 @@
           <strong><em><span class="color1">Some observations</span> </em>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
-            <li style="margin-top: 0.5em">Non-contiguous memory regions of <strong class="color2">equal size</strong>.</li>
-            <li style="margin-top: 0.5em">Memory is <strong class="color2">divided into ~ 2048 or more regions</strong>.</li>
+            <li style="margin-top: 0.5em">A <strong class="color2">region</strong> is a contiguous unit of memory allocation and space reclamation.</li>
+            <li style="margin-top: 0.5em">Heap is compartmentalized into virtual non-contiguous memory regions.</li>
+            <li style="margin-top: 0.5em">This compartmentalization is done by <strong class="color2">dividing the heap into ~ 2048 or more regions</strong> of <strong class="color2">equal size</strong>.</li>
             <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li>
-            <li style="margin-top: 0.5em"><strong class="color2">Humongous objects</strong> occupy contiguous regions and are defined as size > 50% of region size.</li>
+            <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy contiguous regions and are defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">directly allocated in and treated similar to </strong><span class="color1">tenured</span> objects.</li>
             <li style="margin-top: 0.5em">G1 GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
           </ul>
           <hr/>
@@ -738,10 +741,10 @@
                     <li>Approximate region size for 2048 regions &rarr; <span class="color2">9216 MB &divide; 2048 regions = </span><strong class="color3">4.5 MB per region</strong> </li>
                     <li>Regions for factor of 2 <em class="color1">below</em> the approximate region size (= <span class="color3">4</span>) &rarr; <span class="color2">9216 &divide; 4MB = </span><strong class="color3">2304 regions</strong>.</li>
                     <li>Regions for factor of 2 <em class="color1">above</em> the approximate region size (= <span class="color3">8</span>) &rarr; <span class="color2">9216 &divide; 8MB = </span><strong class="color3">1152 regions</strong>.</li>
-                    <li>Since <strong class="color3">2304</strong> is closest to and above 2048, it is chosen as the number of regions to use.</li>
-                    <li>Each region is thus of <strong class="color3">4MB</strong> size.</li>
+                    <li>Since <strong class="color3">2304</strong> is closest to and above <span class="color3">2048</span>, it is chosen as the number of regions to use.</li>
+                    <li>Each region is thus of <strong class="color3">4</strong>MB size.</li>
                     <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li>
-                    <li>Use <code>-XX:G1HeapRegionSize</code> and supply a power of 2.</li>
+                    <li>Set the flag <code>-XX:G1HeapRegionSize</code> with a numeric value (that is a power of <span class="color3">2</span>).</li>
                     <li>Watch out for <strong class="color1">Humongous</strong> objects. In this case any object <strong class="color3">2MB</strong> or above.</li>
                   </ol>
                 </span>
@@ -754,9 +757,45 @@
         </span>
       </section>
   
-      <!-- G1GC - Young Collection (Young only) -->
+      <!-- G1GC - Explanation -->
       <section>
-        <h2>G1GC - Young Collection (Young-only)</h2>
+        <h2>G1GC - Explanation</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+                <span class="color1">Explanation: </span><br/>
+                <ul>
+                  <li style="margin-top: 0.5em">two distinct phases of collection.</li>
+                  <li style="margin-top: 0.5em">starts with a <span class="color1">Young-only</span> collection phase, that runs periodically.</li>
+                  <li style="margin-top: 0.5em">continues until a <em class="color2">threshold</em> is reached, which triggers an <span class="color1">Initial Mark</span>.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Initial Mark</span> adds <span class="color2">concurrent live marking</span> to <span class="color1">Young-only</span>.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Concurrent Mark</span>ing takes a while, <span class="color1">Young-only</span> collection continues along-side.</li>
+                  <li style="margin-top: 0.5em">at end of <span class="color1">Concurrent Mark</span>ing, a <span class="color1">Remark</span> is initiated.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Remark</span> finalizes marking, summarizes liveness.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Remark</span> completion triggers <span class="color1">Cleanup</span>, reclaiming empty regions.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Cleanup</span> phase is used to determine if Tenured space reclamation required.</li>
+                  <li style="margin-top: 0.5em">If heap waste percentage threshold met, a triggers a <strong class="color1">Space reclamation</strong> phase.</li>
+                  <li style="margin-top: 0.5em">A <strong class="color2">Collection set</strong> of <span class="color1">Young</span> &amp; <span class="color1">Tenured</span> regions picked for collection.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Space Reclamation</span> continues until heap waste percent threshold.</li>
+                  <li style="margin-top: 0.5em"><span class="color2">Humongous objects</span> also processed in space reclamation phase.</li>
+                </ul>
+              </td>
+              <td width="100%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1GC_Cycle.png"/>
+              </td>
+            </tr>
+          </table>
+        </span>
+        <br/>
+        <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
+        Diagram borrowed by the Oracle GC Tuning Guide: <a href="https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm" target="_balnk">https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm</a>
+        </span></span>
+      </section>
+      
+      <!-- G1GC - Young-Only (Survivor Promotion) -->
+      <section>
+        <h2>G1GC - Young-Only (Survivor Promotion)</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">1. Young collection (Eden &amp; Survivor<sub><span style="font-size: 0.7em">F</span></sub> &rarr; Survivor<sub><span style="font-size: 0.7em">T</span> </sub>)</span>: </strong>
           <br/>
@@ -764,8 +803,8 @@
             <li>Young Collection first targets the most populated regions.</li>
             <li>Dead objects are collected and evicted.</li>
             <li>Live objects from a selected few <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> regions are compacted and copied into a <span class="color1">Survivor <em>To</em></span> region.</li>
-            <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Eden</span> is set to 1 with each execution of this GC. </li>
-            <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Survivor <em>From</em></span> is incremented by 1 with each execution of this GC. </li>
+            <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Eden</span> is set to <span class="color3">1</span> with each execution of this GC. </li>
+            <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Survivor <em>From</em></span> is incremented by a <span class="color3">1</span> with each execution of this GC. </li>
           </ul>
           <p>
           <hr/>
@@ -782,9 +821,9 @@
         </span>
       </section>
   
-      <!-- G1GC - Young Collection (Survivor) -->
+      <!-- G1GC - Young-Only (Tenured Promotion) -->
       <section>
-        <h2>G1GC - Young Collection (Tenured Promotion)</h2>
+        <h2>G1GC - Young-Only (Tenured Promotion)</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
           <br/>
@@ -815,9 +854,11 @@
           <strong><span class="color1">3. Concurrent Marking</span>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
+            <li>Triggered when certain percentage of heap is occupied <span class="dimtext"> - or - </span> when the <span class="color1">Survivor <em>To</em></span> minimum creation space threshold is reached.</li>
             <li>Concurrent marking begins with a <strong class="color2">Snapshot-At-The-Beginning (SATB)</strong> (<span class="dimtext">conservative garbage collection</span>).</li>
-            <li>If more objects move to tenured after the snapshot, all such objects are <em class="color2">considered live</em>, irrespective of references.</li>
-            <li>Once concurrent marking completes, a young collection is triggered.</li>
+            <li>If more objects move to <span class="color1">Tenured</span> after the snapshot, all such objects are <em class="color2">considered live</em>, and not checked for references.</li>
+            <li>The completion of the concurrent marking triggers a <strong class="color2">Remark</strong> and a subsequent <strong class="color2">Cleanup</strong> phase.</li>
+            <li>Young-only collection continues during <span class="color1">concurrent marking</span>, <span class="color1">remark</span> and <span class="color1">cleanup</span> phases.</li>
           </ul>
           <p>
           <img src="images/G1_3_ConcurrentMarking.png" width="55%"/>
@@ -838,8 +879,17 @@
             <li>After each collection, the liveness of the tenured region is re-evaluated.</li>
             <li>If the reclaimable space is still greater than the <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>), mixed collections will continue.</li>
           </ul>
-          <p>
-          <img src="images/G1_4_MixedCollection.gif" width="55%"/>
+          <hr/>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_4_MixedCollectionBefore.png" width="100%"/>
+              </td>
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_4_MixedCollectionAfter.png" width="100%"/>
+              </td>
+            </tr>
+          </table>
         </span>
       </section>
   
@@ -1002,35 +1052,35 @@
         </thead>
         <tbody>
           <tr>
-            <td style="text-align: center; vertical-align: middle"><strong>Serial GC</strong></td>
+            <td style="text-align: center; vertical-align: middle"><strong class="color1">Serial GC</strong></td>
             <td style="text-align: center; vertical-align: middle">Serial</td>
             <td style="text-align: center; vertical-align: middle">Serial</td>
             <td style="text-align: left; vertical-align: middle"><code>-XX:+UseSerialGC</code></td>
           </tr>
         
           <tr>
-            <td style="text-align: center; vertical-align: middle"><strong>Parallel GC</strong></td>
+            <td style="text-align: center; vertical-align: middle"><strong class="color1">Parallel GC</strong></td>
             <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">Scavenge</span></td>
             <td style="text-align: center; vertical-align: middle">Parallel</td>
             <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParallelGC -XX:+UseParallelOldGC</code></td>
           </tr>
         
           <tr>
-            <td style="text-align: center; vertical-align: middle"><strong>CMS GC</strong></td>
-            <td style="text-align: center; vertical-align: middle">Parallel <span style="font-size: 0.6em">New</span></td>
-            <td style="text-align: center; vertical-align: middle">CMS</td>
-            <td style="text-align: left; vertical-align: middle"><code>-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</code></td>
+            <td style="text-align: center; vertical-align: middle"><strong class="dimtext">CMS GC</strong></td>
+            <td style="text-align: center; vertical-align: middle; text-decoration: line-through;">Parallel <span style="font-size: 0.6em">New</span></td>
+            <td style="text-align: center; vertical-align: middle; text-decoration: line-through;">CMS</td>
+            <td style="text-align: left; vertical-align: middle"><code class="dimtext">-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</code></td>
           </tr>
         
           <tr>
-            <td style="text-align: center; vertical-align: middle"><strong>G1 GC</strong></td>
+            <td style="text-align: center; vertical-align: middle"><strong class="color1">G1 GC</strong></td>
             <td style="text-align: center; vertical-align: middle" colspan="2">G1GC</td>
             <td style="text-align: left; vertical-align: middle"><code>-XX:+UseG1GC</code></td>
           </tr>
         
         </tbody>
       </table>
-
+      <span style="font-size:0.7em;text-align:center;"><strong class="color2">NOTE</strong>: CMS is deprecated as of Java 9.</span>
       <br/>
       <span style="font-size:0.6em;text-align:left;">Differences in collectors:</span><br/>
       <table style="font-size: 0.55em;text-align: left;width: 90%">
@@ -1047,7 +1097,7 @@
   
         <tbody>
         <tr>
-          <td style="text-align: center; vertical-align: middle"><strong>Serial GC</strong></td>
+          <td style="text-align: center; vertical-align: middle"><strong class="color1">Serial GC</strong></td>
           <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
           <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
           <td style="text-align: center; vertical-align: middle">Serial</td>
@@ -1056,7 +1106,7 @@
         </tr>
   
         <tr>
-          <td style="text-align: center; vertical-align: middle"><strong>Parallel GC</strong></td>
+          <td style="text-align: center; vertical-align: middle"><strong class="color1">Parallel GC</strong></td>
           <td style="text-align: center; vertical-align: middle">Yes</td>
           <td style="text-align: center; vertical-align: middle">&nbsp - &nbsp;</td>
           <td style="text-align: center; vertical-align: middle">Parallel</td>
@@ -1065,16 +1115,16 @@
         </tr>
   
         <tr>
-          <td style="text-align: center; vertical-align: middle"><strong>CMS GC</strong></td>
-          <td style="text-align: center; vertical-align: middle">Yes</td>
-          <td style="text-align: center; vertical-align: middle">Yes</td>
-          <td style="text-align: center; vertical-align: middle">Parallel</td>
-          <td style="text-align: center; vertical-align: middle">Parallel & Conc.</td>
-          <td style="text-align: center; vertical-align: middle">Low Pause</td>
+          <td style="text-align: center; vertical-align: middle"><strong class="dimtext">CMS GC</strong></td>
+          <td style="text-align: center; vertical-align: middle; text-decoration: line-through;"><span class="dimtext">Yes</span></td>
+          <td style="text-align: center; vertical-align: middle; text-decoration: line-through;"><span class="dimtext">Yes</span></td>
+          <td style="text-align: center; vertical-align: middle; text-decoration: line-through;"><span class="dimtext">Parallel</span></td>
+          <td style="text-align: center; vertical-align: middle; text-decoration: line-through;"><span class="dimtext">Parallel & Conc.</span></td>
+          <td style="text-align: center; vertical-align: middle; text-decoration: line-through;"><span class="dimtext">Low Pause</span></td>
         </tr>
   
         <tr>
-          <td style="text-align: center; vertical-align: middle"><strong>G1 GC</strong></td>
+          <td style="text-align: center; vertical-align: middle"><strong class="color1">G1 GC</strong></td>
           <td style="text-align: center; vertical-align: middle">Yes</td>
           <td style="text-align: center; vertical-align: middle">Yes</td>
           <td style="text-align: center; vertical-align: middle">Parallel</td>
@@ -1222,6 +1272,32 @@
         <span style="font-size:0.65em;text-align:left;">
           In this section some tuning options for common issues are discussed.
         </span>
+        <br/>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong class="color1">Before we get there &hellip;</strong><br/>
+          <span>JVM optimizes for classes of devices. A <strong class="color2">server-class machine</strong> is defined as one with:</span>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>two or more physical processors</li>
+            <li>two or more GB of physical memory</li>
+          </ul>
+          <br/>
+          <strong><span class="color1">Some defaults for a server-class machine</span>: </strong>
+          <br/>
+          <ol style="font-size: 0.9em">
+            <li>Default garbage collector = <strong class="color2">G1GC</strong>.</li>
+            <li><span class="color2">Initial heap size</span> defaults to <span class="color3">1/64th</span> of physical memory.</li>
+            <li><span class="color2">Maximum heap size</span> defaults to <span class="color3">1/4th</span> of physical memory.</li>
+            <li>Default tiered compiler with <strong class="color2">C1</strong> and <strong class="color2">C2</strong> code caches.
+              <ul>
+                <li><span class="color2">C1</span> pre-compiles and optimizes non-profilable (non-dynamic) code.</li>
+                <li><span class="color2">C2</span> profiles code and defers optimizations.</li>
+              </ul>
+            </li>
+          </ol>
+          <br/>
+          JVM uses <em class="color1">ergonomics</em> to determine behaviour and environment-based heuristics to improve performance.
+        </span>
       </section>
   
       <!-- G1GC - Performance definitions -->
@@ -1253,9 +1329,13 @@
             <li><span class="color3">A</span><span class="color2">nalyze</span> - determine what needs to be done to fix issues.</li>
             <li><span class="color3">T</span><span class="color2">une</span> - set the right parameters for sizes, ages, threads etc.</li>
             <li><span class="color3">H</span><span class="color2">ammer</span> - test out each set of parameters thoroughly.</li>
-            <li><span class="color3">Y</span><span class="color2">ippee</span> - beer time.</li>
+            <li><span class="color3">Y</span><span class="color2">ippee</span> - beer time. 🍻</li>
           </ol>
         </span>
+        <hr/>
+        <span style="font-size:0.6em;text-align:left;"><strong class="color1">Amdahl&rsquor;s Law:</strong><p/><span>If you decide to increase the number of parallel threads to gain performance, remember that</span>: <br/><em class="dimtext" style="font-size:0.8em;text-align:left;">The nature of this overhead (in parallelism) appears to be sequential so that it is unlikely to be amenable to parallel processing techniques.</em></span>
+        <br/>
+        <span style="font-size:0.6em;text-align:left;"><strong class="color3">Chandra&rsquor;s Law:</strong><br/><em class="dimtext" style="font-size:0.9em;text-align:left;">A person cannot read a book three times faster if they get three copies of the book.</em></span>
       </section>
       
       <!-- G1GC - Frequent Full GC< -->
@@ -1315,10 +1395,10 @@
         <span style="font-size:0.6em;text-align:left;">
           <strong class="color2">Mixed Collections seem to take too long</strong> <br/>
           <ul style="font-size: 0.9em"><br/>
-            <li>Determine which generation is taking the time (Set <span class="color2">gc+ergo+cset=trace</span> in logging.</li><br/>
+            <li>Determine which generation is taking the time (Set <code class="color2">gc+ergo+cset=trace</code> in logging).</li><br/>
             <li>The logs will then show <em class="color2">predicted young region</em> and <em class="color2">predicted old region</em> times.</li><br/>
             <li>Spread reclamations to more mixed collections via <code>-XX:G1MixedGCCountTarget</code>.</li><br/>
-            <li>Limit the threshold of collecting regions with high occupancy by live objects via <br/><code>-XX:G1MixedGCLiveThresholdPercent</code>.</li><br/>
+            <li>Limit threshold of collecting regions with high live occupancy: <code style="font-size: 0.9em">-XX:G1MixedGCLiveThresholdPercent</code>.</li><br/>
             <li>Limit space reclamation in high occupancy regions via <code>-XX:G1HeapWastePercent</code>.</li><br/>
           </ul>
         </span>

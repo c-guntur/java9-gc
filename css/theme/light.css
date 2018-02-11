@@ -407,6 +407,10 @@ body {
     color: #999999;
 }
 
+.reveal .dimtext {
+    color: #999999;
+}
+
 .reveal .slide-number {
     z-index: 0;
     background-color: transparent;
