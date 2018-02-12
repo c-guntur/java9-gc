@@ -44,7 +44,7 @@
 
     <!-- Title slide -->
     <section>
-      <h1>Garbage Collection in Java</h1>
+      <h1>Garbage Collection in Java 9</h1>
       <h4>&nbsp;</h4>
       <img src="images/DukeGarbageCollector.png" height="400"/>
       <br>
@@ -151,10 +151,9 @@
         <h2>Java Memory Model</h2>
         <span style="font-size:0.65em;text-align:left;">
           JVM utilizes memory by creating <strong class="color2">runtime data areas</strong>:
-          <p/>
+          <br/>
           <img src="images/JVM_Memory_Overview.png" width="70%"/>
         </span>
-        <br>
       </section>
       
       <!-- Java Memory Model - Runtime Data Areas - Part 1 -->
@@ -252,12 +251,15 @@
       <!-- Java Memory - Usage< -->
       <section>
         <h2>Java Memory - Usage</h2>
-        <span style="font-size:0.65em;text-align:left;">
-          Classloaders load classes and are used to create class instances. <br/>JIT compiler processes instructions. <br/> GC performs memory management.
-          <p/>
+        <span style="font-size:0.6em;text-align:left;">
+          <ul>
+            <li>Classloaders load classes and are used to create class instances. </li>
+            <li>JIT compiler processes instructions. </li>
+            <li> GC performs memory management.</li>
+          </ul>
+          <br/>
           <img src="images/JVM_Memory_Usage.png" width="65%"/>
         </span>
-        <br>
       </section>
       
       <!-- Java Memory - Management -->
@@ -709,7 +711,7 @@
           <br/>
           <img src="images/G1MemoryAllocation.png" width="55%"/>
         </span>
-        <br/>
+        <p/>
         <span class="dimtext"><span style="font-size: 0.45em; display: block; text-align: center">
         Recommended slide deck: <a href="https://www.slideshare.net/MonicaBeckwith/java-9-the-g1-gc-awakens">https://www.slideshare.net/MonicaBeckwith/java-9-the-g1-gc-awakens</a>.
         </span></span>
@@ -862,7 +864,7 @@
             <li>The completion of the <span class="color1">Concurrent Mark</span> triggers a <strong class="color1">Remark</strong> and a subsequent <strong class="color1">Cleanup</strong> activity.</li>
             <li><span class="color2">Young Collection</span> continues during <span class="color1">Concurrent Mark</span>, <span class="color1">Remark</span> and <span class="color1">Cleanup</span>.</li>
           </ul>
-          <p>
+          <br/>
           <img src="images/G1_3_ConcurrentMarking.png" width="55%"/>
         </span>
       </section>
@@ -1359,7 +1361,7 @@
     
     <section>
       <h2>What's next in Garbage Collection?</h2>
-      <span style="font-size:0.55em;text-align:left;">
+      <span style="font-size:0.5em;text-align:left;">
         <strong class="color2">Shenandoah</strong><br/>
         <ul style="font-size: 0.9em"><br/>
           <li>Evacuation and reference updates to run concurrently with application threads.</li><br/>
@@ -1465,7 +1467,8 @@
             themes: [
                 {name: 'Dark', theme: 'css/theme/dark.css'},
                 {name: 'Medium', theme: 'css/theme/medium.css'},
-                {name: 'Light', theme: 'css/theme/light.css'}
+                {name: 'Light', theme: 'css/theme/light.css'},
+                {name: 'White', theme: 'css/theme/white.css'}
             ]
         },
         
@@ -1484,13 +1487,6 @@
                 src: 'plugin/markdown/markdown.js', condition: function () {
                   return !!document.querySelector('[data-markdown]');
                 }
-            // }
-            // ,
-            // {
-            //     src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-            //     // noinspection Annotator
-            //     hljs.initHighlightingOnLoad();
-            // }
             },
             {src: 'plugin/zoom-js/zoom.js', async: true},
             {src: 'plugin/notes/notes.js', async: true},
@@ -1500,6 +1496,22 @@
     });
 
     Reveal.configure({slideNumber: 'mystyle'});
+    
+    if(location.search) {
+        var params = location.search.replace("?", "").split("=");
+        if(params[0] === "style" && params[1] === "light") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/light.css');
+        }
+        if(params[0] === "style" && params[1] === "white") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/white.css');
+        }
+        if(params[0] === "style" && params[1] === "medium") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/medium.css');
+        }
+        if(params[0] === "style" && params[1] === "dark") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/dark.css');
+        }
+    }
 </script>
 
 <div style="position: absolute; bottom: 20px; margin-left: 0px; width: 100%;">
