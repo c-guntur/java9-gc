@@ -136,7 +136,7 @@
           <li>G1GC - Common Tuning Situations</li>
           <li>A discussion (Time permitting):
             <ul>
-              <li><span class="dimtext">Garbage Collection - Future</span></li>
+              <li><span class="dimtext">Garbage Collection - What's Next</span></li>
             </ul>
           </li>
         </ul>
@@ -177,7 +177,7 @@
                   <li><strong class="color2">JVM Stack</strong> (<strong class="dimtext">Per Thread</strong>):
                     <ul>
                       <li>JVM pushes to - or - pops from the stack frame.</li>
-                      <li>any exception in execution results in tracing this stack frame</li>
+                      <li>any exception in execution results in tracing this stack frame.</li>
                       <li>the call hierarchy here is used to produce a <span class="color2">stack trace</span>.</li>
                       <li>consists of a stack frame, local variable array and an operand stack.</li>
                     </ul>
@@ -211,7 +211,7 @@
                 <ol start="4">
                   <li><strong class="color2">Method Area</strong> - <strong class="dimtext">Shared</strong>:
                     <ul>
-                      <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method byte-codes.</li>
+                      <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method bytecodes.</li>
                       <li>Oracle Hotspot VM co-mingled this area with Permanent Generation (PermGen).</li>
                       <li>garbage collection for this area is not required by the JVM specification.</li>
                     </ul>
@@ -222,13 +222,14 @@
                       <li><span class="color1">the most core area for the JVM</span>.</li>
                       <li>contains all constants of any interface and class.</li>
                       <li>contains references to <strong class="color2">* ALL *</strong> fields and methods.</li>
-                      <li>JVM looks up here access to any field or method to process an instruction.</li>
+                      <li>JVM looks up this pool for any field or method to process an instruction.</li>
                     </ul>
                   </li>
                   <br/>
                   <li><strong class="color2">Heap</strong> - <strong class="dimtext">Shared</strong>:
                     <ul>
-                      <li>space to store class instances or arrays, target of garbage collection.</li>
+                      <li>space to store class instances or arrays.</li>
+                      <li>target of garbage collection.</li>
                       <li>most JVM performance revolves around the heap.</li>
                       <li>JVM vendors can configure GC per their interpretation of the JVM spec.</li>
                     </ul>
@@ -381,7 +382,7 @@
             <li>[<em class="color2">occasionally</em>] compacting memory defragmenting live objects, to create more contiguous space.</li>
           </ul>
           <br/>
-          An unused object is the one that is no longer referenced by any part of the program.
+          An unused object is one that is no longer referenced by any part of the program.
           <br/>
           <span style="font-size:0.7em;text-align:left;"><span class="color2">Trivia:</span><p/><strong>The first garbage collection process</strong>: Lisp, in 1959 by <strong class="color1">John MacCarthy</strong> (<em>author of Lisp and major contributor to ALGOL</em>) fame.</span>
         </span>
@@ -403,8 +404,8 @@
               <tr>
                 <td style="text-align: left; vertical-align: top; width: 50%">
                   <ul>
-                    <li><strong class="color1">Serial collector</strong>: Single GC thread runs halting all application threads.</li>
-                    <li><strong class="color1">Parallel collector</strong>: Multiple GC threads in parallel halting all application threads.</li>
+                    <li><strong class="color1">Serial collector</strong>: Single GC thread, halting all application threads.</li>
+                    <li><strong class="color1">Parallel collector</strong>: Multiple GC threads in parallel, halting all application threads.</li>
                     <li><strong class="color1">Concurrent collector</strong>: GC thread(s) concurrently run with the application threads.</li>
                   </ul>
                   &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 0.7em"><strong class="color2">Note</strong><span class="color2">: Parallel and concurrent are two different things.</span></span>
@@ -472,7 +473,7 @@
                   <li><span class="color2">decrements</span> the counter for each de-reference of the object.</li>
                   <li>marks object as garbage if reference count reaches zero.</li>
                   <li>is very under-performant and maintenance-heavy for JVMs.</li>
-                  <li>is <span class="color1">considered obsolete</span> in commercial JVMs.</li>
+                  <li>is considered <span class="color1">obsolete</span> in commercial JVMs.</li>
                 </ul>
                 <p/>
                 Memory allocator may place objects anywhere in the free space.
@@ -604,7 +605,7 @@
           <br/>
           <ul>
             <li>heap is broken into smaller areas (sub-heaps).</li>
-            <li>newly created objects are allocated to a Young part called <strong class="color1">Eden</strong>.</li>
+            <li>newly created objects are allocated to a young area called <strong class="color1">Eden</strong>.</li>
             <li><span class="color1">Eden</span> itself divided into TLAB sections for individual threads and a common area.</li>
             <li>different GC processes for each generation, young gc typically is <span class="color2">all-at-once</span>, <span class="color2">stop-the-world</span>, <span class="color2">copying</span> collector.</li>
             <li>objects that stay "alive" longer get moved to older generation.</li>
@@ -691,9 +692,11 @@
             <li style="margin-top: 1.0em">Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
           </ul>
           <p/>
-          The G1GC (<strong class="color2">Garbage First Garbage Collector</strong>), was designed and developed to resolve the above.
-          <br/><br/>
-          <span class="color1">G1GC is the new default collector since JDK 9</span>.
+          <span class="color1" style="font-size: 1.2em">
+            The G1GC (<strong class="color2">Garbage First Garbage Collector</strong>), was designed and developed to resolve the above.
+            <br/>
+            <blockquote class="color3" style="font-size: 0.8em; text-align: center">G1GC is the new default collector since JDK 9</blockquote>.
+          </span>
         </span>
       </section>
     </section>
@@ -731,7 +734,7 @@
             <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li>
             <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy contiguous regions and are defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
             <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">directly allocated in and treated similar to </strong><span class="color1">tenured</span> objects.</li>
-            <li style="margin-top: 0.5em">G1 GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
+            <li style="margin-top: 0.5em">G1GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
           </ul>
           <hr/>
           <table width="100%">
@@ -770,18 +773,19 @@
                 <span class="color1">Explanation: </span><br/>
                 <ul>
                   <li style="margin-top: 0.5em">two distinct phases of collection.</li>
-                  <li style="margin-top: 0.5em">starts with a <strong class="color2">Young-only</strong> collection phase, that runs periodically.</li>
-                  <li style="margin-top: 0.5em">continues until a <em class="color2">threshold</em> is reached, which triggers an <span class="color1">Initial Mark</span>.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Initial Mark</span> adds <span class="color2">concurrent live marking</span> to the periodic <span class="color1">Young-only</span> collection.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Concurrent Mark</span> takes a while, <span class="color1">Young-only</span> collection continues along-side.</li>
-                  <li style="margin-top: 0.5em">at end of <span class="color1">Concurrent Mark</span>, a <span class="color1">Remark</span> is initiated.</li>
+                  <li style="margin-top: 0.5em">starts with a <strong class="color3">Young-only</strong> phase, where <strong class="color1 dimbg">Young Collection</strong> runs periodically.</li>
+                  <li style="margin-top: 0.5em">continues until a <em class="color2">threshold</em> is reached, which triggers an <strong class="color1 dimbg">Initial Mark</strong>.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Initial Mark</span> adds <span class="color2">concurrent live marking</span> to the periodic <span class="color1">young collection</span>.</li>
+                  <li style="margin-top: 0.5em"><strong class="color1 dimbg">Concurrent Mark</strong> takes a while, <span class="color1">Young Collection</span> continues along-side.</li>
+                  <li style="margin-top: 0.5em">at end of <span class="color1">Concurrent Mark</span>, a <strong class="color1 dimbg">Remark</strong> is initiated.</li>
                   <li style="margin-top: 0.5em"><span class="color1">Remark</span> finalizes marking, summarizes liveness.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Remark</span> completion triggers <span class="color1">Cleanup</span>, reclaiming empty regions.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Remark</span> completion triggers <strong class="color1 dimbg">Cleanup</strong>, reclaiming empty regions.</li>
                   <li style="margin-top: 0.5em"><span class="color1">Cleanup</span> is used to determine if <span class="color1">Tenured</span> space reclamation required.</li>
-                  <li style="margin-top: 0.5em">Crossing <span class="color2">Heap waste percentage</span> threshold triggers <strong class="color1">Space reclamation</strong> phase.</li>
+                  <li style="margin-top: 0.5em">Crossing <span class="color2">Heap waste percentage</span> threshold triggers <strong class="color3">Space reclamation</strong> phase.</li>
                   <li style="margin-top: 0.5em">A <strong class="color2">Collection set (CSet)</strong> of <span class="color1">Young</span> &amp; <span class="color1">Tenured</span> regions picked for collection.</li>
+                  <li style="margin-top: 0.5em">This <strong class="color1 dimbg"> Mixed Collection</strong> is made up to meet a <em class="color2">pause-time goal</em>.</li>
                   <li style="margin-top: 0.5em">References to the objects in <span class="color2">CSet</span> are tracked via <strong class="color2">Remembered set (RSet)</strong>.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Space Reclamation</span> continues until heap waste percent below threshold.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Mixed Collection</span> continues until heap waste percent below threshold.</li>
                   <li style="margin-top: 0.5em"><span class="color2">Humongous objects</span> processed in <span class="color1">Cleanup</span> and in <strong class="color2">Space Reclamation</strong> phase.</li>
                 </ul>
               </td>
@@ -834,8 +838,8 @@
           <ul style="font-size: 0.9em">
             <li><span class="color2">Young Collection</span> includes compact copying from <span class="color1">Survivor</span> to <span class="color1">Tenured</span> after objects survive a few iterations.</li>
             <li>Dead objects are collected and evicted.</li>
-            <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <strong class="dimtext">below</strong> threshold (default = <span class="color3">15</span>) are left as-is. </li>
-            <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <strong class="dimtext">above</strong> threshold (default = <span class="color3">15</span>) are collected and moved to <strong class="color1">Tenured</strong> region. </li>
+            <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <em><strong class="dimtext">below</strong></em> threshold (default = <span class="color3">15</span>) are left as-is. </li>
+            <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <em><strong class="color3">above</strong></em> threshold (default = <span class="color3">15</span>) are collected and moved to <strong class="color1">Tenured</strong> region. </li>
           </ul>
           <hr/>
           <table width="100%">
@@ -902,15 +906,16 @@
         <span style="font-size:0.6em;text-align:left;">
           Some notes on MetaSpace versus PermGen:<br/>
           <ul>
-            <li style="margin-top: 1.0em"><span class="dimtext">PermGen allocated as a part of JVM Heap</span>.</li>
-            <li style="margin-top: 1.0em"><span class="dimtext">PermGen thus limited in upper bounds by heap size</span>.</li>
-            <li style="margin-top: 1.0em"><span class="dimtext">PermGen could not take advantage of O/S memory swaps</span>.</li>
-            <li style="margin-top: 1.0em"><span class="dimtext">Default PermGen size is 64M (85M for 64-bit scaled pointers)</span>.</li>
-            <li style="margin-top: 1.0em">Metaspace (or rather metaspaces) are <span class="color2">not a panacea</span> for <code>OutOfMemoryError</code>s.</li>
-            <li style="margin-top: 1.0em">Metaspace is <span class="color2">allocated from the O/S memory, rather than the JVM heap</span>.</li>
-            <li style="margin-top: 1.0em">Initial Metaspace Size is set by <code>-XX:MetaspaceSize</code> (<span class="dimtext">replaces -XX:PermSize</span>), default = <span class="color3">21.8M</span>.</li>
-            <li style="margin-top: 1.0em">Max Metaspace is set by <code>-XX:MaxMetaspaceSize</code> (<span class="dimtext">replaces -XX:MaxPermSize</span>), default = <span class="color3">unlimited</span>.</li>
-            <li style="margin-top: 1.0em">When porting from PermGen, simply replace <code>-XX:PermSize</code> and <code>-XX:MaxPermSize</code> with the new options.</li>
+            <li style="margin-top: 1.0em"><span class="dimtext">PermGen</span> allocated as a part of JVM Heap.</li>
+            <li style="margin-top: 1.0em"><span class="dimtext">PermGen</span> thus limited in upper bounds by heap size.</li>
+            <li style="margin-top: 1.0em"><span class="dimtext">PermGen</span> could not take advantage of O/S memory swaps.</li>
+            <li style="margin-top: 1.0em">Default <span class="dimtext">PermGen</span> size is 64M (85M for 64-bit scaled pointers).</li>
+            <hr/>
+            <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> (or rather metaspaces) are <span class="color2">not a panacea</span> for <code>OutOfMemoryError</code>s.</li>
+            <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> is <span class="color2">allocated from the O/S memory, rather than the JVM heap</span>.</li>
+            <li style="margin-top: 1.0em">Initial <span class="color1">Metaspace</span> Size is set by <code>-XX:MetaspaceSize</code> (<span class="dimtext">replaces -XX:PermSize</span>), default = <span class="color3">21.8M</span>.</li>
+            <li style="margin-top: 1.0em">Max <span class="color1">Metaspace</span> is set by <code>-XX:MaxMetaspaceSize</code> (<span class="dimtext">replaces -XX:MaxPermSize</span>), default = <span class="color3">unlimited</span>.</li>
+            <li style="margin-top: 1.0em">When porting from <span class="dimtext">PermGen</span>, simply replace <code>-XX:PermSize</code> and <code>-XX:MaxPermSize</code> with the new options.</li>
           </ul>
         </span>
         <br/>
@@ -977,9 +982,9 @@
           <ul style="font-size: 0.8em">
             <li><strong class="color2">A Humongous allocation is reached</strong>: <br/>
               <ul>
-                <li>Humongous objects are objects of size <span class="color3">50%</span> or greater than a region size.</li>
+                <li>Humongous objects are objects with a size of <span class="color3">50%</span> or greater than, a region size.</li>
                 <li><span class="color2">Directly allocated to Old gen.</span> regions to avoid the potentially costly collections and moves of young gen.</li>
-                <li>G1 tries to eagerly reclaim in these objects are not referenced across many collections.</li>
+                <li>G1GC tries to eagerly reclaim such objects if they are found to not have references after many collections.</li>
                 <li>Can be disabled by a <code>-XX:-G1EagerReclaimHumongousObjects</code>, may need to turn on Experimental options.</li>
               </ul>
             </li>
@@ -1227,7 +1232,7 @@
           In this section some tuning options for common issues are discussed.
         </span>
         <br/>
-        <span style="font-size:0.55em;text-align:left;">
+        <span style="font-size:0.65em;text-align:left;">
           <strong class="color1">Before we get there &hellip;</strong><br/>
           <span>JVM optimizes for classes of devices. A <strong class="color2">server-class machine</strong> is defined as one with:</span>
           <br/>
@@ -1261,8 +1266,8 @@
           G1GC tuning is done to meet one of the below performance metrics:<br/>
           <br/>
           <ul>
-            <li><strong class="color2">Throughput</strong>—the percentage of total time not spent in garbage collection, considered over long periods of time.</li><br/>
-            <li><strong class="color2">Pause time</strong>—the length of time the application execution is stopped for garbage collection to occur.</li><br/>
+            <li><strong class="color1">Throughput</strong>—the percentage of total time not spent in garbage collection, considered over long periods of time.</li><br/>
+            <li><strong class="color1">Pause time</strong>—the length of time the application execution is stopped for garbage collection to occur.</li><br/>
             <li><strong class="color2">GC overhead</strong>—the inverse of throughput, that is, the percentage of total time spent in garbage collection.</li><br/>
             <li><strong class="color2">Collection frequency</strong>—how often collection occurs, relative to application execution.</li><br/>
             <li><strong class="color2">Footprint</strong>—a measure of size, such as heap size.</li><br/>
@@ -1289,7 +1294,7 @@
         <hr/>
         <span style="font-size:0.6em;text-align:left;"><strong class="color1">Amdahl&rsquor;s Law:</strong><p/><span>If you decide to increase the number of parallel threads to gain performance, remember that</span>: <br/><em class="dimtext" style="font-size:0.8em;text-align:left;">The nature of this overhead (in parallelism) appears to be sequential so that it is unlikely to be amenable to parallel processing techniques.</em></span>
         <br/>
-        <span style="font-size:0.6em;text-align:left;"><strong class="color3">Chandra&rsquor;s Law:</strong><br/><em class="dimtext" style="font-size:0.9em;text-align:left;">A person cannot read a book three times faster if they get three copies of the book.</em></span>
+        <span style="font-size:0.6em;text-align:left;"><strong class="color3">Chandra&rsquor;s Law:</strong><br/><em class="dimtext" style="font-size:0.9em;text-align:left;">Providing three copies of a book does not get a person read it three times faster.</em></span>
       </section>
       
       <!-- G1GC - Frequent Full GC< -->
@@ -1361,29 +1366,35 @@
     
     <section>
       <h2>What's next in Garbage Collection?</h2>
-      <span style="font-size:0.5em;text-align:left;">
+      <span style="font-size:0.8em;text-align:left;">
         <strong class="color2">Shenandoah</strong><br/>
         <ul style="font-size: 0.9em"><br/>
-          <li>Evacuation and reference updates to run concurrently with application threads.</li><br/>
-          <li>Pause times are meant to be independent of heap size.</li><br/>
-          <li>More reading material:<br/><br/>
+          <li>Evacuation and reference updates to run concurrently with application threads.</li>
+          <li>Pause times are meant to be independent of heap size.</li>
+          <li>More reading material:<br/>
             <ul>
-              <li><a href="http://openjdk.java.net/jeps/189">JEP-189 (http://openjdk.java.net/jeps/189)</a></li><br/>
+              <li><a href="http://openjdk.java.net/jeps/189">JEP-189 (http://openjdk.java.net/jeps/189)</a></li>
               <li><a href="https://wiki.openjdk.java.net/display/shenandoah/Main">Shenandoah Wiki (https://wiki.openjdk.java.net/display/shenandoah/Main)</a></li>
             </ul>
           </li>
         </ul>
-        <br/>
+      </span>
+      <br/>
+      <span style="font-size:0.8em;text-align:left;">
         <strong class="color2">Z Garbage Collector</strong><br/>
-        <span style="font-size:0.8em;text-align:left;">ZGC is a concurrent, currently single-generation, region-based, incrementally compacting collector.</span>
-        <ul style="font-size: 0.9em"><br/>
-          <li>Handle multi-terabyte heaps.</li><br/>
-          <li>GC pause times not exceeding 10ms.</li><br/>
-          <li>No more than 15% application throughput reduction compared to using G1.</li><br/>
-          <li>More reading material:<br/><br/>
+        <span style="font-size:0.8em;text-align:left;">ZGC is a concurrent, currently single-generation, region-based, incrementally compacting collector.</span><br/>
+        <ul style="font-size: 0.9em">
+          <li>Handle multi-terabyte heaps.</li>
+          <li>GC pause times not exceeding 10ms.</li>
+          <li>No more than 15% application throughput reduction compared to using G1.</li>
+          <li>More reading material:<br/>
             <ul>
-              <li><a href="http://openjdk.java.net/projects/zgc/">OpenJDK Project (http://openjdk.java.net/projects/zgc/)</a></li><br/>
-              <li><a href="https://fosdem.org/2018/schedule/event/zgc/attachments/slides/2211/export/events/attachments/zgc/slides/2211/ZGC_FOSDEM_2018.pdf">FOSDEM 2018 Z GC Presentation</a></li>
+              <li><a href="http://openjdk.java.net/projects/zgc/">OpenJDK Project (http://openjdk.java.net/projects/zgc/)</a></li>
+              <li>
+                <a href="https://fosdem.org/2018/schedule/event/zgc/attachments/slides/2211/export/events/attachments/zgc/slides/2211/ZGC_FOSDEM_2018.pdf">
+                  FOSDEM 2018 Z GC Presentation <br/>
+                  <span style="font-size: 0.6em">https://fosdem.org/2018/schedule/event/zgc/attachments/slides/2211/export/events/attachments/zgc/slides/2211/ZGC_FOSDEM_2018.pdf</span>
+                </a>
             </ul>
           </li>
         </ul>

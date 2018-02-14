@@ -411,6 +411,10 @@ body {
     color: #a7a6b2;
 }
 
+.reveal .dimbg {
+    background-color: #77767f;
+}
+
 .reveal .slide-number {
     z-index: 0;
     background-color: transparent;
