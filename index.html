@@ -655,11 +655,12 @@
                 <li>VM Option to enable: <code>-XX:+UseSerialGC</code>.</li>
               </ul>
             </li><br/>
-            <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and <em>"1.8"</em></strong> <br/>
+            <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and 1.8<sup>*</sup></strong> <br/>
               <ul>
                 <li><strong>Young gen.</strong>, by default, uses the <span class="color2">parallel (scavenge) collection</span>, while <strong>tenured gen.</strong> uses a <span class="color2">serial collector</span>.</li>
                 <li>VM Option to enable: <code>-XX:+UseParallelGC</code>.</li>
                 <li>VM Option to enable for tenured: <code>-XX:+UseParallelOldGC</code>.</li>
+                <li><strong class="color2"><sup>*</sup></strong> <em>G1GC was originally planned as default for Java 1.8 but was deferred until Java 9</em>.</li>
               </ul>
             </li><br/>
             <li><strong class="color2">Concurrent Mark-Sweep (CMS) Collector (mostly*) - available Java 1.5 onwards until Java 1.8</strong> <br/>
