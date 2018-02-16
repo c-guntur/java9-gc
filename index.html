@@ -540,7 +540,7 @@
                   <li>marks objects as used or unused.</li>
                   <li>copies live objects to another memory area.</li>
                   <li>purging current area, one of the two areas is always empty.</li>
-                  <li>very specialized case of <strong class="color2">MSC</strong>, the sweep and compact are one step.</li>
+                  <li>very specialized case of <strong class="color2">M/S/C</strong>, the sweep and compact are one step.</li>
                   <li>needs a <strong class="color2">from</strong> and a <strong class="color2">to</strong> memory area.</li>
                   <li>has the <strong class="color2">from</strong> and <strong class="color2">to</strong> swap roles each run of the collection.</li>
                   <li>is <span class="color1">efficient for small memory areas</span>.</li>
@@ -1368,7 +1368,7 @@
     <section>
       <h2>What's next in Garbage Collection?</h2>
       <span style="font-size:0.8em;text-align:left;">
-        <strong class="color2">Shenandoah</strong><br/>
+        <strong class="color2">Shenandoah</strong> <span class="dimtext">(Redhat &#8674; OpenJDK)</span> <br/>
         <ul style="font-size: 0.9em"><br/>
           <li>Evacuation and reference updates to run concurrently with application threads.</li>
           <li>Pause times are meant to be independent of heap size.</li>
@@ -1382,20 +1382,18 @@
       </span>
       <br/>
       <span style="font-size:0.8em;text-align:left;">
-        <strong class="color2">Z Garbage Collector</strong><br/>
+        <strong class="color2">Z Garbage Collector</strong> <span class="dimtext">(Oracle &#8674; OpenJDK)</span> <br/>
         <span style="font-size:0.8em;text-align:left;">ZGC is a concurrent, currently single-generation, region-based, incrementally compacting collector.</span><br/>
         <ul style="font-size: 0.9em">
           <li>Handle multi-terabyte heaps.</li>
           <li>GC pause times not exceeding 10ms.</li>
           <li>No more than 15% application throughput reduction compared to using G1.</li>
+          <li>Aims at simplifying tuning of GCs as well!</li>
           <li>More reading material:<br/>
             <ul>
               <li><a href="http://openjdk.java.net/projects/zgc/">OpenJDK Project (http://openjdk.java.net/projects/zgc/)</a></li>
-              <li>
-                <a href="https://fosdem.org/2018/schedule/event/zgc/attachments/slides/2211/export/events/attachments/zgc/slides/2211/ZGC_FOSDEM_2018.pdf">
-                  FOSDEM 2018 Z GC Presentation <br/>
-                  <span style="font-size: 0.6em">https://fosdem.org/2018/schedule/event/zgc/attachments/slides/2211/export/events/attachments/zgc/slides/2211/ZGC_FOSDEM_2018.pdf</span>
-                </a>
+              <li><a href="https://wiki.openjdk.java.net/display/zgc/Main">ZGC Wiki (https://wiki.openjdk.java.net/display/zgc/Main)</a></li>
+              <li><a href="https://jaxenter.com/zgc-interview-per-liden-139985.html">Per Liden (Lead) Interview (https://jaxenter.com/zgc-interview-per-liden-139985.html)<br/></a>
             </ul>
           </li>
         </ul>
