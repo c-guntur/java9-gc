@@ -575,6 +575,14 @@
           The generational collector divides the memory into smaller memory areas.
           <p/>
           Management of objects in different memory areas is done differently.
+          <p/>
+          <strong><span class="color1">Weak Generational Hypothesis</span> : </strong>
+          <br/>
+          <ul>
+            <li>Most objects do not have a long life.</li>
+            <li>It is usually rare for an older generation object to reference a young generation object.</li>
+          </ul>
+          <p>
         </span>
       </section>
 
@@ -582,11 +590,12 @@
       <section>
         <h2>Generational GC - Pictorial</h2>
         <span style="font-size:0.65em;text-align:left;">
-          <strong><span class="color1">Weak Generational Hypothesis</span> : </strong>
+          <strong><span class="color1">Overview</span> : </strong>
           <br/>
           <ul>
-            <li>Most objects do not have a long life.</li>
-            <li>It is usually rare for an older generation object to reference a young generation object.</li>
+            <li>Objects initially allocated to the young <strong class="color1">Eden</strong> region.</li>
+            <li>Objects that live past a collection are <em class="color2">promoted</em> to <strong class="color1">Survivor</strong> and subsequently to <strong class="color1">Tenured</strong>.</li>
+            <li>Collection patterns can be different for each generation to deliver an optimal performance.</li>
           </ul>
           <p>
           <img src="images/GenerationalGarbageCollection.png" width="65%"/>
@@ -651,13 +660,13 @@
               <ul>
                 <li>Freezes all application threads to collect garbage.</li>
                 <li>Designed for single-thread and tiny heap sized (~100 MB) apps.</li>
-                <li><strong class="color1">Disqualified</strong> for most modern Java apps.</li>
+                <li>Low memory footprint makes it good for <strong class="color1"></strong> for mobile or small apps.</li>
                 <li>VM Option to enable: <code>-XX:+UseSerialGC</code>.</li>
               </ul>
             </li><br/>
             <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and 1.8<sup>*</sup></strong> <br/>
               <ul>
-                <li><strong>Young gen.</strong>, by default, uses the <span class="color2">parallel (scavenge) collection</span>, while <strong>tenured gen.</strong> uses a <span class="color2">serial collector</span>.</li>
+                <li><strong class="color1 dimbg">Young</strong> gen., only has the <span class="color2">parallel (scavenge) collection</span>, while <strong class="color1 dimbg">Tenured</strong> gen. uses a <span class="color2">serial collector</span>.</li>
                 <li>VM Option to enable: <code>-XX:+UseParallelGC</code>.</li>
                 <li>VM Option to enable for tenured: <code>-XX:+UseParallelOldGC</code>.</li>
                 <li><strong class="color2"><sup>*</sup></strong> <em>G1GC was originally planned as default for Java 1.8 but was deferred until Java 9</em>.</li>
@@ -665,12 +674,13 @@
             </li><br/>
             <li><strong class="color2">Concurrent Mark-Sweep (CMS) Collector (mostly*) - available Java 1.5 onwards until Java 1.8</strong> <br/>
               <ul>
-                <li>By default, <strong>Young</strong> and <strong>tenured gen.</strong> use a CMS collector.</li>
+                <li>By default, <strong class="color1 dimbg">Young</strong> gen. uses a serial collection and <strong class="color1 dimbg">Tenured</strong> gen. use a CMS collector.</li>
                 <li>Does not <span class="color1">compact</span> by default, to make GC a low-pause, low-latency, but causes heap fragmentation.</li>
                 <li><strong class="color2"> * </strong> <em>An eventual fill up of old memory causes a fall-back to a STW M/S/C that results in performance degradation</em>.</li>
                 <li><strong>Focuses on live objects and defers garbage handling, until crisis time.</strong> </li>
                 <li>VM Option to enable: <code>-XX:+UseConcMarkSweepGC</code>.</li>
                 <li>VM Option to enable Parallel collection on young generation: <code>-XX:+UseParNewGC</code>.</li>
+                <li>ParNew does the synchronization needed for CMS that Parallel Scavenge cannot..</li>
               </ul>
             </li>
           </ul>
@@ -684,8 +694,9 @@
           Some notes on the existing garbage collectors:<br/>
           <ul>
             <li style="margin-top: 1.0em">Not performant for <span class="color2">large memory heaps</span> (<span class="dimtext">large heaps are common these days</span>).</li>
-            <li style="margin-top: 1.0em"><span class="color2">Unpredictable and inconsistent pause-times</span> and lesser number of STW GCs.</li>
-            <li style="margin-top: 1.0em">Memory availability is dependent on GC or compaction irrespective of the heap size.</li>
+            <li style="margin-top: 1.0em">By default, <span class="color2">unpredictable and inconsistent pause-times</span> and lesser number of STW GCs.</li>
+            <li style="margin-top: 1.0em">Need high tunability to stabilize pause times due to non-compacting nature.</li>
+            <li style="margin-top: 1.0em"><em class="color2">Either</em> highly prone to fragmentation <em class="color2">or</em> demand the need for smaller heaps for predictable times.</li>
             <li style="margin-top: 1.0em">Not much effort put into re-use of duplicated content.</li>
             <li style="margin-top: 1.0em">The <span class="color2">contiguous memory area arrangement</span> reduces flexibility of "moving the walls".</li>
             <li style="margin-top: 1.0em">Mostly <span class="color2">focused on live objects</span>, not on garbage (an exact antithesis of the name).</li>
@@ -733,8 +744,8 @@
             <li style="margin-top: 0.5em">This compartmentalization is done by <strong class="color2">dividing the heap into ~ 2048 or more regions</strong> of <strong class="color2">equal size</strong>.</li>
             <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li>
             <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li>
-            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy contiguous regions and are defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
-            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">directly allocated in and treated similar to </strong><span class="color1">tenured</span> objects.</li>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (and contiguous) regions and are defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">allocated as </strong><span class="color1">tenured</span> objects.</li>
             <li style="margin-top: 0.5em">G1GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
           </ul>
           <hr/>
@@ -775,9 +786,11 @@
                 <ul>
                   <li style="margin-top: 0.5em">two distinct phases of collection.</li>
                   <li style="margin-top: 0.5em">starts with a <strong class="color3">Young-only</strong> phase, where <strong class="color1 dimbg">Young Collection</strong> runs periodically.</li>
+                  <li style="margin-top: 0.5em">each circle represents a STW process.</li>
                   <li style="margin-top: 0.5em">continues until a <em class="color2">threshold</em> is reached, which triggers an <strong class="color1 dimbg">Initial Mark</strong>.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Initial Mark</span> adds <span class="color2">concurrent live marking</span> to the periodic <span class="color1">young collection</span>.</li>
-                  <li style="margin-top: 0.5em"><strong class="color1 dimbg">Concurrent Mark</strong> takes a while, <span class="color1">Young Collection</span> continues along-side.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Initial Mark</span> triggers <span class="color2">concurrent marking</span> in addition to the <span class="color1">young collection</span>.</li>
+                  <li style="margin-top: 0.5em"><span class="color1">Root scanning</span> will halt the <span class="color2">young collection</span> process during this phase.</li>
+                  <li style="margin-top: 0.5em"><strong class="color1 dimbg">Concurrent Mark</strong> takes a while, <span class="color1">Young Collection</span> could continue along-side.</li>
                   <li style="margin-top: 0.5em">at end of <span class="color1">Concurrent Mark</span>, a <strong class="color1 dimbg">Remark</strong> is initiated.</li>
                   <li style="margin-top: 0.5em"><span class="color1">Remark</span> finalizes marking, summarizes liveness.</li>
                   <li style="margin-top: 0.5em"><span class="color1">Remark</span> completion triggers <strong class="color1 dimbg">Cleanup</strong>, reclaiming empty regions.</li>
@@ -810,8 +823,9 @@
           <br/>
           <ul style="font-size: 0.9em">
             <li><span class="color2">Young Collection</span> first targets the most populated regions.</li>
+            <li><span class="color2">Young Collection</span> eventually targets all young regions.</li>
             <li>Dead objects are collected and evicted.</li>
-            <li>Live objects from a selected few <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> regions are compacted and copied into a <span class="color1">Survivor <em>To</em></span> region.</li>
+            <li>Live objects from scavenged <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> regions are compacted and copied into a <span class="color1">Survivor <em>To</em></span> region.</li>
             <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Eden</span> is set to <span class="color3">1</span> with each execution of this GC. </li>
             <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Survivor <em>From</em></span> is incremented by a <span class="color3">1</span> with each execution of this GC. </li>
           </ul>
@@ -865,7 +879,7 @@
           <ul style="font-size: 0.9em">
             <li>Triggered when certain percentage of heap is occupied <span class="dimtext"> - or - </span> when the <span class="color1">Survivor <em>To</em></span> minimum creation space threshold is reached.</li>
             <li><span class="color1">Concurrent Mark</span> begins with a <strong class="color2">Snapshot-At-The-Beginning (SATB)</strong> (<span class="dimtext">conservative garbage collection</span>).</li>
-            <li>If more objects move to <span class="color1">Tenured</span> after the snapshot, all such objects are <em class="color2">considered live</em>, and not checked for references.</li>
+            <li>If more objects move to <span class="color1">Tenured</span> after the snapshot, all such objects are <em class="color2">implicitly considered live</em>, and not checked for references.</li>
             <li>The completion of the <span class="color1">Concurrent Mark</span> triggers a <strong class="color1">Remark</strong> and a subsequent <strong class="color1">Cleanup</strong> activity.</li>
             <li><span class="color2">Young Collection</span> continues during <span class="color1">Concurrent Mark</span>, <span class="color1">Remark</span> and <span class="color1">Cleanup</span>.</li>
           </ul>
@@ -908,12 +922,12 @@
           Some notes on MetaSpace versus PermGen:<br/>
           <ul>
             <li style="margin-top: 1.0em"><span class="dimtext">PermGen</span> allocated as a part of JVM Heap.</li>
-            <li style="margin-top: 1.0em"><span class="dimtext">PermGen</span> thus limited in upper bounds by heap size.</li>
+            <li style="margin-top: 1.0em"><span class="dimtext">PermGen</span> is implicitly bounded since it is allocated at startup.</li>
             <li style="margin-top: 1.0em"><span class="dimtext">PermGen</span> could not take advantage of O/S memory swaps.</li>
             <li style="margin-top: 1.0em">Default <span class="dimtext">PermGen</span> size is 64M (85M for 64-bit scaled pointers).</li>
             <hr/>
             <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> (or rather metaspaces) are <span class="color2">not a panacea</span> for <code>OutOfMemoryError</code>s.</li>
-            <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> is <span class="color2">allocated from the O/S memory, rather than the JVM heap</span>.</li>
+            <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> is <span class="color2">explicitly bounded from the O/S memory, taking up unlimiited amounts otherwise</span>.</li>
             <li style="margin-top: 1.0em">Initial <span class="color1">Metaspace</span> Size is set by <code>-XX:MetaspaceSize</code> (<span class="dimtext">replaces -XX:PermSize</span>), default = <span class="color3">21.8M</span>.</li>
             <li style="margin-top: 1.0em">Max <span class="color1">Metaspace</span> is set by <code>-XX:MaxMetaspaceSize</code> (<span class="dimtext">replaces -XX:MaxPermSize</span>), default = <span class="color3">unlimited</span>.</li>
             <li style="margin-top: 1.0em">When porting from <span class="dimtext">PermGen</span>, simply replace <code>-XX:PermSize</code> and <code>-XX:MaxPermSize</code> with the new options.</li>
@@ -930,11 +944,12 @@
           <ul>
             <li style="margin-top: 0.7em">G1 continues with the <strong>young collection</strong> <strong class="color2">until either of the below is reached</strong>:
               <ul>
-                <li>reaches a configurable soft limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = <span class="color3">45</span>).</li>
-                <li>reaches the configurable strict limit of <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
+                <li>reaches a configurable <em class="color2">soft</em> limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = <span class="color3">45</span>).</li>
+                <li>reaches the configurable <em class="color2">strict</em> limit of <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
               </ul>
             </li>
             <li style="margin-top: 0.7em">If either constraint is met, it triggers the start of a <span class="color2">Concurrent GC</span>.</li>
+            <li style="margin-top: 0.7em"><span class="color1">Concurrent Mark</span> includes both STW and concurrent activities.</li>
             <li style="margin-top: 0.7em"><span class="color1">Concurrent Mark</span> determines liveness of objects on a per-region basis.</li>
             <li style="margin-top: 0.7em">G1 goes after regions that have the most garbage, it is called <strong class="color1">Garbage-First</strong>.</li>
             <li style="margin-top: 0.7em"><span class="color1">Concurrent Mark</span> is followed by a <span class="color1">Remark</span> and a <span class="color1">Cleanup</span>.</li>
@@ -1093,6 +1108,10 @@
         </tr>
         </tbody>
       </table>
+      <br/>
+      <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
+        Recommended reading material: <a href="https://blogs.oracle.com/jonthecollector/our-collectors">https://blogs.oracle.com/jonthecollector/our-collectors</a>.
+      </span></span>
     </section>
     
     
