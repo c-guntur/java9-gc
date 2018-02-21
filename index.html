@@ -819,9 +819,27 @@
         </span></span>
       </section>
       
+      <section>
+        <h2>G1GC - Young Collection - Steps</h2>
+        <ol style="font-size: 0.6em">
+          <li style="margin-top: 0.5em"><strong class="color2">Root Scanning</strong>: Scan local and static objects for root objects and mark in a <em class="color2">"dirty queue"</em>.</li>
+          <li style="margin-top: 0.5em"><strong class="color2">Update Remembered Set (RSet)</strong>: All marked references in the <span class="color2">dirty queue</span> updated into a <strong class="color2">RSet</strong>.</li>
+          <li style="margin-top: 0.5em"><strong class="color2">Process RSet</strong>: Detect references to objects in the <em class="color2">collection set</em> <strong class="color1">Young</strong> regions, from objects in <strong class="color1">Tenured</strong> regions.</li>
+          <li style="margin-top: 0.5em"><strong class="color2">Copy Live Objects</strong>: Traverse the object graph and <em class="color2">promote/age</em> live objects.</li>
+          <li style="margin-top: 0.5em"><strong class="color2">Process references</strong>: Update references to new location, process soft, weak, phantom and final references.
+            <ul style="font-size: 0.8em">
+              <li><strong class="color1">StrongReference</strong>: Typical pointer allocation to an object, re-pointing to null will cause object to be collected.
+              <li><strong class="color1">SoftReference</strong>: The reference is kept unless there is no other space for any new allocation.
+              <li><strong class="color1">WeakReference</strong>: The reference is collected as soon as GC reaches it.
+              <li><strong class="color1">PhantomReference</strong>: The reference enqueued for collection, retained until all references to it are either dead/weak references.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+      
       <!-- G1GC - Young-Only (Survivor Promotion) -->
       <section>
-        <h2>G1GC - Young-Only (Survivor Promotion)</h2>
+        <h2>G1GC - Young-Only #1 (Survivor Promotion)</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">1. Young collection (Eden &amp; Survivor<sub><span style="font-size: 0.7em">F</span></sub> &rarr; Survivor<sub><span style="font-size: 0.7em">T</span> </sub>)</span>: </strong>
           <br/>
@@ -850,7 +868,7 @@
   
       <!-- G1GC - Young-Only (Tenured Promotion) -->
       <section>
-        <h2>G1GC - Young-Only (Tenured Promotion)</h2>
+        <h2>G1GC - Young-Only #2 (Tenured Promotion)</h2>
         <span style="font-size:0.55em;text-align:left;">
           <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
           <br/>
@@ -887,7 +905,7 @@
             <li>The combination is made up based on estimated sum of pause-times of the <strong class="color2">Collection Set</strong>.</li>
             <li>Several cycles of <span class="color2">Mixed Collection</span> may run, until the heap waste (garbage) percent is below the set threshold.</li>
             <li>After each collection, the liveness of the <span class="color1">Tenured</span> region objects are re-evaluated.</li>
-            <li><span class="color3">NOTE</span>: <span class="color2">Humongous objects</span> are never moved or compacted, only collected or left-alone.</li>
+            <!--<li><span class="color3">NOTE</span>: <span class="color2">Humongous objects</span> are never moved or compacted, only collected or left-alone.</li>-->
           </ul>
           <hr/>
           <table width="100%">
