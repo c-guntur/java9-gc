@@ -666,7 +666,8 @@
             </li><br/>
             <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and 1.8<sup>*</sup></strong> <br/>
               <ul>
-                <li><strong class="color1 dimbg">Young</strong> gen., only has the <span class="color2">parallel (scavenge) collection</span>, while <strong class="color1 dimbg">Tenured</strong> gen. uses a <span class="color2">serial collector</span>.</li>
+                <li><strong class="color1 dimbg">Young</strong> gen., only has the <span class="color2">parallel (scavenge) collection</span>.</li>
+                <li><strong class="color1 dimbg">Tenured</strong> gen. earlier had a default <span class="color2">serial collector</span> (later versions changed default to <span class="color2">parallel old collector</span>).</li>
                 <li>VM Option to enable: <code>-XX:+UseParallelGC</code>.</li>
                 <li>VM Option to enable for tenured: <code>-XX:+UseParallelOldGC</code>.</li>
                 <li><strong class="color2"><sup>*</sup></strong> <em>G1GC was originally planned as default for Java 1.8 but was deferred until Java 9</em>.</li>
@@ -695,8 +696,8 @@
           <ul>
             <li style="margin-top: 1.0em">Not performant for <span class="color2">large memory heaps</span> (<span class="dimtext">large heaps are common these days</span>).</li>
             <li style="margin-top: 1.0em">By default, <span class="color2">unpredictable and inconsistent pause-times</span> and lesser number of STW GCs.</li>
-            <li style="margin-top: 1.0em">Need high tunability to stabilize pause times due to non-compacting nature.</li>
-            <li style="margin-top: 1.0em"><em class="color2">Either</em> highly prone to fragmentation <em class="color2">or</em> demand the need for smaller heaps for predictable times.</li>
+            <li style="margin-top: 1.0em">Need heavy tune-ups to stabilize pause times due to non-compacting nature of recent collectors.</li>
+            <li style="margin-top: 1.0em"><em class="dimbg">Either</em> highly prone to fragmentation <em class="dimbg">or</em> demand the need for smaller heaps for predictable times.</li>
             <li style="margin-top: 1.0em">Not much effort put into re-use of duplicated content.</li>
             <li style="margin-top: 1.0em">The <span class="color2">contiguous memory area arrangement</span> reduces flexibility of "moving the walls".</li>
             <li style="margin-top: 1.0em">Mostly <span class="color2">focused on live objects</span>, not on garbage (an exact antithesis of the name).</li>
@@ -744,9 +745,10 @@
             <li style="margin-top: 0.5em">This compartmentalization is done by <strong class="color2">dividing the heap into ~ 2048 or more regions</strong> of <strong class="color2">equal size</strong>.</li>
             <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li>
             <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li>
-            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (and contiguous) regions and are defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
-            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">allocated as </strong><span class="color1">tenured</span> objects.</li>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (<em class="color2">and if needed, contiguous</em>) regions; defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">not allocated in </strong><span class="color1">young regions</span>.</li>
             <li style="margin-top: 0.5em">G1GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
+            <li style="margin-top: 0.5em">G1GC uses many flags which can either be set or <em class="color2">ergonomic</em> (adaptive), with or without initial defaults.</li>
           </ul>
           <hr/>
           <table width="100%">
@@ -784,23 +786,25 @@
               <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
                 <span class="color1">Explanation: </span><br/>
                 <ul>
-                  <li style="margin-top: 0.5em">two distinct phases of collection.</li>
-                  <li style="margin-top: 0.5em">starts with a <strong class="color3">Young-only</strong> phase, where <strong class="color1 dimbg">Young Collection</strong> runs periodically.</li>
-                  <li style="margin-top: 0.5em">each circle represents a STW process.</li>
-                  <li style="margin-top: 0.5em">continues until a <em class="color2">threshold</em> is reached, which triggers an <strong class="color1 dimbg">Initial Mark</strong>.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Initial Mark</span> triggers <span class="color2">concurrent marking</span> in addition to the <span class="color1">young collection</span>.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Root scanning</span> will halt the <span class="color2">young collection</span> process during this phase.</li>
-                  <li style="margin-top: 0.5em"><strong class="color1 dimbg">Concurrent Mark</strong> takes a while, <span class="color1">Young Collection</span> could continue along-side.</li>
-                  <li style="margin-top: 0.5em">at end of <span class="color1">Concurrent Mark</span>, a <strong class="color1 dimbg">Remark</strong> is initiated.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Remark</span> finalizes marking, summarizes liveness.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Remark</span> completion triggers <strong class="color1 dimbg">Cleanup</strong>, reclaiming empty regions.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Cleanup</span> is used to determine if <span class="color1">Tenured</span> space reclamation required.</li>
-                  <li style="margin-top: 0.5em">Crossing <span class="color2">Heap waste percentage</span> threshold triggers <strong class="color3">Space reclamation</strong> phase.</li>
-                  <li style="margin-top: 0.5em">A <strong class="color2">Collection set (CSet)</strong> of <span class="color1">Young</span> &amp; <span class="color1">Tenured</span> regions picked for collection.</li>
-                  <li style="margin-top: 0.5em">This <strong class="color1 dimbg"> Mixed Collection</strong> is made up to meet a <em class="color2">pause-time goal</em>.</li>
-                  <li style="margin-top: 0.5em">References to the objects in <span class="color2">CSet</span> are tracked via <strong class="color2">Remembered set (RSet)</strong>.</li>
-                  <li style="margin-top: 0.5em"><span class="color1">Mixed Collection</span> continues until heap waste percent below threshold.</li>
-                  <li style="margin-top: 0.5em"><span class="color2">Humongous objects</span> processed in <span class="color1">Cleanup</span> and in <strong class="color2">Space Reclamation</strong> phase.</li>
+                  <li style="margin-top: 0.35em"><em class="color2">each circle</em> represents a STW process.</li>
+                  <li style="margin-top: 0.35em">two distinct phases of collection.</li>
+                  <li style="margin-top: 0.35em">starts with a <strong class="color3">Young-only</strong> phase.</li>
+                  <li style="margin-top: 0.35em"> <strong class="color1 dimbg">Young Collection</strong> runs periodically on a <strong class="color2">Collection set (CSet)</strong>.</li>
+                  <li style="margin-top: 0.35em">continues until a <em class="color2">threshold</em> is reached, which triggers an <strong class="color1 dimbg">Initial Mark</strong>.</li>
+                  <li style="margin-top: 0.35em"><span class="color1">Initial Mark</span> triggers <span class="color2">concurrent marking</span> in addition to the <span class="color1">young collection</span>.</li>
+                  <li style="margin-top: 0.35em"><span class="color1">Root scanning</span> will halt the <span class="color2">young collection</span> process during this phase.</li>
+                  <li style="margin-top: 0.35em"><strong class="color1 dimbg">Concurrent Mark</strong> takes a while, <span class="color1">Young Collection</span> could continue along-side.</li>
+                  <li style="margin-top: 0.35em">at end of <span class="color1">Concurrent Mark</span>, a <strong class="color1 dimbg">Remark</strong> is initiated.</li>
+                  <li style="margin-top: 0.35em"><span class="color1">Remark</span> finalizes marking, summarizes liveness.</li>
+                  <li style="margin-top: 0.35em"><span class="color1">Remark</span> completion triggers <strong class="color1 dimbg">Cleanup</strong>, reclaiming empty regions.</li>
+                  <li style="margin-top: 0.35em"><span class="color1">Cleanup</span> is used to determine if <span class="color1">Tenured</span> space reclamation required.</li>
+                  <li style="margin-top: 0.35em">Crossing <span class="color2">Heap waste percentage</span> threshold triggers <strong class="color3">Space reclamation</strong> phase.</li>
+                  <li style="margin-top: 0.35em">A <strong class="color2">Collection set (CSet)</strong> of <span class="color1">Young</span> &amp; <span class="color1">Tenured</span> regions picked for collection.</li>
+                  <li style="margin-top: 0.35em">This <strong class="color1 dimbg"> Mixed Collection</strong> is made up to meet a <em class="color2">pause-time goal</em>.</li>
+                  <li style="margin-top: 0.35em">References to the objects in same generation or inter-generational) are tracked.</li>
+                  <li style="margin-top: 0.35em">References are tracked via <strong class="color2">Remembered sets (RSets)</strong> in a <span class="color2">Card table</span>.</li>
+                  <li style="margin-top: 0.35em"><span class="color1">Mixed Collection</span> continues until heap waste percent below threshold.</li>
+                  <li style="margin-top: 0.35em"><span class="color2">Humongous objects</span> processed in <span class="color1">Cleanup</span> phase and during <strong class="color2">Full GC</strong> .</li>
                 </ul>
               </td>
               <td width="100%" style="text-align: center; vertical-align: middle; border: hidden">
@@ -809,7 +813,7 @@
             </tr>
           </table>
         </span>
-        <br/>
+        <p/>
         <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
         Visual influenced by the Oracle GC Tuning Guide: <a href="https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm" target="_balnk">https://docs.oracle.com/javase/9/gctuning/garbage-first-garbage-collector.htm</a>
         </span></span>
@@ -822,9 +826,9 @@
           <strong><span class="color1">1. Young collection (Eden &amp; Survivor<sub><span style="font-size: 0.7em">F</span></sub> &rarr; Survivor<sub><span style="font-size: 0.7em">T</span> </sub>)</span>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
-            <li><span class="color2">Young Collection</span> first targets the most populated regions.</li>
+            <li><span class="color2">Young Collection</span> builds a CollectionSet with some <span class="color1">Eden</span> and <span class="color1">Survivor</span> regions.</li>
             <li><span class="color2">Young Collection</span> eventually targets all young regions.</li>
-            <li>Dead objects are collected and evicted.</li>
+            <li>Steps: <span class="color2">Root scanning</span> &Rarr; <span class="color2">Update the Remembered Set</span> (RSet) &Rarr; <span class="color2">Process RSet</span> &Rarr; <span class="color2">Copy live objects</span> &Rarr; <span class="color2">Process references</span>.</li>
             <li>Live objects from scavenged <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> regions are compacted and copied into a <span class="color1">Survivor <em>To</em></span> region.</li>
             <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Eden</span> is set to <span class="color3">1</span> with each execution of this GC. </li>
             <li>The <span class="color2">Age</span> of live objects being moved from <span class="color1">Survivor <em>From</em></span> is incremented by a <span class="color3">1</span> with each execution of this GC. </li>
@@ -851,8 +855,9 @@
           <strong><span class="color1">2. Young collection (Survivor &rarr; Tenured)</span>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
+            <li><span class="color2">Young Collection</span> builds a CollectionSet with some <span class="color1">Eden</span> and <span class="color1">Survivor</span> regions.</li>
             <li><span class="color2">Young Collection</span> includes compact copying from <span class="color1">Survivor</span> to <span class="color1">Tenured</span> after objects survive a few iterations.</li>
-            <li>Dead objects are collected and evicted.</li>
+            <li>Steps: <span class="color2">Root scanning</span> &Rarr; <span class="color2">Update the Remembered Set</span> (RSet) &Rarr; <span class="color2">Process RSet</span> &Rarr; <span class="color2">Copy live objects</span> &Rarr; <span class="color2">Process references</span>.</li>
             <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <em><strong class="dimtext">below</strong></em> threshold (default = <span class="color3">15</span>) are left as-is. </li>
             <li>All objects in the collecting <span class="color1">Survivor</span> regions with <span class="color2">Age</span> <em><strong class="color3">above</strong></em> threshold (default = <span class="color3">15</span>) are collected and moved to <strong class="color1">Tenured</strong> region. </li>
           </ul>
@@ -864,6 +869,34 @@
               </td>
               <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
                 <img src="images/G1_2_YoungPromotionAfter.png" width="100%"/>
+              </td>
+            </tr>
+          </table>
+        </span>
+      </section>
+  
+      <!-- G1GC - Mixed Collection -->
+      <section>
+        <h2>G1GC - Mixed Collection</h2>
+        <span style="font-size:0.55em;text-align:left;">
+          <strong><span class="color1">4. Mixed Collection</span>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li>A <span class="color2">Mixed Collection</span> is triggered when the percentage of waste (garbage) in the heap reaches a certain threshold.</li>
+            <li><span class="color2">Mixed Collection</span> involves picking up a few regions (<span class="color1">Eden</span>, <span class="color1">Survivor</span> and a few <span class="color1">Tenured</span>) for collection.</li>
+            <li>The combination is made up based on estimated sum of pause-times of the <strong class="color2">Collection Set</strong>.</li>
+            <li>Several cycles of <span class="color2">Mixed Collection</span> may run, until the heap waste (garbage) percent is below the set threshold.</li>
+            <li>After each collection, the liveness of the <span class="color1">Tenured</span> region objects are re-evaluated.</li>
+            <li><span class="color3">NOTE</span>: <span class="color2">Humongous objects</span> are never moved or compacted, only collected or left-alone.</li>
+          </ul>
+          <hr/>
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_4_MixedCollectionBefore.png" width="100%"/>
+              </td>
+              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="images/G1_4_MixedCollectionAfter.png" width="100%"/>
               </td>
             </tr>
           </table>
@@ -888,33 +921,57 @@
         </span>
       </section>
   
-      <!-- G1GC - Mixed Collection -->
+      <!-- Garbage Collectors - Concurrent Marking Pictorial -->
       <section>
-        <h2>G1GC - Mixed Collection</h2>
+        <h2>Garbage Collectors - Concurrent Marking Pictorial</h2>
+        <p/>
         <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">4. Mixed Collection</span>: </strong>
-          <br/>
-          <ul style="font-size: 0.9em">
-            <li>A <span class="color2">Mixed Collection</span> is triggered when the percentage of waste (garbage) in the heap reaches a certain threshold.</li>
-            <li><span class="color2">Mixed Collection</span> involves picking up a few regions (<span class="color1">Eden</span>, <span class="color1">Survivor</span> and a few <span class="color1">Tenured</span>) for collection.</li>
-            <li>The combination is made up based on estimated sum of pause-times of the <strong class="color2">Collection Set</strong>.</li>
-            <li>Several cycles of <span class="color2">Mixed Collection</span> may run, until the heap waste (garbage) percent is below the set threshold.</li>
-            <li>After each collection, the liveness of the <span class="color1">Tenured</span> region (and <span class="color2">Humongous objects</span>) is re-evaluated.</li>
-            <li><span class="color3">NOTE</span>: <span class="color2">Humongous objects</span> are never moved or compacted, only collected or left-alone.</li>
-          </ul>
-          <hr/>
-          <table width="100%">
-            <tr style="border: hidden">
-              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
-                <img src="images/G1_4_MixedCollectionBefore.png" width="100%"/>
-              </td>
-              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
-                <img src="images/G1_4_MixedCollectionAfter.png" width="100%"/>
-              </td>
-            </tr>
+          The below pictures show a concurrent mark liveness check (tri-color painting).<br/>
+          <strong class="color2">Gray</strong> = To check, <strong class="color2">Black</strong> = Live, <strong class="color2">White</strong> = Dead.
+          <table style="font-size: 0.6em;text-align: left; width: 100%">
+            
+            <tbody>
+              <tr>
+                <td class="tdfiller">1. Snapshot-at-the-beginning</td>
+                <td class="tdfiller">2. New Object added</td>
+                <td class="tdfiller">3. Root Scan</td>
+              </tr>
+              <tr>
+                <td style="text-align: left; vertical-align: top">
+                  <img src="images/ConcurrentMarkSATB.png" width="100%">
+                </td>
+                <td style="text-align: left; vertical-align: top">
+                  <img src="images/ConcurrentMarkNewObject.png" width="100%">
+                </td>
+                <td style="text-align: left; vertical-align: top">
+                  <img src="images/ConcurrentMarkRootScan.png" width="100%">
+                </td>
+              </tr>
+            
+              <tr>
+                <td class="tdfiller">4. Root Painting</td>
+                <td class="tdfiller">5. Children Painting</td>
+                <td class="tdfiller">6. Completion</td>
+              </tr>
+              <tr>
+                <td style="text-align: left; vertical-align: top">
+                  <img src="images/ConcurrentMarkRootPaint.png" width="100%">
+                </td>
+                <td style="text-align: left; vertical-align: top">
+                  <img src="images/ConcurrentMarkChildrenPaint.png" width="100%">
+                </td>
+                <td style="text-align: left; vertical-align: top">
+                  <img src="images/ConcurrentMarkCompletion.png" width="100%">
+                </td>
+              </tr>
+
+            </tbody>
+
           </table>
         </span>
+  
       </section>
+  
   
       <section>
         <h2>G1GC - Metaspace</h2>
@@ -942,26 +999,32 @@
         <span style="font-size:0.6em;text-align:left;">
           <span class="color1">Explanation: </span><br/>
           <ul>
-            <li style="margin-top: 0.7em">G1 continues with the <strong>young collection</strong> <strong class="color2">until either of the below is reached</strong>:
+            <li style="margin-top: 0.5em"><strong class="color2">Pause time</strong> is used to calculate the mix and is controlled by <code>-XX:MaxGCPauseMillis</code> (default = <span class="color3">200</span>).</li>
+            <li style="margin-top: 0.5em"><strong class="color2">Pause time intervals</strong> controlled by an <em class="color2">ergonomic</em> goal that is not initially set.
+              <ul>
+                <li>controlled by <code>-XX:GCPauseTimeInterval</code> (no default).</li>
+              </ul>
+            </li>
+            <li style="margin-top: 0.5em">G1 continues with the <strong>young collection</strong> <strong class="color2">until either of the below is reached</strong>:
               <ul>
                 <li>reaches a configurable <em class="color2">soft</em> limit known as the <code>-XX:InitiatingHeapOccupancyPercent</code> (default = <span class="color3">45</span>).</li>
                 <li>reaches the configurable <em class="color2">strict</em> limit of <code>-XX:G1ReservePercent</code> (default = <span class="color3">10</span>).</li>
               </ul>
             </li>
-            <li style="margin-top: 0.7em">If either constraint is met, it triggers the start of a <span class="color2">Concurrent GC</span>.</li>
-            <li style="margin-top: 0.7em"><span class="color1">Concurrent Mark</span> includes both STW and concurrent activities.</li>
-            <li style="margin-top: 0.7em"><span class="color1">Concurrent Mark</span> determines liveness of objects on a per-region basis.</li>
-            <li style="margin-top: 0.7em">G1 goes after regions that have the most garbage, it is called <strong class="color1">Garbage-First</strong>.</li>
-            <li style="margin-top: 0.7em"><span class="color1">Concurrent Mark</span> is followed by a <span class="color1">Remark</span> and a <span class="color1">Cleanup</span>.</li>
-            <li style="margin-top: 0.7em"><span class="color1">Cleanup</span> activity is used to determine if a <span class="color2">Space Reclamation</span> is needed.</li>
-            <li style="margin-top: 0.7em">Checks the percentage of garbage (waste) space to be below <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>).</li>
-            <li style="margin-top: 0.7em">Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = <span class="color3">8</span>).
+            <li style="margin-top: 0.5em">If either constraint is met, it triggers the start of a <span class="color2">Concurrent GC</span>.</li>
+            <li style="margin-top: 0.5em"><span class="color1">Concurrent Mark</span> includes both STW and concurrent activities.</li>
+            <li style="margin-top: 0.5em"><span class="color1">Concurrent Mark</span> determines liveness of objects on a per-region basis.</li>
+            <li style="margin-top: 0.5em">G1 goes after regions that have the most garbage, it is called <strong class="color1">Garbage-First</strong>.</li>
+            <li style="margin-top: 0.5em"><span class="color1">Concurrent Mark</span> is followed by a <span class="color1">Remark</span> and a <span class="color1">Cleanup</span>.</li>
+            <li style="margin-top: 0.5em"><span class="color1">Cleanup</span> activity is used to determine if a <span class="color2">Space Reclamation</span> is needed.</li>
+            <li style="margin-top: 0.5em">Checks the percentage of garbage (waste) space to be below <code>-XX:G1HeapWastePercent</code> (default = <span class="color3">5</span>).</li>
+            <li style="margin-top: 0.5em">Collector picks up a minimum number of regions based on <code>-XX:G1MixedGCCountTarget</code> (default = <span class="color3">8</span>).
               <ul>
                 <li>The total number of tenured regions are divided by the above number and are picked up for collection.</li>
               </ul>
             </li>
-            <li style="margin-top: 0.7em">After each collection, the liveness of the tenured region is re-evaluated.</li>
-            <li style="margin-top: 0.7em">Continues <span class="color2">Space Reclamation</span> if the waste percentage is still greater than the <code>-XX:G1HeapWastePercent</code>.</li>
+            <li style="margin-top: 0.5em">After each collection, the liveness of the tenured region is re-evaluated.</li>
+            <li style="margin-top: 0.5em">Continues <span class="color2">Space Reclamation</span> if the waste percentage is still greater than the <code>-XX:G1HeapWastePercent</code>.</li>
           </ul>
         </span>
       </section>
