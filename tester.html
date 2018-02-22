@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Presentation Tester</title>
+
+    <meta name="description" content="A tester page.">
+    <meta name="author" content="Chandra Guntur">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/dark.css" id="theme">
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32"/>
+
+    <script>
+        // Printing and PDF exports
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+      <!-- Tester page -->
+      <section>
+        <h2>Tester Page</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <table width="100%">
+            <tr style="border: hidden">
+              <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+                <span class="color1">Readability Test: </span><br/>
+                <ul>
+                  <li style="margin-top: 0.35em"><em class="color2">italics in highlight color</em> normal text.</li>
+                  <li style="margin-top: 0.35em">just normal text.</li>
+                  <li style="margin-top: 0.35em">normal text followed by <strong class="color3">Bold Emphatic set of words</strong> followed by normal.</li>
+                  <li style="margin-top: 0.35em"><strong class="color1 dimbg">Background colored bolded special words</strong> normal text <strong class="color2">Bold highlight text</strong>.</li>
+                  <li style="margin-top: 0.35em">line of normal text.</li>
+                  <li style="margin-top: 0.35em">Line 1: <span class="color1">Special words</span> normal text <span class="color2">highlighted words</span> normal text <span class="color1">special words</span>.</li>
+                  <li style="margin-top: 0.35em">Line 2: <span class="color1">Special words</span> normal text <span class="color2">highlighted words</span> normal text <span class="color1">special words</span>.</li>
+                  <li style="margin-top: 0.35em"><strong class="color1 dimbg">Background colored bolded special words</strong> normal text <strong class="color2">Bold highlight text</strong>.</li>
+                  <li style="margin-top: 0.35em"><strong class="color1 dimbg">Background colored bolded special words</strong> normal text <span class="color1">special words</span>.</li>
+                  <li style="margin-top: 0.35em">normal text <span class="color1">special words</span>, <strong class="color1 dimbg">Background colored bolded special words</strong>.</li>
+                  <li style="margin-top: 0.35em">Normal text <span class="color2">highlighted text</span> normal text <strong class="color3">bold emphatic words</strong>.</li>
+                  <li style="margin-top: 0.35em">Normal text <strong class="color2">bold highlighted text</strong> normal <span class="color1">special words</span> &amp; <span class="color1">special words</span>.</li>
+                  <li style="margin-top: 0.35em">Normal text <strong class="color1 dimbg"> background colored bold special words</strong> text <em class="color2">italics highlighted.</em>.</li>
+                  <li style="margin-top: 0.35em">line of normal text.</li>
+                  <li style="margin-top: 0.35em">Normal text <strong class="color2">Bold highlighted text</strong> &Rarr; <span class="color2">highlighted text</span>.</li>
+                  <li style="margin-top: 0.35em"><span class="color1">Special words</span> normal text.</li>
+                  <li style="margin-top: 0.35em"><span class="color2">Special words</span> normal text <strong class="color2">bold highlighted text</strong>.</li>
+                </ul>
+              </td>
+              <td width="100%" style="text-align: center; vertical-align: middle; border: hidden">
+                <img src="scaffolding/Tester.png"/>
+              </td>
+            </tr>
+          </table>
+        </span>
+        <p/>
+        <span class="dimtext"><span style="font-size: 0.35em; display: block; text-align: center">
+        Footnote URLs for further reading: <a href="https://link.to.some.site.com/lorem/ipsum.html" target="_blank">https://link.to.some.site.com/lorem/ipsum.html</a>
+        </span></span>
+      </section>
+      
+  
+  </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        width: '80%',
+        height: '95%',
+
+        transition: Reveal.getQueryHash().transition || 'default',
+
+        menu: {
+            markers: true,
+            openSlideNumber: true,
+            transitions: false,
+            themes: [
+                {name: 'Dark', theme: 'css/theme/dark.css'},
+                {name: 'Medium', theme: 'css/theme/medium.css'},
+                {name: 'Light', theme: 'css/theme/light.css'},
+                {name: 'White', theme: 'css/theme/white.css'}
+            ]
+        },
+        
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                  return !document.body.classList;
+                }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                  return !!document.querySelector('[data-markdown]');
+                }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                  return !!document.querySelector('[data-markdown]');
+                }
+            },
+            {src: 'plugin/zoom-js/zoom.js', async: true},
+            {src: 'plugin/notes/notes.js', async: true},
+            // {src: 'plugin/spotlight/spotlight.js'},
+            {src: 'plugin/reveal.js-menu/menu.js', async: true}
+        ]
+    });
+
+    Reveal.configure({slideNumber: 'mystyle'});
+    
+    if(location.search) {
+        var params = location.search.replace("?", "").split("=");
+        if(params[0] === "style" && params[1] === "light") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/light.css');
+        }
+        if(params[0] === "style" && params[1] === "white") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/white.css');
+        }
+        if(params[0] === "style" && params[1] === "medium") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/medium.css');
+        }
+        if(params[0] === "style" && params[1] === "dark") {
+            document.getElementById('theme').setAttribute('href', 'css/theme/dark.css');
+        }
+    }
+</script>
+
+<div style="position: absolute; bottom: 20px; margin-left: 0px; width: 100%;">
+    <div style="text-align: center;">
+        <a href="http://www.twitter.com/cguntur" target="_blank" style="text-decoration:none">
+            <img src="scaffolding/twitter.svg" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">@CGuntur</span>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://www.linkedin.com/in/chandraguntur" style="text-decoration:none">
+            <img src="scaffolding/linkedin.svg" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">Chandra Guntur</span>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://www.cguntur.me" style="text-decoration:none">
+            <img src="scaffolding/chandra.png" style="height:20px; vertical-align:middle"/>&nbsp;&nbsp;<span class="footer">http://cguntur.me</span>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
