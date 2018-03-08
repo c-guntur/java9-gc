@@ -121,11 +121,8 @@
       <span style="margin-left: 10%">
         Topics covered:<br/>
         <ul style="font-size: 0.7em;line-height: 50px;margin-left: 20%">
-          <li>10 minute walk-through:<br/>
+          <li>Brief walk-through:<br/>
             <ul>
-              <li><span class="dimtext">Java Memory - Model</span></li>
-              <li><span class="dimtext">Java Memory - Usage</span></li>
-              <li><span class="dimtext">Java Memory - Allocation</span></li>
               <li><span class="dimtext">Garbage Collection - Basics</span></li>
               <li><span class="dimtext">Garbage Collection - Patterns</span></li>
               <li><span class="dimtext">Garbage Collection - Generational</span></li>
@@ -141,227 +138,6 @@
           </li>
         </ul>
       </span>
-    </section>
-  
-    <!-- Java Memory Model -->
-    <section>
-      
-      <!-- Java Memory Model -->
-      <section>
-        <h2>Java Memory Model</h2>
-        <span style="font-size:0.65em;text-align:left;">
-          JVM utilizes memory by creating <strong class="color2">runtime data areas</strong>:
-          <br/>
-          <img src="images/JVM_Memory_Overview.png" width="70%"/>
-        </span>
-      </section>
-      
-      <!-- Java Memory Model - Runtime Data Areas - Part 1 -->
-      <section>
-        <h2>Java Memory Model - Runtime Data Areas - Part 1</h2>
-          <table width="100%">
-            <tr style="border: hidden">
-              <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
-                <span style="font-size:0.65em;text-align:left;">
-                  JVM uses different runtime data areas (a.k.a <em class="color2">memory areas</em>) when running.
-                <br/>
-                Some areas are shared across all threads while others are per-thread.
-                <br/>
-                <ol>
-                  <li><strong class="color2">Program Counter (PC) Register </strong> (<strong class="dimtext">Per Thread</strong>):
-                    <ul>
-                      <li>has the address of the current JVM instruction being executed.</li>
-                    </ul>
-                  </li>
-                  <br/>
-                  <li><strong class="color2">JVM Stack</strong> (<strong class="dimtext">Per Thread</strong>):
-                    <ul>
-                      <li>JVM pushes to - or - pops from the stack frame.</li>
-                      <li>any exception in execution results in tracing this stack frame.</li>
-                      <li>the call hierarchy here is used to produce a <span class="color2">stack trace</span>.</li>
-                      <li>consists of a stack frame, local variable array and an operand stack.</li>
-                    </ul>
-                  </li>
-                  <br/>
-                  <li><strong class="color2">Native Methods Stack</strong> (<strong class="dimtext">Per Thread</strong>):
-                    <ul>
-                      <li>storage area for native methods.</li>
-                      <li>also referred to as 'C Stacks'.</li>
-                    </ul>
-                  </li>
-                </ol>
-              </span>
-            </td>
-            <td width="30%" style="text-align: center; vertical-align: middle;border: hidden">
-              <img src="images/JVM_Memory_Thumbnail.png" width="100%"/>
-            </td>
-          </tr>
-        </table>
-        <p/>
-      </section>
-      
-      <!-- Java Memory Model - Runtime Data Areas - Part 2 -->
-      <section>
-        <h2>Java Memory Model - Runtime Data Areas - Part 2</h2>
-        <table width="100%">
-          <tr style="border: hidden">
-            <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
-              <span style="font-size:0.65em;text-align:left;">
-                Some are shared across all threads while others are per-thread areas.
-                <ol start="4">
-                  <li><strong class="color2">Method Area</strong> - <strong class="dimtext">Shared</strong>:
-                    <ul>
-                      <li>stores the <span class="color2">runtime constant pool</span>, field and method info., static variables and method bytecode.</li>
-                      <li>Oracle Hotspot VM co-mingled this area with Permanent Generation (PermGen).</li>
-                      <li>garbage collection for this area is not required by the JVM specification.</li>
-                    </ul>
-                  </li>
-                  <br/>
-                  <li><strong class="color2">Runtime Constant Pool</strong> - <strong class="dimtext">Shared</strong>:
-                    <ul>
-                      <li><span class="color1">the most core area for the JVM</span>.</li>
-                      <li>contains all constants of any interface and class.</li>
-                      <li>contains references to <strong class="color2">* ALL *</strong> fields and methods.</li>
-                      <li>JVM looks up this pool for any field or method to process an instruction.</li>
-                    </ul>
-                  </li>
-                  <br/>
-                  <li><strong class="color2">Heap</strong> - <strong class="dimtext">Shared</strong>:
-                    <ul>
-                      <li>space to store class instances or arrays.</li>
-                      <li>target of garbage collection.</li>
-                      <li>most JVM performance revolves around the heap.</li>
-                      <li>JVM vendors can configure GC per their interpretation of the JVM spec.</li>
-                    </ul>
-                  </li>
-                </ol>
-              </span>
-            </td>
-            <td width="30%" style="text-align: center; vertical-align: middle;border: hidden">
-              <img src="images/JVM_Memory_Thumbnail.png" width="100%"/>
-            </td>
-          </tr>
-        </table>
-      </section>
-
-    </section>
-  
-    <!-- Java Memory Usage -->
-    <section>
-      
-      <!-- Java Memory - Usage< -->
-      <section>
-        <h2>Java Memory - Usage</h2>
-        <span style="font-size:0.6em;text-align:left;">
-          <ul>
-            <li>Classloaders load classes and are used to create class instances. </li>
-            <li>JIT compiler processes instructions. </li>
-            <li> GC performs memory management.</li>
-          </ul>
-          <br/>
-          <img src="images/JVM_Memory_Usage.png" width="65%"/>
-        </span>
-      </section>
-      
-      <!-- Java Memory - Management -->
-      <section>
-        <h2>Java Memory - Management</h2>
-        <span style="font-size:0.7em;text-align:left;">
-				<p/>
-				<br/>
-				A typical JVM has the following components for memory management:
-				<ul>
-					<li><strong class="color2">Heap</strong>:
-						<ul>
-							<li>Runtime data area where memory for class instances and arrays are managed.</li>
-              <li>Part of the memory managed by Garbage Collection.</li>
-							<li>Typically divided into smaller areas. </li>
-						</ul>
-					</li>
-					<br/>
-          <li><strong class="color2">Non-heap</strong> (some Java implementations call it <strong class="color2">non-managed heap</strong>):
-						<ul>
-              <li><strong class="color1">Method area</strong> shared among all threads. </li>
-							<li>Memory required for runtime pools and code for methods and constructors.</li>
-              <li><strong class="color1">PermGen</strong> (or <strong class="color1">Metaspace</strong>) - Holds immutable-state content - typically not garbage collected.</li>
-              <li><strong class="color1">CodeCache</strong> - Optimizations and profiling of code for better performance.</li>
-						</ul>
-					</li>
-          <br/>
-					<li><strong class="color2">Memory Manager</strong>:
-            <ul>
-              <li>Manages one or more memory pools. Garbage Collection is a memory manager. </li>
-            </ul>
-          </li>
-        </ul>
-      </span>
-      </section>
-
-    </section>
-  
-    <!-- Java Memory - Allocation -->
-    <section>
-      <h2>Java Memory - Allocation</h2>
-      <p>
-        <span style="font-size:0.6em;text-align:left;">
-          JVM allocates memory based on the following strategy:
-          <table style="font-size: 0.6em;text-align: left;">
-
-            <thead>
-              <tr>
-                <th style="width: 80%">Content</th>
-                <th style="width: 20%">Location</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td style="text-align: left; vertical-align: middle">
-                  <ol>
-                    <li>Class definitions (loaded by class-loaders).</li>
-                    <li>Static variables.</li>
-                    <li>A single copy of each method definition of each class loaded.</li>
-                  </ol>
-                </td>
-                <td style="text-align: center; vertical-align: middle"><span class="color1">PermGen</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="color2">or</span><br/><span class="color1">Metaspace</span></td>
-              </tr>
-            
-              <tr>
-                <td class="tdfiller" colspan="2"></td>
-              </tr>
-
-              <tr>
-                <td style="text-align: left; vertical-align: middle">
-                  <ol>
-                    <li>Non-static class variables.</li>
-                    <li>All parameters for both static and non-static methods.</li>
-                    <li>The return value of the current method.</li>
-                    <li>Local variables <br/>&nbsp;&nbsp;&nbsp;&nbsp;(space allocated on invocation and de-allocated on method return).</li>
-                  </ol>
-                </td>
-                <td style="text-align: center; vertical-align: middle"><span class="color1">JVM stack</span></td>
-              </tr>
-
-              <tr>
-                <td class="tdfiller" colspan="2"></td>
-              </tr>
-
-              <tr>
-                <td style="text-align: left; vertical-align: middle">
-                  <ol>
-                    <li>Objects (class instances) created during the program execution.</li>
-                    <li>Arrays, including arrays of primitive data types.</li>
-                  </ol>
-                </td>
-                <td style="text-align: center; vertical-align: middle"><span class="color1">Heap</span></td>
-              </tr>
-            </tbody>
-
-          </table>
-        </span>
-        <span style="font-size:0.6em;text-align:left;">
-          Java uses Garbage collection to free heap memory.
-        </span>
     </section>
     
     <!-- GC Basics -->
@@ -632,7 +408,7 @@
                       <li>All moved live objects from <span class="color1">Eden</span> marked with an <strong class="color2">Age (tenure)</strong> of <span class="color3">1</span>.</li>
                       <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li>
                       <li>Next GC, collects live objects from <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> into <strong class="color1">Survivor <em>To</em></strong>.</li>
-                      <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by 1, while objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li>
+                      <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by <span class="color3">1</span>, while objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li>
                       <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li>
                       <li><strong class="dimtext">Steps 5, 6, 7</strong> recur flipping <span class="color1">Survivor 1</span> and <span class="color1">Survivor 2</span> as <em class="color1">From</em> and <em class="color1">To</em>.</li>
                       <li> Done until <span class="color2">Age</span> threshold (default = <span class="color3">15</span>) reached for any live object.</li>
@@ -661,15 +437,12 @@
                 <li>Freezes all application threads to collect garbage.</li>
                 <li>Designed for single-thread and tiny heap sized (~100 MB) apps.</li>
                 <li>Low memory footprint makes it good for <strong class="color1"></strong> for mobile or small apps.</li>
-                <li>VM Option to enable: <code>-XX:+UseSerialGC</code>.</li>
               </ul>
             </li><br/>
             <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and 1.8<sup>*</sup></strong> <br/>
               <ul>
                 <li><strong class="color1 dimbg">Young</strong> gen., only has the <span class="color2">parallel (scavenge) collection</span>.</li>
                 <li><strong class="color1 dimbg">Tenured</strong> gen. earlier had a default <span class="color2">serial collector</span> (later versions changed default to <span class="color2">parallel old collector</span>).</li>
-                <li>VM Option to enable: <code>-XX:+UseParallelGC</code>.</li>
-                <li>VM Option to enable for tenured: <code>-XX:+UseParallelOldGC</code>.</li>
                 <li><strong class="color2"><sup>*</sup></strong> <em>G1GC was originally planned as default for Java 1.8 but was deferred until Java 9</em>.</li>
               </ul>
             </li><br/>
@@ -679,9 +452,7 @@
                 <li>Does not <span class="color1">compact</span> by default, to make GC a low-pause, low-latency, but causes heap fragmentation.</li>
                 <li><strong class="color2"> * </strong> <em>An eventual fill up of old memory causes a fall-back to a STW M/S/C that results in performance degradation</em>.</li>
                 <li><strong>Focuses on live objects and defers garbage handling, until crisis time.</strong> </li>
-                <li>VM Option to enable: <code>-XX:+UseConcMarkSweepGC</code>.</li>
-                <li>VM Option to enable Parallel collection on young generation: <code>-XX:+UseParNewGC</code>.</li>
-                <li>ParNew does the synchronization needed for CMS that Parallel Scavenge cannot..</li>
+                <li>ParNew does the synchronization needed for CMS that Parallel Scavenge cannot.</li>
               </ul>
             </li>
           </ul>
@@ -694,15 +465,14 @@
         <span style="font-size:0.6em;text-align:left;">
           Some notes on the existing garbage collectors:<br/>
           <ul>
-            <li style="margin-top: 1.0em">Not performant for <span class="color2">large memory heaps</span> (<span class="dimtext">large heaps are common these days</span>).</li>
+            <li style="margin-top: 1.0em">Mostly <span class="color2">focused on live objects</span>, not on garbage (an exact antithesis of the name).</li>
+            <li style="margin-top: 1.0em">The <span class="color2">contiguous memory area arrangement</span> reduces flexibility of "moving the walls".</li>
+            <li style="margin-top: 1.0em">Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
             <li style="margin-top: 1.0em">By default, <span class="color2">unpredictable and inconsistent pause-times</span> and lesser number of STW GCs.</li>
             <li style="margin-top: 1.0em">Need heavy tune-ups to stabilize pause times due to non-compacting nature of recent collectors.</li>
+            <li style="margin-top: 1.0em">Not performant for <span class="color2">large memory heaps</span> (<span class="dimtext">large heaps are common these days</span>).</li>
             <li style="margin-top: 1.0em"><em class="dimbg">Either</em> highly prone to fragmentation <em class="dimbg">or</em> demand the need for smaller heaps for predictable times.</li>
             <li style="margin-top: 1.0em">Not much effort put into re-use of duplicated content.</li>
-            <li style="margin-top: 1.0em">The <span class="color2">contiguous memory area arrangement</span> reduces flexibility of "moving the walls".</li>
-            <li style="margin-top: 1.0em">Mostly <span class="color2">focused on live objects</span>, not on garbage (an exact antithesis of the name).</li>
-            <li style="margin-top: 1.0em">JVM <span class="color2">limited in allocating the PermGen space</span> within the its allocated memory.</li>
-            <li style="margin-top: 1.0em">Required different collectors on <strong>young</strong> and <strong>tenured generations</strong> to achieve performance benefits.</li>
           </ul>
           <p/>
           <span class="color1" style="font-size: 1.2em">
@@ -733,6 +503,18 @@
         </span></span>
       </section>
   
+      <!-- Garbage First Garbage Collector - Regions-->
+      <section>
+        <h2>Garbage First Garbage Collector - Regions</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          Each <span class="color2">block</span> of memory is called a <strong class="color1">Region</strong>.
+          <p/>
+          Heap is compartmentalized into virtual non-contiguous memory regions.<br/>
+          <br/>
+          <img src="images/G1MemoryRegion.png" width="55%"/>
+        </span>
+      </section>
+  
       <!-- G1GC - Regions -->
       <section>
         <h2>G1GC - Regions</h2>
@@ -741,14 +523,12 @@
           <br/>
           <ul style="font-size: 0.9em">
             <li style="margin-top: 0.5em">A <strong class="color2">region</strong> is a contiguous unit of memory allocation and space reclamation.</li>
-            <li style="margin-top: 0.5em">Heap is compartmentalized into virtual non-contiguous memory regions.</li>
-            <li style="margin-top: 0.5em">This compartmentalization is done by <strong class="color2">dividing the heap into ~ 2048 or more regions</strong> of <strong class="color2">equal size</strong>.</li>
+            <li style="margin-top: 0.5em">Regions are formed by <strong class="color2">dividing the heap into ~ 2048 or more blocks</strong> of <strong class="color2">equal size</strong>.</li>
             <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li>
             <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li>
             <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (<em class="color2">and if needed, contiguous</em>) regions; defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
             <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">not allocated in </strong><span class="color1">young regions</span>.</li>
             <li style="margin-top: 0.5em">G1GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
-            <li style="margin-top: 0.5em">G1GC uses many flags which can either be set or <em class="color2">ergonomic</em> (adaptive), with or without initial defaults.</li>
           </ul>
           <hr/>
           <table width="100%">
@@ -777,6 +557,23 @@
         </span>
       </section>
   
+      <!-- G1GC - Explanation (Picture) -->
+      <section>
+        <h2>G1GC - Explanation (Picture)</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          Below is a pictorial of how G1GC <em class="color2">normally</em> works.
+          <strong><em><span class="color1">Some notes</span> </em>: </strong>
+          <br/>
+          <ul style="font-size: 0.9em">
+            <li style="margin-top: 0.5em">The top semicircle is the most common GC process.</li>
+            <li style="margin-top: 0.5em">When space is too fragmented or tenured occupancy is high, the bottom semi-circle is triggered.</li>
+            <li style="margin-top: 0.5em">Heavy heap occupancy will eventually lead to a Serially collecting <strong class="color3">Full GC</strong> (single-threaded).</li>
+          </ul>
+          <br/>
+          <img src="images/G1GC_Cycle.png" width="55%"/>
+        </span>
+      </section>
+      
       <!-- G1GC - Explanation -->
       <section>
         <h2>G1GC - Explanation</h2>
