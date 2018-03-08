@@ -396,7 +396,7 @@ body {
 }
 
 .color2 {
-    color: darkcyan;
+    color: cyan;
 }
 
 .color3 {
@@ -412,7 +412,7 @@ body {
 }
 
 .reveal .dimbg {
-    background-color: #777777;
+    background-color: #444444;
 }
 
 .reveal .slide-number {
