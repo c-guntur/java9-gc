@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/dark.css" id="theme">
+    <link rel="stylesheet" href="css/theme/white.css" id="theme">
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
 
@@ -180,9 +180,9 @@
               <tr>
                 <td style="text-align: left; vertical-align: top; width: 50%">
                   <ul>
-                    <li><strong class="color1">Serial collector</strong>: Single GC thread, halting all application threads.</li>
-                    <li><strong class="color1">Parallel collector</strong>: Multiple GC threads in parallel, halting all application threads.</li>
-                    <li><strong class="color1">Concurrent collector</strong>: GC thread(s) concurrently run with the application threads.</li>
+                    <li><strong class="color1">Serial collector</strong>: Single GC thread, halting all application threads &rarr; <strong class="color2">STOP THE WORLD</strong> </li>
+                    <li><strong class="color1">Parallel collector</strong>: Multiple GC threads in parallel, halting all application threads &rarr; <strong class="color2">STOP THE WORLD</strong></li>
+                    <li><strong class="color1">Concurrent collector</strong>: GC thread(s) concurrently run with the application threads &rarr; <strong class="color2">CONCURRENT</strong></li>
                   </ul>
                   &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 0.7em"><strong class="color2">Note</strong><span class="color2">: Parallel and concurrent are two different things.</span></span>
                 </td>
@@ -561,7 +561,7 @@
       <section>
         <h2>G1GC - Explanation (Picture)</h2>
         <span style="font-size:0.65em;text-align:left;">
-          Below is a pictorial of how G1GC <em class="color2">normally</em> works.
+          Below is a pictorial of how G1GC works under <em class="color2">normal</em> circumstances.
           <strong><em><span class="color1">Some notes</span> </em>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
@@ -577,7 +577,7 @@
       <!-- G1GC - Explanation -->
       <section>
         <h2>G1GC - Explanation</h2>
-        <span style="font-size:0.6em;text-align:left;">
+        <span style="font-size:0.5em;text-align:left;">
           <table width="100%">
             <tr style="border: hidden">
               <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
@@ -694,7 +694,7 @@
       <section>
         <h2>G1GC - Mixed Collection</h2>
         <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">4. Mixed Collection</span>: </strong>
+          <strong><span class="color1">3. Mixed Collection</span>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
             <li>A <span class="color2">Mixed Collection</span> is triggered when the percentage of waste (garbage) in the heap reaches a certain threshold.</li>
@@ -722,7 +722,7 @@
       <section>
         <h2>G1GC - Concurrent Marking</h2>
         <span style="font-size:0.55em;text-align:left;">
-          <strong><span class="color1">3. Concurrent Marking</span>: </strong>
+          <strong><span class="color1">4. Concurrent Marking</span>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
             <li>Triggered when certain percentage of heap is occupied <span class="dimtext"> - or - </span> when the <span class="color1">Survivor <em>To</em></span> minimum creation space threshold is reached.</li>
@@ -811,7 +811,7 @@
       <!-- G1GC - Gory Details -->
       <section>
         <h2>G1GC - Gory Details</h2>
-        <span style="font-size:0.6em;text-align:left;">
+        <span style="font-size:0.5em;text-align:left;">
           <span class="color1">Explanation: </span><br/>
           <ul>
             <li style="margin-top: 0.5em"><strong class="color2">Pause time</strong> is used to calculate the mix and is controlled by <code>-XX:MaxGCPauseMillis</code> (default = <span class="color3">200</span>).</li>
@@ -999,7 +999,7 @@
       <!-- G1GC - Logging Options -->
       <section>
         <h2>G1GC - Logging Options</h2>
-        <span style="font-size:0.65em;text-align:left;">
+        <span style="font-size:0.5em;text-align:left;">
           In this section salient logging setup options are discussed.
         </span>
       </section>
@@ -1007,7 +1007,7 @@
       <!-- G1GC - Check Default Values -->
       <section>
         <h2>G1GC - Check Default Values</h2>
-        <span style="font-size:0.6em;text-align:left;">
+        <span style="font-size:0.5em;text-align:left;">
           G1GC has several options that can be tuned for performance.
           <br/>
           Finding out what flags exist and what their default values are, is important.<br/>
@@ -1031,11 +1031,11 @@
         <span style="font-size:0.4em;text-align:left;">Unified logging changes (for reference use):
           <code>java -Xlog:help</code><br/>
         </span>
-        <span style="font-size:0.5em;text-align:left;">
+        <span style="font-size:0.4em;text-align:left;">
           <span class="dimtext">Understanding the content in the table:</span> <span class="color2">-Xlog</span> : <span class="color2">&lt;tags to log&gt;</span>[<span class="color2">=&lt;log level&gt;</span>]&nbsp[: <span class="color2">&lt;output&gt;</span> [: <span class="color2">&lt;decorations&gt; </span>]]
         </span>
         <br/>
-        <table style="font-size: 0.45em;text-align: left;width: 100%">
+        <table style="font-size: 0.35em;text-align: left;width: 100%">
           
           <thead>
           <tr>
@@ -1294,11 +1294,11 @@
     
     <section>
       <h2>What's next in Garbage Collection?</h2>
-      <span style="font-size:0.8em;text-align:left;">
+      <span style="font-size:0.6em;text-align:left;">
         <strong class="color2">Shenandoah</strong> <span class="dimtext">(Redhat &#8674; OpenJDK)</span> <br/>
-        <ul style="font-size: 0.9em"><br/>
-          <li>Evacuation and reference updates to run concurrently with application threads.</li>
-          <li>Pause times are meant to be independent of heap size.</li>
+        <ul style="font-size: 0.8em"><br/>
+          <li>Evacuation and reference updates to run concurrently with application threads.</li><br/>
+          <li>Pause times are meant to be independent of heap size.</li><br/>
           <li>More reading material:<br/>
             <ul>
               <li><a href="http://openjdk.java.net/jeps/189">JEP-189 (http://openjdk.java.net/jeps/189)</a></li>
@@ -1308,14 +1308,14 @@
         </ul>
       </span>
       <br/>
-      <span style="font-size:0.8em;text-align:left;">
+      <span style="font-size:0.6em;text-align:left;">
         <strong class="color2">Z Garbage Collector</strong> <span class="dimtext">(Oracle &#8674; OpenJDK)</span> <br/>
         <span style="font-size:0.8em;text-align:left;">ZGC is a concurrent, currently single-generation, region-based, incrementally compacting collector.</span><br/>
-        <ul style="font-size: 0.9em">
-          <li>Handle multi-terabyte heaps.</li>
-          <li>GC pause times not exceeding 10ms.</li>
-          <li>No more than 15% application throughput reduction compared to using G1.</li>
-          <li>Aims at simplifying tuning of GCs as well!</li>
+        <ul style="font-size: 0.8em">
+          <li>Handle multi-terabyte heaps.</li><br/>
+          <li>GC pause times not exceeding 10ms.</li><br/>
+          <li>No more than 15% application throughput reduction compared to using G1.</li><br/>
+          <li>Aims at simplifying tuning of GCs as well!</li><br/>
           <li>More reading material:<br/>
             <ul>
               <li><a href="http://openjdk.java.net/projects/zgc/">OpenJDK Project (http://openjdk.java.net/projects/zgc/)</a></li>
@@ -1393,7 +1393,7 @@
         history: true,
         center: true,
         width: '80%',
-        height: '95%',
+        height: '100%',
 
         transition: Reveal.getQueryHash().transition || 'default',
 
