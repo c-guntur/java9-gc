@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Java 9 - Garbage Collection</title>
+    <title>Garbage Collection - The Journey Until Java 11</title>
 
     <meta name="description" content="An overview of Garbage Collection and tweaking it.">
     <meta name="author" content="Chandra Guntur">
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="css/theme/dark.css" id="theme">
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
 
@@ -44,7 +44,7 @@
 
     <!-- Title slide -->
     <section>
-      <h1>Garbage Collection in Java 9</h1>
+      <h1>Garbage Collection - The Journey Until Java 11</h1>
       <h4>&nbsp;</h4>
       <img src="images/DukeGarbageCollector.png" height="400"/>
       <br>
@@ -152,10 +152,10 @@
           As a broad definition, <strong class="color1">garbage collection</strong> is the process of:
           <ul>
             <li>looking up managed memory</li>
-            <li>identifying all objects that are in use (<em class="color2">live objects</em>)</li>
-            <li>marking non-live objects as <em class="color2">garbage</em> (<em class="color2">unused</em> or <em class="color2">no-reference</em> are other common terms)</li>
-            <li>[<em class="color2">occasionally</em>] reclaiming memory by deleting garbage</li>
-            <li>[<em class="color2">occasionally</em>] compacting memory defragmenting live objects, to create more contiguous space.</li>
+            <li>identify all objects that are in use (<em class="color2">live objects</em>)</li>
+            <li>mark non-live objects as <em class="color2">garbage</em> (<em class="color2">unused</em> or <em class="color2">no-reference</em> are other common terms)</li>
+            <li>[<em class="color2">occasionally</em>] reclaim memory by deleting garbage</li>
+            <li>[<em class="color2">occasionally</em>] compact memory defragmenting live objects (create more contiguous space).</li>
           </ul>
           <br/>
           An unused object is one that is no longer referenced by any part of the program.
@@ -389,35 +389,44 @@
           <strong><span class="color1">Explanation</span>: </strong>
           <br/>
           <ul>
-            <li>heap is broken into smaller areas (sub-heaps).</li>
-            <li>newly created objects are allocated to a young area called <strong class="color1">Eden</strong>.</li>
-            <li><span class="color1">Eden</span> itself divided into TLAB sections for individual threads and a common area.</li>
-            <li>different GC processes for each generation, young gc typically is <span class="color2">all-at-once</span>, <span class="color2">stop-the-world</span>, <span class="color2">copying</span> collector.</li>
-            <li>objects that stay "alive" longer get moved to older generation.</li>
-            <li><strong class="color1">Permanent Generation</strong> is for storing class/method definitions and static content.</li>
+            <li>heap is broken into smaller areas (sub-heaps).</li><br/>
+            <li>newly created objects are allocated to a young area called <strong class="color1">Eden</strong>.</li><br/>
+            <li><span class="color1">Eden</span> itself divided into TLAB sections for individual threads and a common area.</li><br/>
+            <li>different GC processes for each generation, young gc typically is <span class="color2">all-at-once</span>, <span class="color2">stop-the-world</span>, <span class="color2">copying</span> collector.</li><br/>
+            <li>objects that stay "alive" longer get moved to older generation.</li><br/>
+            <li><strong class="color1">Permanent Generation</strong> is for storing class/method definitions and static content.</li><br/>
           </ul>
-          <hr/>
+          
+        </span>
+      </section>
+
+      <!-- Generational GC - Steps -->
+      <section>
+        <h2>Generational GC - Steps</h2>
+        <span style="font-size:0.6em;text-align:left;">
+          <strong><span class="color1">Typical steps in a Generational GC</span>: </strong>
+          <br/>
           <table width="100%">
             <tr style="border: hidden">
-              <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+              <td width="75%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
                 <span style="font-size:0.9em;text-align:left;">
-                  <span class="color1">Generational Collection Summary</span><br/>
+                  <br/>
                     <ol>
-                      <li>Objects first allocated into <strong class="color1">Eden</strong>.</li>
-                      <li>On first GC, live objects from <span class="color1">Eden</span> moved to <strong class="color1">Survivor 1</strong>.</li>
-                      <li>All moved live objects from <span class="color1">Eden</span> marked with an <strong class="color2">Age (tenure)</strong> of <span class="color3">1</span>.</li>
-                      <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li>
-                      <li>Next GC, collects live objects from <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> into <strong class="color1">Survivor <em>To</em></strong>.</li>
-                      <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by <span class="color3">1</span>, while objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li>
-                      <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li>
-                      <li><strong class="dimtext">Steps 5, 6, 7</strong> recur flipping <span class="color1">Survivor 1</span> and <span class="color1">Survivor 2</span> as <em class="color1">From</em> and <em class="color1">To</em>.</li>
-                      <li> Done until <span class="color2">Age</span> threshold (default = <span class="color3">15</span>) reached for any live object.</li>
-                      <li>Next GC, live objects from the current <span class="color1">Survivor</span> with <span class="color2">Age</span> above threshold, move to <strong class="color1">Tenured</strong>.</li>
-                      <li><strong class="dimtext">Steps 5 - 10</strong> recur until a need for a full GC.</li>
+                      <li>Objects first allocated into <strong class="color1">Eden</strong>.</li><br/>
+                      <li>On first GC, live objects from <span class="color1">Eden</span> moved to <strong class="color1">Survivor 1</strong>.</li><br/>
+                      <li>All moved live objects from <span class="color1">Eden</span> marked with an <strong class="color2">Age (tenure)</strong> of <span class="color3">1</span>.</li><br/>
+                      <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li><br/>
+                      <li>Next GC, collects live objects from <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> into <strong class="color1">Survivor <em>To</em></strong>.</li><br/>
+                      <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by <span class="color3">1</span>, while objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li><br/>
+                      <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li><br/>
+                      <li><strong class="dimtext">Steps 5, 6, 7</strong> recur flipping <span class="color1">Survivor 1</span> and <span class="color1">Survivor 2</span> as <em class="color1">From</em> and <em class="color1">To</em>.</li><br/>
+                      <li> Done until <span class="color2">Age</span> threshold (default = <span class="color3">15</span>) reached for any live object.</li><br/>
+                      <li>Next GC, live objects from the current <span class="color1">Survivor</span> with <span class="color2">Age</span> above threshold, move to <strong class="color1">Tenured</strong>.</li><br/>
+                      <li><strong class="dimtext">Steps 5 - 10</strong> recur until a need for a full GC.</li><br/>
                     </ol>
                 </span>
               </td>
-              <td width="50%" style="text-align: center; vertical-align: middle; border: hidden">
+              <td width="25%" style="text-align: center; vertical-align: middle; border: hidden">
                 <img src="images/GenerationalMemoryAreas.png" width="70%"/>
               </td>
             </tr>
@@ -522,30 +531,36 @@
           <strong><em><span class="color1">Some observations</span> </em>: </strong>
           <br/>
           <ul style="font-size: 0.9em">
-            <li style="margin-top: 0.5em">A <strong class="color2">region</strong> is a contiguous unit of memory allocation and space reclamation.</li>
-            <li style="margin-top: 0.5em">Regions are formed by <strong class="color2">dividing the heap into ~ 2048 or more blocks</strong> of <strong class="color2">equal size</strong>.</li>
-            <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li>
-            <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li>
-            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (<em class="color2">and if needed, contiguous</em>) regions; defined as objects with <strong class="color2">size > 50% of region size</strong>.</li>
-            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">not allocated in </strong><span class="color1">young regions</span>.</li>
-            <li style="margin-top: 0.5em">G1GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li>
+            <li style="margin-top: 0.5em">A <strong class="color2">region</strong> is a contiguous unit of memory allocation and space reclamation.</li><br/>
+            <li style="margin-top: 0.5em">Regions are formed by <strong class="color2">dividing the heap into ~ 2048 or more blocks</strong> of <strong class="color2">equal size</strong>.</li><br/>
+            <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li><br/>
+            <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li><br/>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (<em class="color2">and if needed, contiguous</em>) regions; defined as objects with <strong class="color2">size > 50% of region size</strong>.</li><br/>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">not allocated in </strong><span class="color1">young regions</span>.</li><br/>
+            <li style="margin-top: 0.5em">G1GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li><br/>
           </ul>
-          <hr/>
+        </span>
+      </section>
+  
+      <!-- G1GC - Region Math -->
+      <section>
+        <h2>G1GC - Region Math</h2>
+        <span style="font-size:0.6em;text-align:left;">
           <table width="100%">
             <tr style="border: hidden">
               <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
                 <span style="font-size:0.9em;text-align:left;">
-                  <span class="color1">Math Stuff</span>: Calculating regions on a <span class="color3">9GB</span> heap<br/>
+                  <strong class="color1">Calculating regions on a <span class="color3">9GB</span> heap</strong><br/><p/>
                   <ol>
-                    <li>Convert heap size to MB &rarr; <span class="color2">9GB = 9 x 1024 MB = </span><strong class="color3">9216 MB</strong>.</li>
-                    <li>Approximate region size for 2048 regions &rarr; <span class="color2">9216 MB &divide; 2048 regions = </span><strong class="color3">4.5 MB per region</strong> </li>
-                    <li>Regions for factor of 2 <em class="color1">below</em> the approximate region size (= <span class="color3">4</span>) &rarr; <span class="color2">9216 &divide; 4MB = </span><strong class="color3">2304 regions</strong>.</li>
-                    <li>Regions for factor of 2 <em class="color1">above</em> the approximate region size (= <span class="color3">8</span>) &rarr; <span class="color2">9216 &divide; 8MB = </span><strong class="color3">1152 regions</strong>.</li>
-                    <li>Since <strong class="color3">2304</strong> is closest to and above <span class="color3">2048</span>, it is chosen as the number of regions to use.</li>
-                    <li>Each region is thus of <strong class="color3">4</strong>MB size.</li>
-                    <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li>
-                    <li>Set the flag <code>-XX:G1HeapRegionSize</code> with a numeric value (that is a power of <span class="color3">2</span>).</li>
-                    <li>Watch out for <strong class="color1">Humongous</strong> objects. In this case any object <strong class="color3">2MB</strong> or above.</li>
+                    <li>Convert heap size to MB &rarr; <span class="color2">9GB = 9 x 1024 MB = </span><strong class="color3">9216 MB</strong>.</li><br/>
+                    <li>Approximate region size for 2048 regions &rarr; <span class="color2">9216 MB &divide; 2048 regions = </span><strong class="color3">4.5 MB per region</strong> </li><br/>
+                    <li>Regions for factor of 2 <em class="color1">below</em> the approximate region size (= <span class="color3">4</span>) &rarr; <span class="color2">9216 &divide; 4MB = </span><strong class="color3">2304 regions</strong>.</li><br/>
+                    <li>Regions for factor of 2 <em class="color1">above</em> the approximate region size (= <span class="color3">8</span>) &rarr; <span class="color2">9216 &divide; 8MB = </span><strong class="color3">1152 regions</strong>.</li><br/>
+                    <li>Since <strong class="color3">2304</strong> is closest to and above <span class="color3">2048</span>, it is chosen as the number of regions to use.</li><br/>
+                    <li>Each region is thus of <strong class="color3">4</strong>MB size.</li><br/>
+                    <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li><br/>
+                    <li>Set the flag <code>-XX:G1HeapRegionSize</code> with a numeric value (that is a power of <span class="color3">2</span>).</li><br/>
+                    <li>Watch out for <strong class="color1">Humongous</strong> objects. In this case any object <strong class="color3">2MB</strong> or above.</li><br/>
                   </ol>
                 </span>
               </td>
@@ -567,7 +582,8 @@
           <ul style="font-size: 0.9em">
             <li style="margin-top: 0.5em">The top semicircle is the most common GC process.</li>
             <li style="margin-top: 0.5em">When space is too fragmented or tenured occupancy is high, the bottom semi-circle is triggered.</li>
-            <li style="margin-top: 0.5em">Heavy heap occupancy will eventually lead to a Serially collecting <strong class="color3">Full GC</strong> (single-threaded).</li>
+            <li style="margin-top: 0.5em"><strong class="color1 dimbg">Until Java 9</strong>: Heavy heap occupancy will eventually lead to a <strong class="color3">Serial collecting Full GC</strong> (single-threaded).</li>
+            <li style="margin-top: 0.5em"><strong class="color1 dimbg">From Java 10</strong>: Heavy heap occupancy will eventually lead to a <strong class="color3">Parallel collecting Full GC</strong> (multi-threaded).</li>
           </ul>
           <br/>
           <img src="images/G1GC_Cycle.png" width="55%"/>
@@ -624,11 +640,11 @@
           <li style="margin-top: 0.5em"><strong class="color2">Process RSet</strong>: Detect references to objects in the <em class="color2">collection set</em> <strong class="color1">Young</strong> regions, from objects in <strong class="color1">Tenured</strong> regions.</li>
           <li style="margin-top: 0.5em"><strong class="color2">Copy Live Objects</strong>: Traverse the object graph and <em class="color2">promote/age</em> live objects.</li>
           <li style="margin-top: 0.5em"><strong class="color2">Process references</strong>: Update references to new location, process soft, weak, phantom and final references.
-            <ul style="font-size: 0.8em">
-              <li><strong class="color1">StrongReference</strong>: Typical pointer allocation to an object, re-pointing to null will cause object to be collected.
-              <li><strong class="color1">SoftReference</strong>: The reference is kept unless there is no other space for any new allocation.
-              <li><strong class="color1">WeakReference</strong>: The reference is collected as soon as GC reaches it.
-              <li><strong class="color1">PhantomReference</strong>: The reference enqueued for collection, retained until all references to it are either dead/weak references.</li>
+            <ul style="font-size: 0.9em">
+              <br/><li><strong class="color1">StrongReference</strong>: Typical pointer allocation to an object, re-pointing to null will cause object to be collected.</li><br/>
+              <li><strong class="color1">SoftReference</strong>: The reference is kept unless there is no other space for any new allocation.</li><br/>
+              <li><strong class="color1">WeakReference</strong>: The reference is collected as soon as GC reaches it.</li><br/>
+              <li><strong class="color1">PhantomReference</strong>: The reference enqueued for collection, retained until all references to it are either dead/weak references.</li><br/>
             </ul>
           </li>
         </ol>
@@ -811,7 +827,7 @@
       <!-- G1GC - Gory Details -->
       <section>
         <h2>G1GC - Gory Details</h2>
-        <span style="font-size:0.5em;text-align:left;">
+        <span style="font-size:0.55em;text-align:left;">
           <span class="color1">Explanation: </span><br/>
           <ul>
             <li style="margin-top: 0.5em"><strong class="color2">Pause time</strong> is used to calculate the mix and is controlled by <code>-XX:MaxGCPauseMillis</code> (default = <span class="color3">200</span>).</li>
@@ -947,6 +963,7 @@
           <th style="text-align: center; width: 31%">Feature</th>
         </tr>
         </thead>
+        
   
         <tbody>
         <tr>
@@ -1206,7 +1223,7 @@
       
       <section>
         <h2>G1GC - How to tune</h2>
-        <span style="font-size: 0.8em; text-align: left;">
+        <span style="font-size: 0.75em; text-align: left;">
           There are a few steps to performance tuning happiness. <br/>
           Follow the <span class="color3">EMPATHY</span> model.<p/>
           <ol>
@@ -1220,9 +1237,9 @@
           </ol>
         </span>
         <hr/>
-        <span style="font-size:0.6em;text-align:left;"><strong class="color1">Amdahl&rsquor;s Law:</strong><p/><span>If you decide to increase the number of parallel threads to gain performance, remember that</span>: <br/><em class="dimtext" style="font-size:0.8em;text-align:left;">The nature of this overhead (in parallelism) appears to be sequential so that it is unlikely to be amenable to parallel processing techniques.</em></span>
+        <span style="font-size:0.7em;text-align:left;"><strong class="color1">Amdahl&rsquor;s Law:</strong><p/><span>If you decide to increase the number of parallel threads to gain performance, remember that</span>: <br/><em class="dimtext" style="font-size:0.8em;text-align:left;">The nature of this overhead (in parallelism) appears to be sequential so that it is unlikely to be amenable to parallel processing techniques.</em></span>
         <br/>
-        <span style="font-size:0.6em;text-align:left;"><strong class="color3">Chandra&rsquor;s Law:</strong><br/><em class="dimtext" style="font-size:0.9em;text-align:left;">Providing three copies of a book does not get a person read it three times faster.</em></span>
+        <span style="font-size:0.75em;text-align:left;"><strong class="color3">Chandra&rsquor;s Law:</strong><br/><em class="dimtext" style="font-size:0.9em;text-align:left;">Providing three copies of a book does not get a person read it three times faster.</em></span>
       </section>
       
       <!-- G1GC - Frequent Full GC< -->
@@ -1427,6 +1444,7 @@
             },
             {src: 'plugin/zoom-js/zoom.js', async: true},
             {src: 'plugin/notes/notes.js', async: true},
+            {src: 'plugin/mouse-pointer/mouse-pointer.js', async: true },
             // {src: 'plugin/spotlight/spotlight.js'},
             {src: 'plugin/reveal.js-menu/menu.js', async: true}
         ]
