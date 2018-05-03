@@ -1233,13 +1233,27 @@
             <li><span class="color2">A</span><span >nalyze</span> - <span class="dimtext">determine what needs to be done to fix issues.</span></li>
             <li><span class="color2">T</span><span >une</span> - <span class="dimtext">set the right parameters for sizes, ages, threads etc.</span></li>
             <li><span class="color2">H</span><span >ammer</span> - <span class="dimtext">test out each set of parameters thoroughly.</span></li>
-            <li><span class="color2">Y</span><span >ippee</span> - <span class="dimtext">beer time. 🍻</li>
+            <li><span class="color2">Y</span><span >ippee</span> - <span class="dimtext">beer time.</span> 🍻</li>
           </ol>
         </span>
         <hr/>
-        <span style="font-size:0.7em;text-align:left;"><strong class="color3">Amdahl&rsquor;s Law:</strong><p/><span>If you decide to increase the number of parallel threads to gain performance, remember that</span>: <br/><em class="dimtext" style="font-size:0.8em;text-align:left;">The nature of this overhead (in parallelism) appears to be sequential so that it is unlikely to be amenable to parallel processing techniques.</em></span>
-        <br/>
-        <span style="font-size:0.75em;text-align:left;"><strong class="color3">Chandra&rsquor;s Law:</strong><br/><em class="dimtext" style="font-size:0.9em;text-align:left;">Providing three copies of a book does not get a person read it three times faster.</em></span>
+        <span style="font-size:0.7em;text-align:left;">
+          If you decide to increase the number of parallel threads to gain performance, remember that:
+        </span><br/>
+        <span style="font-size:0.7em;text-align:left;">
+          <strong class="color3">Amdahl&rsquor;s Law:</strong><br/>
+          <em class="dimtext" style="font-size:0.8em;text-align:left;">
+            ... the nature of this overhead (in parallelism) appears to be sequential so that
+            it is unlikely to be amenable to parallel processing techniques.
+          </em>
+        </span>
+        <p/>
+        <span style="font-size:0.5em;text-align:left;">
+          <strong class="color3">Chandra&rsquor;s Law <span style="font-size: 1.3em">🤓</span>:</strong><br/>
+          <em class="dimtext" style="font-size:0.9em;text-align:left;">
+            Providing three copies of a book does not get a person read it three times faster.
+          </em>
+        </span>
       </section>
       
       <!-- G1GC - Frequent Full GC< -->
@@ -1327,11 +1341,11 @@
           <ul style="font-size: 0.75em"><br/>
             <li><span class="color2">Region-based, non-generational collector</span>, based on the G1GC.</li><br/>
             <li>Adds an indirection, called <span class="color1">Brooks Pointer</span> (<span class="color3"><sub>*</sub> &darr;</span>) to each object, GC threads can compact heap while app is running.</li><br/>
-            <li>Young generation equivalent is run in a <strong class="color1">concurrent-partial</strong> mode.</li><br/>
+            <li>Young collection equivalent is run in a <strong class="color1">concurrent-partial</strong> mode.</li><br/>
             <li>Uses a <strong class="color1">concurrent mark</strong> and a <strong class="color1">concurrent compact</strong> for longer lived objects.</li><br/>
             <li>Evacuation and reference updates to <span class="color2">run concurrently with application threads</span>.</li><br/>
             <li>In case of slower collection cycles, more cycles are stolen from application, but application is not halted.</li><br/>
-            <li>Pause times are meant to be independent of heap size (be it 2GB or even 100GB).</li><br/>
+            <li>Pause times to be <em class="color2">independent of heap size</em> (be it <span class="color3">2GB</span> or even <span class="color3">100GB</span>).</li><br/>
             <li>Already being improved <span class="dimtext">(v2.0)</span> to focus GC on regions where the writes happen.</li><br/>
             <li>Best suited where responsiveness and predictable pauses <em class="color2">are valued over</em> more cpu cycles and space.</li><br/>
             <li>More reading material:<br/>
@@ -1354,8 +1368,9 @@
             <li><span class="color2">Region-based, non-generational collector</span>, based on G1GC.</li><br/>
             <li>Uses <span class="color1">colored pointers</span> with <span class="color1">load barriers</span> (<span class="color3"><sub>*</sub> &darr;</span>) to allow for concurrent ops.</li><br/>
             <li>Load barriers act as the intermediate in determining if the object was relocated.</li><br/>
-            <li>GC pause times not exceeding 10ms.</li><br/>
-            <li>No more than 15% application throughput reduction compared to using G1.</li><br/>
+            <li>Designed for very large memory heaps.</li><br/>
+            <li>Low GC pause times, not exceeding <span class="color3">10ms</span>.</li><br/>
+            <li>No more than <span class="color3">15%</span> application throughput reduction compared to using G1.</li><br/>
             <li>Aims at simplifying tuning of GCs as well!</li><br/>
             <li>Best suited for large memory usage and predictable throughput while consuming less space.</li><br/>
             <li>More reading material:<br/>
@@ -1379,8 +1394,8 @@
             <li>Handles memory allocation but <em class="color2">does not actually reclaim memory</em>.</li><br/>
             <li><span class="color2">Completely passive GC</span> with just bounded memory allocation and lowest latency guarantees.</li><br/>
             <li>Linear allocation in a single chunk of memory.</li><br/>
-            <li>Uses trivial lock-free Thread Local Allocation Buffers (TLABs) that do not need managing.</li><br/>
-            <li>Other commercial implementations have a similar NoGC option already.</li><br/>
+            <li>Uses <span class="color2">trivial lock-free</span> <span class="color1">Thread Local Allocation Buffers (TLABs)</span> that do not need managing.</li><br/>
+            <li>Popular commercial implementations have a similar NoGC option already.</li><br/>
             <li>Best suited for: <br/>
               <ul>
                 <li>performance testing the app (without GC latency).</li>
@@ -1389,9 +1404,9 @@
               </ul>
             </li><br/>
             <li>More reading material:<br/>
-              <ul>
+              <ul style="font-size: 0.8em">
                 <li><a href="http://openjdk.java.net/jeps/318">JEP-318 (http://openjdk.java.net/jeps/318)</a></li>
-                <li><a href="https://www.infoq.com/news/2017/03/java-epsilon-gc">The Last Frontier in Java Performance: Remove the Garbage Collector</a></li>
+                <li><a href="https://www.infoq.com/news/2017/03/java-epsilon-gc">Remove the Garbage Collector (https://www.infoq.com/news/2017/03/java-epsilon-gc)</a></li>
               </ul>
             </li>
           </ul>
