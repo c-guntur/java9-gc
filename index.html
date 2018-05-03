@@ -272,14 +272,14 @@
                 The mark/sweep collection pattern is based on <em class="color2">tracing</em>:
                 <ul>
                   <li>includes a <em class="color2">tri-color marker</em> on each object.</li>
-                  <li>all markers <strong class="color2">painted gray</strong> before the collection cycle.</li>
-                  <li>sets marker as <strong class="color2">used (black)</strong> or <strong class="color2">unused (white)</strong>.</li>
-                  <li>each object checked only once due to the marker being set.</li>
-                  <li>deletes the <strong class="color2">unused (white)</strong> marked objects.</li>
-                  <li>collection ends when the <strong class="color2">gray set</strong> is empty.</li>
-                  <li>(optionally/periodically) compact or defragment space for new objects.</li>
+                  <li>all markers set to <span class="color2 dimbg">unchecked (gray)</span> before the collection cycle.</li>
+                  <li>sets marker as <span class="color2 dimbg">in-use (black)</span> or <span class="color2 dimbg">unreferenced (white)</span> post evaluation.</li>
+                  <li>each object checked only once since marker is painted black or white.</li>
+                  <li>deletes the <span class="color2">unreferenced (white)</span> marked objects.</li>
+                  <li>collection ends when the <span class="color2">unchecked (gray)</span> set is empty.</li>
+                  <li><span class="dimtext">(optionally/periodically)</span> compact or defragment space for new objects.</li>
                   <li>more <span class="color1">efficient for larger memory areas</span>.</li>
-                  <li>works well on longer-lived non-volatile objects.</li>
+                  <li>works well on <span class="color2">longer-lived non-volatile objects</span>.</li>
                   <li>process efficiency is linearly proportional to the live objects.</li>
                   <li>uses <strong class="color2">garbage collection roots</strong> to initiate marks:
                     <ul>
@@ -289,7 +289,7 @@
                     </ul>
                   </li>
                   <li><span class="color1">incremental</span> collector, doesn't need a lot of free space to run.</li>
-                  <li>can be either <span class="color1">concurrent</span> or <span class="color1">stop-the-world</span> collecting.</li>
+                  <li><span class="color2">can be either</span> <span class="color1">concurrent</span> or <span class="color1">stop-the-world</span> collecting.</li>
                 </ul>
                 <br/>
                 Memory allocator moves pointer to the beginning of free space.
@@ -313,14 +313,17 @@
               <span style="font-size:0.65em;text-align:left;">
                 The copying garbage collection is based on <em class="color2">tracing</em>:
                 <ul>
-                  <li>marks objects as used or unused.</li>
+                  <li>includes a <em class="color2">tri-color marker</em> on each object.</li>
+                  <li>all markers set to <span class="color2 dimbg">unchecked (gray)</span> before the collection cycle.</li>
+                  <li>sets marker as <span class="color2 dimbg">in-use (black)</span> or <span class="color2 dimbg">unreferenced (white)</span> post evaluation.</li>
+                  <li>each object checked only once since marker is painted black or white.</li>
+                  <li><span class="color3">very specialized case of <strong class="color2">M/S/C</strong>, the sweep and compact are one step</span>.</li>
                   <li>copies live objects to another memory area.</li>
-                  <li>purging current area, one of the two areas is always empty.</li>
-                  <li>very specialized case of <strong class="color2">M/S/C</strong>, the sweep and compact are one step.</li>
-                  <li>needs a <strong class="color2">from</strong> and a <strong class="color2">to</strong> memory area.</li>
-                  <li>has the <strong class="color2">from</strong> and <strong class="color2">to</strong> swap roles each run of the collection.</li>
-                  <li>is <span class="color1">efficient for small memory areas</span>.</li>
-                  <li>works best on short-lived objects.</li>
+                  <li>purge current area, <strong class="color2">one of the two areas is always empty</strong>.</li>
+                  <li>needs a <strong class="color1">from</strong> and a <strong class="color1">to</strong> memory area.</li>
+                  <li>has the <strong class="color1">from</strong> and <strong class="color1">to</strong> swap roles each run of the collection.</li>
+                  <li>is <span class="color2">efficient for small memory areas</span>.</li>
+                  <li>works best on <span class="color2">short-lived objects</span>.</li>
                   <li><span class="color1">all-at-once</span> collector that needs 2x the memory space to run.</li>
                   <li><span class="color1">stop-the-world</span> collector.</li>
                 </ul>
@@ -408,8 +411,8 @@
           <br/>
           <table width="100%">
             <tr style="border: hidden">
-              <td width="75%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
-                <span style="font-size:0.9em;text-align:left;">
+              <td width="75%" style="font-size: 1.0em; vertical-align: middle;border: hidden">
+                <span style="font-size:0.85em;text-align:left;">
                   <br/>
                     <ol>
                       <li>Objects first allocated into <strong class="color1">Eden</strong>.</li><br/>
@@ -417,7 +420,7 @@
                       <li>All moved live objects from <span class="color1">Eden</span> marked with an <strong class="color2">Age (tenure)</strong> of <span class="color3">1</span>.</li><br/>
                       <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li><br/>
                       <li>Next GC, collects live objects from <span class="color1">Eden</span> and <span class="color1">Survivor <em>From</em></span> into <strong class="color1">Survivor <em>To</em></strong>.</li><br/>
-                      <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by <span class="color3">1</span>, while objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li><br/>
+                      <li>Objects from <span class="color1">Survivor <em>From</em></span> get <span class="color2">Age</span> incremented by <span class="color3">1</span>, objects from Eden get an <span class="color2">Age</span> of <span class="color3">1</span>.</li><br/>
                       <li><span class="color1">Eden</span> cleared and ready to allocate new objects.</li><br/>
                       <li><strong class="dimtext">Steps 5, 6, 7</strong> recur flipping <span class="color1">Survivor 1</span> and <span class="color1">Survivor 2</span> as <em class="color1">From</em> and <em class="color1">To</em>.</li><br/>
                       <li> Done until <span class="color2">Age</span> threshold (default = <span class="color3">15</span>) reached for any live object.</li><br/>
@@ -448,11 +451,11 @@
                 <li>Low memory footprint makes it good for <strong class="color1"></strong> for mobile or small apps.</li>
               </ul>
             </li><br/>
-            <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and 1.8<sup>*</sup></strong> <br/>
+            <li><strong class="color2">Parallel Collector a.k.a Throughput collector - Java 1.5 onwards, default collector Java 1.5, 1.6, 1.7 and 1.8 (<span class="color3"><sub>*</sub> &darr;</span>) </strong> <br/>
               <ul>
                 <li><strong class="color1 dimbg">Young</strong> gen., only has the <span class="color2">parallel (scavenge) collection</span>.</li>
                 <li><strong class="color1 dimbg">Tenured</strong> gen. earlier had a default <span class="color2">serial collector</span> (later versions changed default to <span class="color2">parallel old collector</span>).</li>
-                <li><strong class="color2"><sup>*</sup></strong> <em>G1GC was originally planned as default for Java 1.8 but was deferred until Java 9</em>.</li>
+                <li> (<span class="color3"><sub>*</sub></span>)  <em>G1GC was originally planned as default for Java 1.8 but was deferred until Java 9</em>.</li>
               </ul>
             </li><br/>
             <li><strong class="color2">Concurrent Mark-Sweep (CMS) Collector (mostly*) - available Java 1.5 onwards until Java 1.8</strong> <br/>
@@ -535,7 +538,7 @@
             <li style="margin-top: 0.5em">Regions are formed by <strong class="color2">dividing the heap into ~ 2048 or more blocks</strong> of <strong class="color2">equal size</strong>.</li><br/>
             <li style="margin-top: 0.5em">The region <strong class="color2">sizes can range from 1 MB to 32 MB</strong> depending on the heap size.</li><br/>
             <li style="margin-top: 0.5em">The <strong class="color2">memory manager</strong> assigns a region as <span class="color1">free</span>, <span class="color1">eden</span>, <span class="color1">survivor</span>, <span class="color1">tenured</span> or part of a <span class="color1">humongous</span> allocation.</li><br/>
-            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (<em class="color2">and if needed, contiguous</em>) regions; defined as objects with <strong class="color2">size > 50% of region size</strong>.</li><br/>
+            <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects occupy complete (<em class="color2">for larger objects, contiguous</em>) regions; defined as objects with <strong class="color2">size > 50% of region size</strong>.</li><br/>
             <li style="margin-top: 0.5em"><strong class="color1">Humongous</strong> objects are <strong class="color2">not allocated in </strong><span class="color1">young regions</span>.</li><br/>
             <li style="margin-top: 0.5em">G1GC has a <strong class="color2">consistent pause time-target that it tries to meet</strong> (soft, real time), hence region sizes are controlled.</li><br/>
           </ul>
@@ -548,8 +551,8 @@
         <span style="font-size:0.6em;text-align:left;">
           <table width="100%">
             <tr style="border: hidden">
-              <td width="70%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
-                <span style="font-size:0.9em;text-align:left;">
+              <td width="70%" style="font-size: 1.0em; vertical-align: middle;border: hidden">
+                <span style="font-size:0.8em;text-align:left;">
                   <strong class="color1">Calculating regions on a <span class="color3">9GB</span> heap</strong><br/><p/>
                   <ol>
                     <li>Convert heap size to MB &rarr; <span class="color2">9GB = 9 x 1024 MB = </span><strong class="color3">9216 MB</strong>.</li><br/>
@@ -557,10 +560,11 @@
                     <li>Regions for factor of 2 <em class="color1">below</em> the approximate region size (= <span class="color3">4</span>) &rarr; <span class="color2">9216 &divide; 4MB = </span><strong class="color3">2304 regions</strong>.</li><br/>
                     <li>Regions for factor of 2 <em class="color1">above</em> the approximate region size (= <span class="color3">8</span>) &rarr; <span class="color2">9216 &divide; 8MB = </span><strong class="color3">1152 regions</strong>.</li><br/>
                     <li>Since <strong class="color3">2304</strong> is closest to and above <span class="color3">2048</span>, it is chosen as the number of regions to use.</li><br/>
-                    <li>Each region is thus of <strong class="color3">4</strong>MB size.</li><br/>
+                    <li>Each region is thus of <strong class="color3">4MB</strong> size.</li><br/>
                     <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li><br/>
                     <li>Set the flag <code>-XX:G1HeapRegionSize</code> with a numeric value (that is a power of <span class="color3">2</span>).</li><br/>
-                    <li>Watch out for <strong class="color1">Humongous</strong> objects. In this case any object <strong class="color3">2MB</strong> or above.</li><br/>
+                    <li><strong class="color1">Humongous</strong> objects would be <strong class="color3">2MB</strong> or above.</li><br/>
+                    <li>A <span class="color3">2.5MB</span> object occupies <span class="color2">one</span> region, a <span class="color3">13MB</span> object will occupy <span class="color2">four</span> contiguous regions.</li><br/>
                   </ol>
                 </span>
               </td>
@@ -593,10 +597,10 @@
       <!-- G1GC - Explanation -->
       <section>
         <h2>G1GC - Explanation</h2>
-        <span style="font-size:0.5em;text-align:left;">
+        <span style="font-size:0.52em;text-align:left;">
           <table width="100%">
             <tr style="border: hidden">
-              <td width="65%" style="font-size: 0.9em; vertical-align: middle;border: hidden">
+              <td width="65%" style="font-size: 1.0em; vertical-align: middle;border: hidden">
                 <span class="color1">Explanation: </span><br/>
                 <ul>
                   <li style="margin-top: 0.35em"><em class="color2">each circle</em> represents a STW process.</li>
