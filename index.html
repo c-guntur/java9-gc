@@ -1225,19 +1225,19 @@
         <h2>G1GC - How to tune</h2>
         <span style="font-size: 0.75em; text-align: left;">
           There are a few steps to performance tuning happiness. <br/>
-          Follow the <span class="color3">EMPATHY</span> model.<p/>
+          Follow the <span class="color2">EMPATHY</span> model.<p/>
           <ol>
-            <li><span class="color3">E</span><span class="color2">xecute</span> - execute the application to determine issues visually.</li>
-            <li><span class="color3">M</span><span class="color2">onitor</span> - use appropriate alerts/tools/logs to monitor.</li>
-            <li><span class="color3">P</span><span class="color2">rofile</span> - identify the areas that need special attention.</li>
-            <li><span class="color3">A</span><span class="color2">nalyze</span> - determine what needs to be done to fix issues.</li>
-            <li><span class="color3">T</span><span class="color2">une</span> - set the right parameters for sizes, ages, threads etc.</li>
-            <li><span class="color3">H</span><span class="color2">ammer</span> - test out each set of parameters thoroughly.</li>
-            <li><span class="color3">Y</span><span class="color2">ippee</span> - beer time. 🍻</li>
+            <li><span class="color2">E</span><span >xecute</span> - <span class="dimtext">execute the application to determine issues visually.</span></li>
+            <li><span class="color2">M</span><span >onitor</span> - <span class="dimtext">use appropriate alerts/tools/logs to monitor.</span></li>
+            <li><span class="color2">P</span><span >rofile</span> - <span class="dimtext">identify the areas that need special attention.</span></li>
+            <li><span class="color2">A</span><span >nalyze</span> - <span class="dimtext">determine what needs to be done to fix issues.</span></li>
+            <li><span class="color2">T</span><span >une</span> - <span class="dimtext">set the right parameters for sizes, ages, threads etc.</span></li>
+            <li><span class="color2">H</span><span >ammer</span> - <span class="dimtext">test out each set of parameters thoroughly.</span></li>
+            <li><span class="color2">Y</span><span >ippee</span> - <span class="dimtext">beer time. 🍻</li>
           </ol>
         </span>
         <hr/>
-        <span style="font-size:0.7em;text-align:left;"><strong class="color1">Amdahl&rsquor;s Law:</strong><p/><span>If you decide to increase the number of parallel threads to gain performance, remember that</span>: <br/><em class="dimtext" style="font-size:0.8em;text-align:left;">The nature of this overhead (in parallelism) appears to be sequential so that it is unlikely to be amenable to parallel processing techniques.</em></span>
+        <span style="font-size:0.7em;text-align:left;"><strong class="color3">Amdahl&rsquor;s Law:</strong><p/><span>If you decide to increase the number of parallel threads to gain performance, remember that</span>: <br/><em class="dimtext" style="font-size:0.8em;text-align:left;">The nature of this overhead (in parallelism) appears to be sequential so that it is unlikely to be amenable to parallel processing techniques.</em></span>
         <br/>
         <span style="font-size:0.75em;text-align:left;"><strong class="color3">Chandra&rsquor;s Law:</strong><br/><em class="dimtext" style="font-size:0.9em;text-align:left;">Providing three copies of a book does not get a person read it three times faster.</em></span>
       </section>
@@ -1245,9 +1245,9 @@
       <!-- G1GC - Frequent Full GC< -->
       <section>
         <h2>G1GC - Frequent Full GC</h2>
-        <span style="font-size:0.6em;text-align:left;">
+        <span style="font-size:0.7em;text-align:left;">
           <strong class="color2">Frequent Full GCs are observed</strong> <br/>
-          <ul>
+          <ul><br/>
             <li>Usually caused by heavy heap occupancy.</li><br/>
             <li>Logs contain the phrase <em class="color2">Pause Full (Allocation Failure)</em>.</li><br/>
             <li>This is typically preceded by a <span class="color2">to-space exhausted</span> message.</li><br/>
@@ -1281,7 +1281,7 @@
       <!-- G1GC - Long Young Collection -->
       <section>
         <h2>G1GC - Long Young Collection</h2>
-        <span style="font-size:0.6em;text-align:left;">
+        <span style="font-size:0.7em;text-align:left;">
           <strong class="color2">Young Collections seem to take too long</strong> <br/>
           <ul><br/>
             <li>Young collection time is proportional to the size of the young generation.</li><br/>
@@ -1296,52 +1296,108 @@
       <!-- G1GC - Long Mixed Collection -->
       <section>
         <h2>G1GC - Long Mixed Collection</h2>
-        <span style="font-size:0.6em;text-align:left;">
+        <span style="font-size:0.7em;text-align:left;">
           <strong class="color2">Mixed Collections seem to take too long</strong> <br/>
           <ul style="font-size: 0.9em"><br/>
             <li>Determine which generation is taking the time (Set <code class="color2">gc+ergo+cset=trace</code> in logging).</li><br/>
             <li>The logs will then show <em class="color2">predicted young region</em> and <em class="color2">predicted old region</em> times.</li><br/>
-            <li>Spread reclamations to more mixed collections via <code>-XX:G1MixedGCCountTarget</code>.</li><br/>
-            <li>Limit threshold of collecting regions with high live occupancy: <code style="font-size: 0.9em">-XX:G1MixedGCLiveThresholdPercent</code>.</li><br/>
-            <li>Limit space reclamation in high occupancy regions via <code>-XX:G1HeapWastePercent</code>.</li><br/>
+            <li>Spread reclamations to <em class="color2">more</em> mixed collections via <code>-XX:G1MixedGCCountTarget</code>.</li><br/>
+            <li>Alter (typically: reduce) threshold of collecting regions with high live occupancy: <br/><code style="font-size: 1.0em">-XX:G1MixedGCLiveThresholdPercent</code>.</li><br/>
+            <li>Alter (typically: reduce) space reclamation in high occupancy regions via <code>-XX:G1HeapWastePercent</code>.</li><br/>
           </ul>
         </span>
       </section>
     </section>
     
     <section>
-      <h2>What's next in Garbage Collection?</h2>
-      <span style="font-size:0.6em;text-align:left;">
-        <strong class="color2">Shenandoah</strong> <span class="dimtext">(Redhat &#8674; OpenJDK)</span> <br/>
-        <ul style="font-size: 0.8em"><br/>
-          <li>Evacuation and reference updates to run concurrently with application threads.</li><br/>
-          <li>Pause times are meant to be independent of heap size.</li><br/>
-          <li>More reading material:<br/>
-            <ul>
-              <li><a href="http://openjdk.java.net/jeps/189">JEP-189 (http://openjdk.java.net/jeps/189)</a></li>
-              <li><a href="https://wiki.openjdk.java.net/display/shenandoah/Main">Shenandoah Wiki (https://wiki.openjdk.java.net/display/shenandoah/Main)</a></li>
-            </ul>
-          </li>
-        </ul>
-      </span>
-      <br/>
-      <span style="font-size:0.6em;text-align:left;">
-        <strong class="color2">Z Garbage Collector</strong> <span class="dimtext">(Oracle &#8674; OpenJDK)</span> <br/>
-        <span style="font-size:0.8em;text-align:left;">ZGC is a concurrent, currently single-generation, region-based, incrementally compacting collector.</span><br/>
-        <ul style="font-size: 0.8em">
-          <li>Handle multi-terabyte heaps.</li><br/>
-          <li>GC pause times not exceeding 10ms.</li><br/>
-          <li>No more than 15% application throughput reduction compared to using G1.</li><br/>
-          <li>Aims at simplifying tuning of GCs as well!</li><br/>
-          <li>More reading material:<br/>
-            <ul>
-              <li><a href="http://openjdk.java.net/projects/zgc/">OpenJDK Project (http://openjdk.java.net/projects/zgc/)</a></li>
-              <li><a href="https://wiki.openjdk.java.net/display/zgc/Main">ZGC Wiki (https://wiki.openjdk.java.net/display/zgc/Main)</a></li>
-              <li><a href="https://jaxenter.com/zgc-interview-per-liden-139985.html">Per Liden (Lead) Interview (https://jaxenter.com/zgc-interview-per-liden-139985.html)<br/></a>
-            </ul>
-          </li>
-        </ul>
-      </span>
+     
+      <!-- Garbage Collection - Future -->
+      <section>
+        <h2>What's next in Garbage Collection?</h2>
+        <span style="font-size:0.65em;text-align:left;">
+          <p/>This section will list a few new garbage collectors with their offered features.
+        </span>
+      </section>
+  
+      <!-- Garbage Collection - Shenandoah -->
+      <section>
+        <h2>Shenandoah</h2>
+        <span style="font-size:0.8em;text-align:left;">
+          <span class="dimtext">(Redhat &#8674; OpenJDK)</span>
+          <ul style="font-size: 0.75em"><br/>
+            <li><span class="color2">Region-based, non-generational collector</span>, based on the G1GC.</li><br/>
+            <li>Adds an indirection, called <span class="color1">Brooks Pointer</span> (<span class="color3"><sub>*</sub> &darr;</span>) to each object, GC threads can compact heap while app is running.</li><br/>
+            <li>Young generation equivalent is run in a <strong class="color1">concurrent-partial</strong> mode.</li><br/>
+            <li>Uses a <strong class="color1">concurrent mark</strong> and a <strong class="color1">concurrent compact</strong> for longer lived objects.</li><br/>
+            <li>Evacuation and reference updates to <span class="color2">run concurrently with application threads</span>.</li><br/>
+            <li>In case of slower collection cycles, more cycles are stolen from application, but application is not halted.</li><br/>
+            <li>Pause times are meant to be independent of heap size (be it 2GB or even 100GB).</li><br/>
+            <li>Already being improved <span class="dimtext">(v2.0)</span> to focus GC on regions where the writes happen.</li><br/>
+            <li>Best suited where responsiveness and predictable pauses <em class="color2">are valued over</em> more cpu cycles and space.</li><br/>
+            <li>More reading material:<br/>
+              <ul style="font-size: 0.8em">
+                <li><a href="http://openjdk.java.net/jeps/189">JEP-189 (http://openjdk.java.net/jeps/189)</a></li>
+                <li><a href="https://wiki.openjdk.java.net/display/shenandoah/Main">Shenandoah Wiki (https://wiki.openjdk.java.net/display/shenandoah/Main)</a></li>
+                <li>(<span class="color3"><sub>*</sub></span>) <a href="https://rkennke.wordpress.com/2013/10/23/shenandoah-gc-brooks-pointers/">Shenandoah GC: Brooks pointers (https://rkennke.wordpress.com/2013/10/23/shenandoah-gc-brooks-pointers/)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </span>
+      </section>
+  
+      <!-- Garbage Collection - ZGC -->
+      <section>
+        <h2>ZGC</h2>
+        <span style="font-size:0.8em;text-align:left;">
+          <span class="dimtext">(Oracle &#8674; OpenJDK)</span>
+          <ul style="font-size: 0.8em"><br/>
+            <li><span class="color2">Region-based, non-generational collector</span>, based on G1GC.</li><br/>
+            <li>Uses <span class="color1">colored pointers</span> with <span class="color1">load barriers</span> (<span class="color3"><sub>*</sub> &darr;</span>) to allow for concurrent ops.</li><br/>
+            <li>Load barriers act as the intermediate in determining if the object was relocated.</li><br/>
+            <li>GC pause times not exceeding 10ms.</li><br/>
+            <li>No more than 15% application throughput reduction compared to using G1.</li><br/>
+            <li>Aims at simplifying tuning of GCs as well!</li><br/>
+            <li>Best suited for large memory usage and predictable throughput while consuming less space.</li><br/>
+            <li>More reading material:<br/>
+              <ul style="font-size: 0.8em">
+                <li><a href="http://openjdk.java.net/projects/zgc/">OpenJDK Project (http://openjdk.java.net/projects/zgc/)</a></li>
+                <li><a href="https://wiki.openjdk.java.net/display/zgc/Main">ZGC Wiki (https://wiki.openjdk.java.net/display/zgc/Main)</a></li>
+                <li><a href="https://jaxenter.com/zgc-interview-per-liden-139985.html">Per Liden (Lead) Interview (https://jaxenter.com/zgc-interview-per-liden-139985.html)<br/></a>
+                <li>(<span class="color3"><sub>*</sub></span>) <a href="https://mechanical-sympathy.blogspot.com/2011/07/memory-barriersfences.html">Memory Barriers/Fences (https://mechanical-sympathy.blogspot.com/2011/07/memory-barriersfences.html)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </span>
+      </section>
+  
+      <!-- Garbage Collection - Epsilon -->
+      <section>
+        <h2>Epsilon (or No GC)</h2>
+        <span style="font-size:0.8em;text-align:left;">
+          <span class="dimtext">(Redhat &#8674; OpenJDK)</span>
+          <ul style="font-size: 0.75em"><br/>
+            <li>Handles memory allocation but <em class="color2">does not actually reclaim memory</em>.</li><br/>
+            <li><span class="color2">Completely passive GC</span> with just bounded memory allocation and lowest latency guarantees.</li><br/>
+            <li>Linear allocation in a single chunk of memory.</li><br/>
+            <li>Uses trivial lock-free Thread Local Allocation Buffers (TLABs) that do not need managing.</li><br/>
+            <li>Other commercial implementations have a similar NoGC option already.</li><br/>
+            <li>Best suited for: <br/>
+              <ul>
+                <li>performance testing the app (without GC latency).</li>
+                <li>extremely short lived jobs.</li>
+                <li>memory pressure testing.</li>
+              </ul>
+            </li><br/>
+            <li>More reading material:<br/>
+              <ul>
+                <li><a href="http://openjdk.java.net/jeps/318">JEP-318 (http://openjdk.java.net/jeps/318)</a></li>
+                <li><a href="https://www.infoq.com/news/2017/03/java-epsilon-gc">The Last Frontier in Java Performance: Remove the Garbage Collector</a></li>
+              </ul>
+            </li>
+          </ul>
+        </span>
+      </section>
+
     </section>
     
     <section data-menu-title="¯\_(ツ)_/¯">
