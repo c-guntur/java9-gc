@@ -560,11 +560,11 @@
                     <li>Regions for factor of 2 <em class="color1">below</em> the approximate region size (= <span class="color3">4</span>) &rarr; <span class="color2">9216 &divide; 4MB = </span><strong class="color3">2304 regions</strong>.</li><br/>
                     <li>Regions for factor of 2 <em class="color1">above</em> the approximate region size (= <span class="color3">8</span>) &rarr; <span class="color2">9216 &divide; 8MB = </span><strong class="color3">1152 regions</strong>.</li><br/>
                     <li>Since <strong class="color3">2304</strong> is closest to and above <span class="color3">2048</span>, it is chosen as the number of regions to use.</li><br/>
-                    <li>Each region is thus of <strong class="color3">4MB</strong> size.</li><br/>
+                    <li>Each region, <em class="color2">in this example</em>, is calculated to be <strong class="color3">4MB</strong> size.</li><br/>
+                    <li><strong class="color1">Humongous</strong> objects, <em class="color2">in this example</em>, are any objects of size <strong class="color3">2MB</strong> or above.</li><br/>
+                    <li>A <span class="color3">2.5MB</span> object occupies <span class="color2">one</span> region, a <span class="color3">13MB</span> object will occupy <span class="color2">four</span> contiguous regions.</li><br/>
                     <li>Possible to disable this auto-calculation by setting a JVM option that overrides calculating.</li><br/>
                     <li>Set the flag <code>-XX:G1HeapRegionSize</code> with a numeric value (that is a power of <span class="color3">2</span>).</li><br/>
-                    <li><strong class="color1">Humongous</strong> objects would be <strong class="color3">2MB</strong> or above.</li><br/>
-                    <li>A <span class="color3">2.5MB</span> object occupies <span class="color2">one</span> region, a <span class="color3">13MB</span> object will occupy <span class="color2">four</span> contiguous regions.</li><br/>
                   </ol>
                 </span>
               </td>
