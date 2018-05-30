@@ -160,7 +160,7 @@
           <br/>
           An unused object is one that is no longer referenced by any part of the program.
           <br/>
-          <span style="font-size:0.7em;text-align:left;"><span class="color2">Trivia:</span><p/><strong>The first garbage collection process</strong>: Lisp, in 1959 by <strong class="color1">John MacCarthy</strong> (<em>author of Lisp and major contributor to ALGOL</em>) fame.</span>
+          <span style="font-size:0.7em;text-align:left;"><span class="color2">History:</span><p/><strong>The first garbage collection process</strong>: Lisp, in 1959 by <strong class="color1">John MacCarthy</strong> (<em>author of Lisp and major contributor to ALGOL</em> fame).</span>
         </span>
       </section>
 
@@ -171,7 +171,7 @@
         <span style="font-size:0.55em;text-align:left;">
           Garbage collectors can be classified with several classifiers. Few of those are tabulated below.
           <br/>
-          <span class="color3" style="font-size: 0.75em">Below numbering is only for readability, does not indicate any precedence or priority.</span>
+          <span class="color3" style="font-size: 0.75em">Below numbering is only for readability. It does not indicate any precedence or priority.</span>
           <table style="font-size: 0.6em;text-align: left; width: 100%">
             
             <tbody>
@@ -343,7 +343,7 @@
                 <li><span class="color2">efficient for larger memory areas</span>.</li>
                 <li>works best on <span class="color2">longer-lived non-volatile objects</span>.</li>
                 <li><span class="color1">incremental</span> collector, doesn't need a lot of free space to run.</li>
-                <li><span class="color2">can be either</span> <span class="color1">concurrent</span> or <span class="color1">stop-the-world</span> collecting.</li>
+                <li><span class="color2">either</span> <span class="color1">concurrent</span> (CMS) or <span class="color1">stop-the-world</span> (STW M/S/C).</li>
               </ul>
             </td>
             <td style="text-align: left; vertical-align: top; width: 50%">
@@ -413,6 +413,7 @@
           <ul>
             <li>heap is broken into smaller areas (sub-heaps).</li><br/>
             <li>newly created objects are allocated to a young area called <strong class="color1">Eden</strong>.</li><br/>
+            <li>there is a per-thread region for reducing synchronization - <strong class="color1">Thread Local Allocation Buffer (TLAB)</strong></li><br/>
             <li><span class="color1">Eden</span> itself divided into TLAB sections for individual threads and a common area.</li><br/>
             <li>different GC processes for each generation, young gc typically is <span class="color2">all-at-once</span>, <span class="color2">stop-the-world</span>, <span class="color2">copying</span> collector.</li><br/>
             <li>objects that stay "alive" longer get moved to older generation.</li><br/>
