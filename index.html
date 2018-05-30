@@ -310,9 +310,9 @@
                   <li>evaluates such, as <span class="color2">in-use <span class="color3">(black)</span></span> or <span class="color2">unreferenced <span class="color3">(white)</span></span>.</li><br/>
                   <li>objects checked only once since marker is painted black or white.</li><br/>
                   <li><span class="color3">very specialized case of <strong class="color2">M/S/C</strong></span>.</li><br/>
+                  <li>has a <strong class="color1">from</strong> and a <strong class="color1">to</strong> memory area which <strong class="color2">swap for each GC cycle</strong>.</li><br/>
                   <li>copies live objects to another memory area.</li><br/>
                   <li>purges current area, <strong class="color2">one of the two areas is always empty</strong>.</li><br/>
-                  <li>has a <strong class="color1">from</strong> and a <strong class="color1">to</strong> memory area (which swap for each run of the collection.</li><br/>
                 </ul>
             </span>
             </td>
@@ -484,7 +484,7 @@
               <ul>
                 <li>By default, <strong class="color1 dimbg">Young</strong> gen. uses a serial collection and <strong class="color1 dimbg">Tenured</strong> gen. use a CMS collector.</li>
                 <li>Does not <span class="color1">compact</span> by default, to make GC a low-pause, low-latency, but causes heap fragmentation.</li>
-                <li><strong class="color2"> * </strong> <em>An eventual fill up of old memory causes a fall-back to a STW M/S/C that results in performance degradation</em>.</li>
+                <li><em class="color2">An eventual fill up of old memory causes a fall-back to a STW M/S/C that results in performance degradation</em>.</li>
                 <li><strong>Focuses on live objects and defers garbage handling, until crisis time.</strong> </li>
                 <li>ParNew does the synchronization needed for CMS that Parallel Scavenge cannot.</li>
               </ul>
@@ -1031,7 +1031,7 @@
             <li style="margin-top: 1.0em">Default <span class="dimtext">PermGen</span> size is 64M (85M for 64-bit scaled pointers).</li>
             <hr/>
             <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> (or rather metaspaces) are <span class="color2">not a panacea</span> for <code>OutOfMemoryError</code>s.</li>
-            <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> is <span class="color2">explicitly bounded from the O/S memory, taking up unlimiited amounts otherwise</span>.</li>
+            <li style="margin-top: 1.0em"><span class="color1">Metaspace</span> is <span class="color2">explicitly bounded from the O/S memory, taking up unlimited amounts otherwise</span>.</li>
             <li style="margin-top: 1.0em">Initial <span class="color1">Metaspace</span> Size is set by <code>-XX:MetaspaceSize</code> (<span class="dimtext">replaces -XX:PermSize</span>), default = <span class="color3">21.8M</span>.</li>
             <li style="margin-top: 1.0em">Max <span class="color1">Metaspace</span> is set by <code>-XX:MaxMetaspaceSize</code> (<span class="dimtext">replaces -XX:MaxPermSize</span>), default = <span class="color3">unlimited</span>.</li>
             <li style="margin-top: 1.0em">When porting from <span class="dimtext">PermGen</span>, simply replace <code>-XX:PermSize</code> and <code>-XX:MaxPermSize</code> with the new options.</li>
